@@ -12,15 +12,12 @@ export default function Dashboard() {
   }, []);
 
   async function fetchContent() {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/test/user`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
-    );
+    const res = await fetch(`http://localhost:9000/api/test/user`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
     if (res.ok) {
       const text = await res.text();
       setContent(text);

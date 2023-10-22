@@ -41,7 +41,7 @@ export default function SignIn() {
         <h1 className="text-2xl font-semibold mb-8 text-black">
           Sign to your account
         </h1>
-        <form>
+        <div>
           <div className="mb-4 relative">
             <label htmlFor="email" className="text-gray-600 mb-1 block">
               Email
@@ -49,7 +49,6 @@ export default function SignIn() {
             <InputComp
               icon={<HiOutlineMail />}
               placeholder="enter your email"
-              id="email"
               type="email"
               name="email"
               value={state.email}
@@ -63,19 +62,13 @@ export default function SignIn() {
             </label>
             <InputPassComp
               icon={<PiLockKey />}
-              id="password"
               name="password"
               value={state.password}
               onChange={handleChange}
               placeholder="enter your password"
             />
           </div>
-          <div className="mb-4 flex items-center">
-            <input type="checkbox" id="rememberMe" className="mr-2 " />
-            <label htmlFor="rememberMe" className="text-gray-600 text-">
-              Remember me
-            </label>
-          </div>
+
           <div>
             <button
               className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
@@ -90,7 +83,7 @@ export default function SignIn() {
               Reset Password
             </Link>
           </div>
-        </form>
+        </div>
       </div>
     </LayoutAuth>
   );
