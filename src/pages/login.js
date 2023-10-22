@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import InputComp from "@/components/elements/input/input";
 import InputPassComp from "@/components/elements/input/inputPass";
-export default function Login() {
+export default function SignIn() {
   const router = useRouter();
   const [state, setState] = useState({
     email: "",
@@ -18,29 +18,20 @@ export default function Login() {
     copy[e.target.name] = e.target.value;
     setState(copy);
   }
-  async function handleLogin() {
-    try {
-      const res = await fetch(
-        `https://functional-zinc-production.up.railway.app/api/auth/login`,
-        {
-          method: "POST",
-          body: JSON.stringify(state),
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      );
-      if (res.ok) {
-        const json = await res.json();
-        localStorage.setItem("token", json.token);
-        router.push("/dashboard");
-      } else {
-        console.log("Gagal login. Status code: " + res.status);
-        const errorMessage = await res.text(); // Get error message from response
-        console.log("Error Message:", errorMessage);
-      }
-    } catch (error) {
-      console.error("Terjadi kesalahan:", error);
+  async function handleSubmit() {
+    const res = await fetch(`http://localhost:9000/api/login`, {
+      method: "POST",
+      body: JSON.stringify(state),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.ok) {
+      const json = await res.json();
+      localStorage.setItem("token", json.token);
+      router.push("/dashboard");
+    } else {
+      alert("Login gagal");
     }
   }
 
@@ -50,7 +41,7 @@ export default function Login() {
         <h1 className="text-2xl font-semibold mb-8 text-black">
           Sign to your account
         </h1>
-        <form onSubmit={handleLogin}>
+        <form>
           <div className="mb-4 relative">
             <label htmlFor="email" className="text-gray-600 mb-1 block">
               Email
@@ -63,7 +54,7 @@ export default function Login() {
               name="email"
               value={state.email}
               onChange={handleChange}
-              required
+              autoComplete="off"
             />
           </div>
           <div className="mb-6 relative">
@@ -88,7 +79,7 @@ export default function Login() {
           <div>
             <button
               className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-              onClick={handleLogin}
+              onClick={handleSubmit}
             >
               Login
             </button>
