@@ -37,7 +37,7 @@ export default function TabelAtasKategori() {
         </h1>
         <table>
           <thead className="text-[12px] text-gray-800">
-            <tr className="bg-slate-200">
+            <tr className="bg-green-200">
               <td className="px-2 text-center">Aset Kantor</td>
               <td className="px-2">Aset Perangkat Keras</td>
               <td className="px-2">Aset Perangkat Lunak</td>

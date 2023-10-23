@@ -1,4 +1,4 @@
-import TambahKaryawan from "@/components/elements/childtabel/addKaryawan";
+import TambahKaryawan from "@/components/elements/childtabel/karyawan/addKaryawan";
 import LargeCard from "@/components/elements/childtabel/largetabel";
 import ChildCard from "@/components/elements/childtabel/tabel";
 import TabelDataKaryawan from "@/components/elements/table/tabel_data_karyawan";

@@ -5,7 +5,7 @@ export default function TabelAtasKaryawan() {
         <h1 className="text-[12px] font-bold text-gray-800 mb-2">Divisi</h1>
         <table>
           <thead>
-            <tr className="bg-slate-200">
+            <tr className="bg-green-200">
               <td className="px-2 text-[12px] text-gray-800">BackEnd</td>
               <td className="px-2 text-[12px] text-gray-800">FrontEnd</td>
               <td className="px-2 text-[12px] text-gray-800">UI/UX</td>
@@ -37,7 +37,7 @@ export default function TabelAtasKaryawan() {
           Gender
         </h1>
         <table>
-          <thead className="text-[12px] text-gray-800 bg-slate-200">
+          <thead className="text-[12px] text-gray-800 bg-red-300">
             <tr>
               <td className="px-2">Perempuan</td>
               <td className="px-2">Laki-Laki</td>
@@ -45,8 +45,8 @@ export default function TabelAtasKaryawan() {
           </thead>
           <tbody className="text-[12px] text-gray- bg-gray-100">
             <tr>
-              <td className="text-center text-gray-800">15</td>
-              <td className="text-center text-gray-800">70</td>
+              <td className="text-center text-[12px] text-gray-800">15</td>
+              <td className="text-center text-[12px] text-gray-800">70</td>
             </tr>
           </tbody>
         </table>

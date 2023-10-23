@@ -1,26 +1,25 @@
 import Link from "next/link";
 import { FaTrash } from "react-icons/fa";
-
 import { useState, useEffect } from "react";
+import DeleteKaryawan from "../childtabel/karyawan/deleteKaryawan";
+import { PiPencilSimpleLineFill } from "react-icons/pi";
+import { CgMoreO } from "react-icons/cg";
+import DeleteKategori from "../childtabel/kategori/deleteKategori";
+import UpdateKategori from "../childtabel/kategori/updateKategori";
 
 export default function TabelDataKategori() {
   const [categoryData, setCategoryData] = useState([]);
+
   const fetchCategory = async () => {
     try {
-      const token = Cookies.get("token");
-      const response = await fetch(
-        "https://functional-zinc-production.up.railway.app/api/kategori",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch("http://localhost:8080/category", {
+        method: "GET",
+      });
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
+
       // Log the response to inspect what you received
       console.log(response);
 
@@ -34,64 +33,48 @@ export default function TabelDataKategori() {
   useEffect(() => {
     fetchCategory();
   }, []);
-  const handleDelete = (categoryId) => {
-    if (window.confirm("Apakah Anda yakin ingin menghapus item ini?")) {
-      // Lakukan penghapusan item
-      fetch(
-        `https://functional-zinc-production.up.railway.app/api/kategori/${categoryId}`,
-        {
-          method: "DELETE",
-        }
-      )
-        .then((response) => {
-          if (response.ok) {
-            console.log(`Menghapus item dengan ID: ${categoryId}`);
-            // Refresh halaman setelah penghapusan berhasil
-            window.location.reload();
-          } else {
-            console.error("Gagal menghapus item.");
-          }
-        })
-        .catch((error) => {
-          console.error("Terjadi kesalahan:", error);
-        });
-    }
-  };
+
   return (
-    <table className="caption-top w-full overflow-scroll">
+    <table className="table caption-top w-full">
       <thead className="w-auto bg-slate-200">
         <tr>
-          <th className="border text-[12px] text-gray-800 border-gray-300 py-1">
+          <th className="border border-gray-300 py-1 text-gray-800 text-center">
             ID Kategori
           </th>
-          <th className="border text-[12px] text-gray-800 border-gray-300 py-1">
+          <th className="border border-gray-300 py-1 text-gray-800 text-center">
             Nama Kategori
           </th>
-          <th className="border text-[12px] text-gray-800 border-gray-300 py-1">
+          <th className="border border-gray-300 py-1 text-gray-800 text-center">
             Action
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="overflow-scroll">
         {categoryData && categoryData.length > 0 ? (
           categoryData.map((category, index) => (
             <tr
               key={index}
-              className="text-center border text-[12px] border-gray-300"
+              className="text-center border text-[12px] text-black border-gray-300"
             >
-              <td className="border border-gray-300 py-1">{category.id}</td>
+              <td className="border border-gray-300 py-1">
+                {category.idKategori}
+              </td>
               <td className="border border-gray-300 py-1 px-1">
                 {category.nama}
               </td>
-              <td className="border border-gray-300 py-2 tex-center">
-                {/* delete */}
+
+              <td className="flex space-x-2  py-4 justify-center">
+                {/* detail */}
                 <Link
-                  href="#"
-                  className="text-[#DA3E33F7] flex items-center justify-center"
-                  onClick={() => handleDelete(category.id)}
+                  href={`category/details/${category.id}`} // teknik template
+                  className="text-[#1570EF]"
                 >
-                  <FaTrash />
+                  <CgMoreO className="transition duration-150 ease-in-out" />
                 </Link>
+                {/* update */}
+                <UpdateKategori {...category} />
+                {/* delete */}
+                <DeleteKategori id={category.id} nama={category.nama} />
               </td>
             </tr>
           ))

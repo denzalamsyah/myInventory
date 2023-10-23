@@ -3,74 +3,60 @@ import Button from "@/components/elements/button/button";
 import FormComp from "@/components/form/form";
 import SelectInput from "@/components/form/select";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PiPencilSimpleLineFill } from "react-icons/pi";
 
-export default function TambahKaryawan() {
+export default function UpdateKaryawan(employee) {
   const [modal, setModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [nomorInduk, setNomorInduk] = useState("");
-  const [nama, setNama] = useState("");
-  const [gender, setGender] = useState("");
-  const [email, setEmail] = useState("");
-  const [telepon, setTelepon] = useState("");
-  const [jabatan, setJabatan] = useState("");
-  const [divisi, setDivisi] = useState("");
-  const [alamat, setAlamat] = useState("");
+  const [selectedImage, setSelectedImage] = useState(employee.gambar);
+  const [nomorInduk, setNomorInduk] = useState(employee.noInduk);
+  const [nama, setNama] = useState(employee.nama);
+  const [gender, setGender] = useState(employee.gender);
+  const [email, setEmail] = useState(employee.email);
+  const [telepon, setTelepon] = useState(employee.telepon);
+  const [jabatan, setJabatan] = useState(employee.jabatan);
+  const [divisi, setDivisi] = useState(employee.divisi);
+  const [alamat, setAlamat] = useState(employee.alamat);
   const router = useRouter();
+  function handleChange() {
+    setModal(!modal);
+  }
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
     }
   };
-  function handleChange() {
-    setModal(!modal);
-  }
-
-  async function handleSubmit(e) {
+  async function handleUpdate(e) {
     e.preventDefault();
-    await fetch(
-      "https://functional-zinc-production.up.railway.app/api/karyawan",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nomorInduk: nomorInduk,
-          nama: nama,
-          gender: gender,
-          email: email,
-          telepon: telepon,
-          jabatan: jabatan,
-          divisi: divisi,
-          alamat: alamat,
-          gambar: selectedImage,
-        }),
-      }
-    );
-    setNomorInduk("");
-    setNama("");
-    setGender("");
-    setJabatan("");
-    setDivisi("");
-    setEmail("");
-    setTelepon("");
-    setAlamat("");
-    setSelectedImage(null);
+    await fetch(`http://localhost:5000/employee/${employee.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        noInduk: nomorInduk,
+        nama: nama,
+        gender: gender,
+        email: email,
+        telepon: telepon,
+        jabatan: jabatan,
+        divisi: divisi,
+        alamat: alamat,
+        gambar: selectedImage,
+      }),
+    });
+
     router.refresh();
     setModal(false);
   }
   return (
     <div className="">
-      <Button
-        className="text-[12px] px-4 rounded-[5px] p-1 hover:text-blue-700 border hover:bg-white border-blue-700 text-white bg-blue-700"
-        type="submit"
-        onClick={handleChange}
-      >
-        Add Data Karyawan
-      </Button>
+      <Link href="" className="text-[#10A760]" onClick={handleChange}>
+        <PiPencilSimpleLineFill />
+      </Link>
       <input
         type="checkbox"
         checked={modal}
@@ -78,11 +64,11 @@ export default function TambahKaryawan() {
         className="modal-toggle"
       />
       <div className="modal">
-        <div className="modal-box bg-white">
+        <div className="modal-box max-w-[45rem] bg-white">
           <h1 className="font-bold text-lg text-black mb-3">
-            Tambah Data Karyawan
+            Update Data Karyawan {employee.nama}
           </h1>
-          <form>
+          <div>
             <div className="mb-4 flex flex-row">
               <input
                 type="file"
@@ -90,6 +76,7 @@ export default function TambahKaryawan() {
                 accept="image/*"
                 onChange={handleImageChange}
                 className="text-sm"
+                placeholder={employee.gambar}
               />
               {/* Gambar yang ditampilkan ketika diunggah */}
               {selectedImage && (
@@ -97,8 +84,8 @@ export default function TambahKaryawan() {
                   src=""
                   alt="Selected Image"
                   className="w-[50px] h-[50px]"
-                  width={50}
-                  height={50}
+                  width={25}
+                  height={25}
                 />
               )}
             </div>
@@ -107,7 +94,7 @@ export default function TambahKaryawan() {
                 id="nomorInduk"
                 type="text"
                 onChange={(e) => setNomorInduk(e.target.value)}
-                placeholder="Masukan no induk"
+                placeholder={employee.noInduk}
               >
                 No Induk
               </FormComp>
@@ -117,7 +104,7 @@ export default function TambahKaryawan() {
                 id="nama"
                 type="text"
                 onChange={(e) => setNama(e.target.value)}
-                placeholder="Masukan nama"
+                placeholder={employee.nama}
               >
                 Nama
               </FormComp>
@@ -128,9 +115,10 @@ export default function TambahKaryawan() {
                 name="gender"
                 onChange={(e) => setGender(e.target.value)}
                 label="Gender"
+                placeholder={employee.gender}
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                <option value="">Pilih salah satu</option>
+                <option value="-">Pilih salah satu</option>
                 <option value="laki-laki">Laki-laki</option>
                 <option value="perempuan">Perempuan</option>
               </SelectInput>
@@ -140,7 +128,7 @@ export default function TambahKaryawan() {
                 id="email"
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Masukan Email"
+                placeholder={employee.email}
               >
                 Email
               </FormComp>
@@ -150,7 +138,7 @@ export default function TambahKaryawan() {
                 id="telepon"
                 type="number"
                 onChange={(e) => setTelepon(e.target.value)}
-                placeholder="Masukan no telepon"
+                placeholder={employee.telepon}
               >
                 Telepon
               </FormComp>
@@ -161,9 +149,10 @@ export default function TambahKaryawan() {
                 name="jabatan"
                 onChange={(e) => setJabatan(e.target.value)}
                 label="Jabatan"
+                placeholder={employee.jabatan}
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                <option value="">Pilih salah satu</option>
+                <option value="-">Pilih salah satu</option>
                 <option value="manager">Manager</option>
                 <option value="crm">CRM</option>
               </SelectInput>
@@ -174,9 +163,10 @@ export default function TambahKaryawan() {
                 name="divisi"
                 onChange={(e) => setDivisi(e.target.value)}
                 label="Divisi"
+                placeholder={employee.divisi}
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                <option value="">Pilih salah satu</option>
+                <option value="-">Pilih salah satu</option>
                 <option value="Marketing">Marketing</option>
                 <option value="FrontEnd">FrontEnd</option>
                 <option value="BackEnd">BackEnd</option>
@@ -189,26 +179,26 @@ export default function TambahKaryawan() {
                 id="alamat"
                 type="text"
                 onChange={(e) => setAlamat(e.target.value)}
-                placeholder="Masukan alamat"
+                placeholder={employee.alamat}
               >
                 Alamat
               </FormComp>
             </div>
             <div className=" modal-action flex mt-4">
               <Button
-                className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                type="submit"
+                className="bg-blue-600 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-green-700"
+                onClick={handleUpdate}
               >
-                Add
+                Update
               </Button>
               <Button
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}
               >
-                Discard
+                cancel
               </Button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

@@ -3,17 +3,16 @@ import { FaTrash } from "react-icons/fa";
 import { PiPencilSimpleLineFill } from "react-icons/pi";
 import { CgMoreO } from "react-icons/cg";
 import { useState, useEffect } from "react";
+import DeleteKaryawan from "../childtabel/karyawan/deleteKaryawan";
+import UpdateKaryawan from "../childtabel/karyawan/updateKaryawan";
 
 export default function TabelDataKaryawan() {
   const [employeeData, setEmployeeData] = useState([]);
   const fetchEmployee = async () => {
     try {
-      const response = await fetch(
-        "https://functional-zinc-production.up.railway.app/api/karyawan",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch("http://localhost:5000/employee", {
+        method: "GET",
+      });
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -32,30 +31,6 @@ export default function TabelDataKaryawan() {
   useEffect(() => {
     fetchEmployee();
   }, []);
-
-  const handleDelete = (employeeId) => {
-    if (window.confirm("Apakah Anda yakin ingin menghapus item ini?")) {
-      // Lakukan penghapusan item
-      fetch(
-        `https://functional-zinc-production.up.railway.app/api/karyawan/${employeeId}`,
-        {
-          method: "DELETE",
-        }
-      )
-        .then((response) => {
-          if (response.ok) {
-            console.log(`Menghapus item dengan ID: ${employeeId}`);
-            // Refresh halaman setelah penghapusan berhasil
-            fetchEmployee();
-          } else {
-            console.error("Gagal menghapus item.");
-          }
-        })
-        .catch((error) => {
-          console.error("Terjadi kesalahan:", error);
-        });
-    }
-  };
 
   return (
     <table className="table caption-top w-full">
@@ -93,9 +68,12 @@ export default function TabelDataKaryawan() {
       <tbody className="overflow-scroll">
         {employeeData && employeeData.length > 0 ? (
           employeeData.map((employee, index) => (
-            <tr key={index} className="text-center border border-gray-300">
+            <tr
+              key={index}
+              className="text-center border text-[12px] text-black border-gray-300"
+            >
               <td className="border border-gray-300 py-1">
-                {employee.nomorInduk}
+                {employee.noInduk}
               </td>
               <td className="border border-gray-300 py-1 px-1 text-left">
                 {employee.nama}
@@ -108,7 +86,7 @@ export default function TabelDataKaryawan() {
               <td className="border border-gray-300">{employee.telepon}</td>
               <td className="border border-gray-300">{employee.jabatan}</td>
               <td className="border border-gray-300">{employee.alamat}</td>
-              <td className="flex space-x-2 border border-gray-300 py-2 justify-center">
+              <td className="flex space-x-2  py-4 justify-center">
                 {/* detail */}
                 <Link
                   href={`employee/details/${employee.id}`} // teknik template
@@ -117,20 +95,9 @@ export default function TabelDataKaryawan() {
                   <CgMoreO className="transition duration-150 ease-in-out" />
                 </Link>
                 {/* update */}
-                <Link
-                  href={`employee/edit/${employee.id}`}
-                  className="text-[#10A760]"
-                >
-                  <PiPencilSimpleLineFill />
-                </Link>
+                <UpdateKaryawan {...employee} />
                 {/* delete */}
-                <Link
-                  href="#"
-                  className="text-[#DA3E33F7]"
-                  onClick={() => handleDelete(employee.id)}
-                >
-                  <FaTrash />
-                </Link>
+                <DeleteKaryawan id={employee.id} nama={employee.nama} />
               </td>
             </tr>
           ))

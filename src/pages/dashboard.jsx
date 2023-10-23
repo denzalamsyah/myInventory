@@ -26,7 +26,7 @@ export default function Dashboard() {
   return (
     <Layout>
       <Sidebar />
-      <section className="flex-1 bg-slate-200">
+      <section className="flex-1 bg-slate-200 ">
         <SectionDashboard />
       </section>
     </Layout>

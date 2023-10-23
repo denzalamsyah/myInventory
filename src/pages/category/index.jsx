@@ -1,4 +1,4 @@
-import TambahKategori from "@/components/elements/childtabel/addKategori";
+import TambahKategori from "@/components/elements/childtabel/kategori/addKategori";
 import LargeCard from "@/components/elements/childtabel/largetabel";
 import ChildCard from "@/components/elements/childtabel/tabel";
 import TabelDataKategori from "@/components/elements/table/tabel_data_kategori";

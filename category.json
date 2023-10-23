@@ -1,0 +1,19 @@
+{
+  "category": [
+    {
+      "idKategori": "AK",
+      "nama": "Alat Kantor",
+      "id": 1
+    },
+    {
+      "idKategori": "APK",
+      "nama": "Aset Perangkat Keras",
+      "id": 2
+    },
+    {
+      "idKategori": "APL",
+      "nama": "Asset Perangkat Lunak",
+      "id": 3
+    }
+  ]
+}

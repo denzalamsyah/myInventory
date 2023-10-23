@@ -17,7 +17,7 @@ const VerifyPage = () => {
         Enter the email address you’ve used to register and we’ll send you a
         reset link!
       </p>
-      <form>
+      <div>
         <div className="mb-8 relative">
           <LabelComp htmlFor="email" className="text-gray-600 mb-1 block">
             Email
@@ -46,7 +46,7 @@ const VerifyPage = () => {
             Login here
           </Link>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

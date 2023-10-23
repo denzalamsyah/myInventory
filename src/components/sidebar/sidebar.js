@@ -13,6 +13,16 @@ export default function Sidebar() {
       link: "/inventory",
     },
     {
+      name: "Room",
+      icon: "/img/icon6.png",
+      link: "/room",
+    },
+    {
+      name: "Usage",
+      icon: "/img/icon7.png",
+      link: "/usage",
+    },
+    {
       name: "Category",
       icon: "/img/icon3.png",
       link: "/category",
@@ -22,10 +32,15 @@ export default function Sidebar() {
       icon: "/img/icon4.png",
       link: "/employee",
     },
+    {
+      name: "Report History",
+      icon: "/img/icon5.png",
+      link: "/report",
+    },
   ];
   return (
-    <div className="border-r-[3px] max-h-screen w-72 pt-[30px] border-gray-500 bg-[#474747]">
-      <div className="flex justify-center mb-9 border-b-[2px] pb-[30px]">
+    <div className="border-r-[4px] h-screen w-[20%] pt-[30px] border-gray-500 bg-[#474747]">
+      <div className="flex justify-center mb-9 border-b-[3px] pb-[30px]">
         <Link href="/dashboard">
           <Image
             src="/img/logoWIT.png"
@@ -54,31 +69,11 @@ export default function Sidebar() {
               </Link>
             </li>
           ))}
-          <li className="mb-4 text-white text-[16px] hover:bg-white hover:text-black py-2 px-2 hover:rounded-[5px] ">
-            <div className="flex">
-              <Image
-                src="/img/icon5.png"
-                width={24}
-                height={24}
-                alt="report"
-                className="mr-5 bg-white rounded-[5px]"
-              />
-              <select className="bg-transparent text-[14px] w-full max-w-xs">
-                <option disabled selected className="text-[12px]">
-                  Report History
-                </option>
-                <option href="#" className="text-[12px]">
-                  Usage History
-                </option>
-                <option className="text-[12px]">Repair History</option>
-              </select>
-            </div>
-          </li>
         </ul>
       </div>
-      <div className="px-8 text-white text-[14px">
+      <div className="px-8 text-white text-[14px] fixed bottom-0">
         <ul>
-          <li className="mb-4 text-white text-[14px] hover:bg-white hover:text-black py-2 px-2 hover:rounded-[5px] ">
+          <li className="mb-4 text-white text-[14px] py-2 px-2 hover:rounded-[5px] ">
             <Link href="/" className="flex">
               <Image
                 src="/img/logout.png"

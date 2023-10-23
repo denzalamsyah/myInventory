@@ -18,7 +18,7 @@ const ChangePassPage = () => {
         In order to protect your account, try to include numbers, symbols, and
         both uppercase and lowercase letters.
       </p>
-      <form>
+      <div>
         <div className="mb-6 relative">
           <LabelComp htmlFor="password" className="text-gray-600 mb-1 block">
             Password
@@ -55,7 +55,7 @@ const ChangePassPage = () => {
             Reset Password
           </Button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
