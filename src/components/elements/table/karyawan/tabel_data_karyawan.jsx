@@ -10,7 +10,7 @@ export default function TabelDataKaryawan() {
   const [employeeData, setEmployeeData] = useState([]);
   const fetchEmployee = async () => {
     try {
-      const response = await fetch("http://localhost:5000/employee", {
+      const response = await fetch("http://localhost:9000/api/karyawan", {
         method: "GET",
       });
 
