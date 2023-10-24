@@ -30,13 +30,13 @@ export default function TambahKaryawan() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await fetch("http://localhost:5000/employee", {
+    await fetch("http://localhost:9000/api/karyawan", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        noInduk: nomorInduk,
+        nomorInduk: nomorInduk,
         nama: nama,
         gender: gender,
         email: email,

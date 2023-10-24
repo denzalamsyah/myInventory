@@ -31,13 +31,13 @@ export default function UpdateKaryawan(employee) {
   };
   async function handleUpdate(e) {
     e.preventDefault();
-    await fetch(`http://localhost:5000/employee/${employee.id}`, {
+    await fetch(`http://localhost:9000/api/karyawan/${employee.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        noInduk: nomorInduk,
+        nomorInduk: nomorInduk,
         nama: nama,
         gender: gender,
         email: email,
@@ -94,7 +94,7 @@ export default function UpdateKaryawan(employee) {
                 id="nomorInduk"
                 type="text"
                 onChange={(e) => setNomorInduk(e.target.value)}
-                placeholder={employee.noInduk}
+                placeholder={employee.nomorInduk}
               >
                 No Induk
               </FormComp>

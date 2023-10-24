@@ -13,7 +13,7 @@ export default function DeleteKaryawan({ id, nama }) {
     setModal(!modal);
   }
   async function handleDelete(employeeId) {
-    await fetch(`http://localhost:5000/employee/${employeeId}`, {
+    await fetch(`http://localhost:9000/api/karyawan${employeeId}`, {
       method: "DELETE",
     });
     router.refresh();

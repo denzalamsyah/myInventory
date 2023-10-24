@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 export default function Layout({ children }) {
-  const [profile, setProfile] = useState();
+  const [User, setUser] = useState();
   const router = useRouter();
 
   useEffect(() => {
-    fetchProfile();
+    fetchUser();
   }, []);
 
-  async function fetchProfile() {
-    const res = await fetch(`http://localhost:5000/employee`, {
+  async function fetchUser() {
+    const res = await fetch(`http://localhost:9000/api/karyawan`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -17,16 +17,16 @@ export default function Layout({ children }) {
     });
     if (res.ok) {
       const json = await res.json();
-      setProfile(json);
+      setUser(json);
     } else {
       router.push("/signin");
     }
   }
 
-  // function logout() {
-  //   localStorage.removeItem("token");
-  //   router.push("/");
-  // }
+  function logout() {
+    localStorage.removeItem("token");
+    router.push("/");
+  }
   return (
     <div className="flex w-screen h-screen max-w-[100wh] max-h-[100vh]">
       {children}

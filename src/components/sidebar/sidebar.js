@@ -47,6 +47,7 @@ export default function Sidebar() {
             alt="logo WIT"
             width={100}
             height={25}
+            className="shadow-xl"
           />
         </Link>
       </div>
@@ -55,7 +56,7 @@ export default function Sidebar() {
           {menu.map((item, index) => (
             <li
               key={index}
-              className="mb-4 rounded-[5px] text-white text-[14px] hover:bg-white hover:text-black py-2 px-2 hover:rounded-[5px] shadow-xl"
+              className="mb-4 rounded-[5px] bg-[#585858] text-white text-[14px] hover:bg-white hover:text-black py-2 px-2 hover:rounded-[5px] shadow-xl"
             >
               <Link href={item.link} className="flex">
                 <Image

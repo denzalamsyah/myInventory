@@ -10,7 +10,7 @@ export default function TabelDataKaryawan() {
   const [employeeData, setEmployeeData] = useState([]);
   const fetchEmployee = async () => {
     try {
-      const response = await fetch("http://localhost:5000/employee", {
+      const response = await fetch("http://localhost:9000/api/karyawan", {
         method: "GET",
       });
 
@@ -73,7 +73,7 @@ export default function TabelDataKaryawan() {
               className="text-center border text-[12px] text-black border-gray-300"
             >
               <td className="border border-gray-300 py-1">
-                {employee.noInduk}
+                {employee.nomorInduk}
               </td>
               <td className="border border-gray-300 py-1 px-1 text-left">
                 {employee.nama}

@@ -12,7 +12,7 @@ export default function Dashboard() {
   }, []);
 
   async function fetchContent() {
-    const res = await fetch(`http://localhost:9000/api/test/user`, {
+    const res = await fetch(`http://localhost:9000/api/karyawan`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
