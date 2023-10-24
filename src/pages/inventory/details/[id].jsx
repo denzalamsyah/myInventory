@@ -1,6 +1,6 @@
 import Button from "@/components/elements/button/button";
-import TabelDetailInventoryComp from "@/components/elements/table/tabel_detail_inventory";
-import TabelDetailKaryawanComp from "@/components/elements/table/tabel_detail_karyawan";
+import TabelDetailInventoryComp from "@/components/elements/table/inventory/tabel_detail_inventory";
+import TabelDetailKaryawanComp from "@/components/elements/table/karyawan/tabel_detail_karyawan";
 import Layout from "@/components/layout/layout";
 import Section from "@/components/section/section";
 import Sidebar from "@/components/sidebar/sidebar";
@@ -16,7 +16,7 @@ export default function DetailIventory({ data }) {
             <h1 className="font-bold text-sm text-black">{data.nama}</h1>
             <div className="text-right">
               <Button className="text-sm rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
-                <Link href="/employee">Back</Link>
+                <Link href="/inventory">Back</Link>
               </Button>
             </div>
           </div>

@@ -55,7 +55,7 @@ export default function Sidebar() {
           {menu.map((item, index) => (
             <li
               key={index}
-              className="mb-4 text-white text-[14px] hover:bg-white hover:text-black py-2 px-2 hover:rounded-[5px] "
+              className="mb-4 rounded-[5px] text-white text-[14px] hover:bg-white hover:text-black py-2 px-2 hover:rounded-[5px] shadow-xl"
             >
               <Link href={item.link} className="flex">
                 <Image

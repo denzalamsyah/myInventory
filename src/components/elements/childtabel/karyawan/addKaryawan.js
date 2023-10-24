@@ -2,13 +2,13 @@
 import Button from "@/components/elements/button/button";
 import FormComp from "@/components/form/form";
 import SelectInput from "@/components/form/select";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Upload from "../../uploadImage/upload";
 
 export default function TambahKaryawan() {
   const [modal, setModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState("");
   const [nomorInduk, setNomorInduk] = useState("");
   const [nama, setNama] = useState("");
   const [gender, setGender] = useState("");
@@ -17,12 +17,12 @@ export default function TambahKaryawan() {
   const [jabatan, setJabatan] = useState("");
   const [divisi, setDivisi] = useState("");
   const [alamat, setAlamat] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
   const router = useRouter();
-  const handleImageChange = (e) => {
+  const onImageUpload = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setSelectedImage(file);
-    }
+    setSelectedImage(file);
+    setImagePreview(URL.createObjectURL(file));
   };
   function handleChange() {
     setModal(!modal);
@@ -55,7 +55,7 @@ export default function TambahKaryawan() {
     setEmail("");
     setTelepon("");
     setAlamat("");
-    setSelectedImage(null);
+    setSelectedImage("");
     router.refresh();
     setModal(false);
   }
@@ -81,23 +81,7 @@ export default function TambahKaryawan() {
           </h1>
           <div>
             <div className="mb-4 flex flex-row">
-              <input
-                type="file"
-                id="image"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="text-sm"
-              />
-              {/* Gambar yang ditampilkan ketika diunggah */}
-              {selectedImage && (
-                <Image
-                  src=""
-                  alt="Selected Image"
-                  className="w-[50px] h-[50px]"
-                  width={25}
-                  height={25}
-                />
-              )}
+              <Upload onChange={(e) => onImageUpload(e)} img={imagePreview} />
             </div>
             <div className="mb-2">
               <FormComp

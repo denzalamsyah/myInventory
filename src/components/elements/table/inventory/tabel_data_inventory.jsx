@@ -3,16 +3,19 @@ import { FaTrash } from "react-icons/fa";
 import { PiPencilSimpleLineFill } from "react-icons/pi";
 import { CgMoreO } from "react-icons/cg";
 import { useState, useEffect } from "react";
-import DeleteKaryawan from "../childtabel/karyawan/deleteKaryawan";
-import UpdateKaryawan from "../childtabel/karyawan/updateKaryawan";
+import UpdateInventory from "../../childtabel/inventory/updateInventory";
+import DeleteInventory from "../../childtabel/inventory/deleteInventory";
 
-export default function TabelDataKaryawan() {
-  const [employeeData, setEmployeeData] = useState([]);
-  const fetchEmployee = async () => {
+export default function TabelDataInventory() {
+  const [inventoryData, setInventoryData] = useState([]);
+  const fetchInventory = async () => {
     try {
-      const response = await fetch("http://localhost:5000/employee", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://functional-zinc-production.up.railway.app/api/karyawan",
+        {
+          method: "GET",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -22,22 +25,46 @@ export default function TabelDataKaryawan() {
       console.log(response);
 
       const data = await response.json();
-      setEmployeeData(data);
+      setInventoryData(data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchEmployee();
+    fetchInventory();
   }, []);
+
+  const handleDelete = (inventoryId) => {
+    if (window.confirm("Apakah Anda yakin ingin menghapus item ini?")) {
+      // Lakukan penghapusan item
+      fetch(
+        `https://functional-zinc-production.up.railway.app/api/karyawan/${inventoryId}`,
+        {
+          method: "DELETE",
+        }
+      )
+        .then((response) => {
+          if (response.ok) {
+            console.log(`Menghapus item dengan ID: ${inventoryId}`);
+            // Refresh halaman setelah penghapusan berhasil
+            fetchInventory();
+          } else {
+            console.error("Gagal menghapus item.");
+          }
+        })
+        .catch((error) => {
+          console.error("Terjadi kesalahan:", error);
+        });
+    }
+  };
 
   return (
     <table className="table caption-top w-full">
       <thead className="w-auto bg-slate-200">
         <tr>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            No Induk
+            Kode Aset
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
             Nama
@@ -46,58 +73,55 @@ export default function TabelDataKaryawan() {
             Gambar
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            Gender
+            Merk
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            Email
+            Tanggal Pembelian
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            Telepon
+            Harga
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            Jabatan
+            ruangan
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            Alamat
+            Status
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            Action
+            Nomor Induk
           </th>
         </tr>
       </thead>
       <tbody className="overflow-scroll">
-        {employeeData && employeeData.length > 0 ? (
-          employeeData.map((employee, index) => (
-            <tr
-              key={index}
-              className="text-center border text-[12px] text-black border-gray-300"
-            >
+        {inventoryData && inventoryData.length > 0 ? (
+          inventoryData.map((inventory, index) => (
+            <tr key={index} className="text-center border border-gray-300">
               <td className="border border-gray-300 py-1">
-                {employee.noInduk}
+                {inventory.nomorInduk}
               </td>
               <td className="border border-gray-300 py-1 px-1 text-left">
-                {employee.nama}
+                {inventory.nama}
               </td>
-              <td className="border border-gray-300">{employee.gambar}</td>
-              <td className="border border-gray-300">{employee.gender}</td>
+              <td className="border border-gray-300">{inventory.gambar}</td>
+              <td className="border border-gray-300">{inventory.gender}</td>
               <td className="text-left border border-gray-300 py-1 px-1">
-                {employee.email}
+                {inventory.email}
               </td>
-              <td className="border border-gray-300">{employee.telepon}</td>
-              <td className="border border-gray-300">{employee.jabatan}</td>
-              <td className="border border-gray-300">{employee.alamat}</td>
-              <td className="flex space-x-2  py-4 justify-center">
+              <td className="border border-gray-300">{inventory.telepon}</td>
+              <td className="border border-gray-300">{inventory.jabatan}</td>
+              <td className="border border-gray-300">{inventory.alamat}</td>
+              <td className="flex space-x-2 border border-gray-300 py-2 justify-center">
                 {/* detail */}
                 <Link
-                  href={`employee/details/${employee.id}`} // teknik template
+                  href={`inventory/details/${inventory.id}`} // teknik template
                   className="text-[#1570EF]"
                 >
                   <CgMoreO className="transition duration-150 ease-in-out" />
                 </Link>
                 {/* update */}
-                <UpdateKaryawan {...employee} />
+                <UpdateInventory {...inventory} />
                 {/* delete */}
-                <DeleteKaryawan id={employee.id} nama={employee.nama} />
+                <DeleteInventory {...inventory} />
               </td>
             </tr>
           ))

@@ -54,35 +54,35 @@ export default function TabelDetailInventoryComp({
         <tbody className="text-left">
           <tr className=" flex flex-row border-none">
             <th className="text-gray-600  w-40">Masa Manfaat</th>
-            <td className="w-[250px] ">{id}</td>
+            <td className="w-[250px] ">: {id}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Nilai Resedu</th>
-            <td className="w-[250px]">{nama}</td>
+            <td className="w-[250px]">: {nama}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Tahun 1</th>
-            <td className="w-[250px]">{gender}</td>
+            <td className="w-[250px]">: {gender}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Tahun 2</th>
-            <td className="w-[250px]">{email}</td>
+            <td className="w-[250px]">: {email}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Tahun 3</th>
-            <td className="w-[250px]">{telepon}</td>
+            <td className="w-[250px]">: {telepon}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Tahun 4</th>
-            <td className="w-[250px]">{jabatan}</td>
+            <td className="w-[250px]">: {jabatan}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Depresiasi</th>
-            <td className="w-[250px]">{divisi}</td>
+            <td className="w-[250px]">: {divisi}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">ID Kategri</th>
-            <td className="w-[250px]">{alamat}</td>
+            <td className="w-[250px]">: {alamat}</td>
           </tr>
         </tbody>
       </table>

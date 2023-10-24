@@ -6,11 +6,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function TambahKategori() {
+export default function TambahUsage() {
   const [modal, setModal] = useState(false);
+  const [idPemakaian, setIdPemakaian] = useState(0);
+  const [kodeAset, setKodeAset] = useState("");
+  const [noInduk, setNoInduk] = useState(0);
+  const [idRuangan, setIdRuangan] = useState(0);
 
-  const [idKategori, setIdKategori] = useState("");
-  const [namakategori, setNamaKategori] = useState("");
   const router = useRouter();
   function handleChange() {
     setModal(!modal);
@@ -24,11 +26,16 @@ export default function TambahKategori() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        idKategori: idKategori,
-        nama: namakategori,
+        kodeAset: kodeAset,
+        noInduk: noInduk,
+        idRuangan: idRuangan,
+        idPemakaian: idPemakaian,
       }),
     });
-    setIdKategori("");
+    setIdRuangan(0);
+    setKodeAset("");
+    setNoInduk(0);
+    setIdPemakaian(0);
 
     router.refresh();
     setModal(false);
@@ -40,7 +47,7 @@ export default function TambahKategori() {
         type="submit"
         onClick={handleChange}
       >
-        Add Data Kategori
+        Add Pemakaian
       </Button>
       <input
         type="checkbox"
@@ -51,27 +58,47 @@ export default function TambahKategori() {
       <div className="modal">
         <div className="modal-box bg-white">
           <h1 className="font-bold text-lg text-black mb-3">
-            Tambah Data Kategori
+            Tambah Data Pemakaian
           </h1>
           <div>
             <div className="mb-2">
               <FormComp
-                id="idKategori"
-                type="text"
-                onChange={(e) => setIdKategori(e.target.value)}
-                placeholder="Masukan ID kategori"
+                id="idPemakaian"
+                type="number"
+                onChange={(e) => setIdPemakaian(e.target.value)}
+                placeholder="Masukan id pemakaian"
               >
-                ID Kategori
+                Kode Aset
               </FormComp>
             </div>
             <div className="mb-2">
               <FormComp
-                id="namaKategori"
+                id="kodeAset"
                 type="text"
-                onChange={(e) => setNamaKategori(e.target.value)}
-                placeholder="Masukan nama kategori"
+                onChange={(e) => setKodeAset(e.target.value)}
+                placeholder="Masukan kode aset"
               >
-                Nama Kategori
+                Kode Aset
+              </FormComp>
+            </div>
+            <div className="mb-2">
+              <FormComp
+                id="noInduk"
+                type="number"
+                onChange={(e) => setNoInduk(e.target.value)}
+                placeholder="Masukan nomor induk"
+              >
+                Nomor Induk
+              </FormComp>
+            </div>
+            <div className="mb-2">
+              <FormComp
+                id="idRuangan"
+                type="number"
+                onChange={(e) => setIdRuangan(e.target.value)}
+                placeholder="Masukan id ruangan"
+              >
+                ID Ruangan
               </FormComp>
             </div>
 

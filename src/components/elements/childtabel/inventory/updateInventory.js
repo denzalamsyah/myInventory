@@ -2,14 +2,15 @@
 import Button from "@/components/elements/button/button";
 import FormComp from "@/components/form/form";
 import SelectInput from "@/components/form/select";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Upload from "../../uploadImage/upload";
+import Link from "next/link";
+import { PiPencilSimpleLineFill } from "react-icons/pi";
 
-export default function TambahInventory() {
+export default function UpdateInventory(inventory) {
   const [modal, setModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
+  const [selectedImage, setSelectedImage] = useState(inventory.gambar);
   const [nomorInduk, setNomorInduk] = useState("");
   const [nama, setNama] = useState("");
   const [kodeAset, setKodeAset] = useState("");
@@ -92,13 +93,9 @@ export default function TambahInventory() {
   }
   return (
     <div className="">
-      <Button
-        className="text-[12px] px-4 rounded-[5px] p-1 hover:text-blue-700 border hover:bg-white border-blue-700 text-white bg-blue-700"
-        type="submit"
-        onClick={handleChange}
-      >
-        Add Data Inventory
-      </Button>
+      <Link onClick={handleChange} className="text-[#10A760]">
+        <PiPencilSimpleLineFill />
+      </Link>
       <input
         type="checkbox"
         checked={modal}
@@ -108,7 +105,7 @@ export default function TambahInventory() {
       <div className="modal">
         <div className="modal-box max-w-[60rem] px-11 bg-white">
           <h1 className="font-bold text-lg text-black mb-3">
-            Tambah Data Inventory
+            Update Data Inventory {inventory.nama}!
           </h1>
           <div>
             <div className="mb-4 flex flex-row">

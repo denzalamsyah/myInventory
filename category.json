@@ -14,6 +14,11 @@
       "idKategori": "APL",
       "nama": "Asset Perangkat Lunak",
       "id": 3
+    },
+    {
+      "idKategori": "AD",
+      "nama": "Alat Dapur",
+      "id": 4
     }
   ]
 }

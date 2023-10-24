@@ -6,11 +6,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function TambahKategori() {
+export default function TambahRoom() {
   const [modal, setModal] = useState(false);
-
-  const [idKategori, setIdKategori] = useState("");
-  const [namakategori, setNamaKategori] = useState("");
+  const [idRuangan, setIdRuangan] = useState("");
+  const [namaRuangan, setNamaRuangan] = useState("");
   const router = useRouter();
   function handleChange() {
     setModal(!modal);
@@ -24,11 +23,11 @@ export default function TambahKategori() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        idKategori: idKategori,
-        nama: namakategori,
+        idRuangan: idRuangan,
+        nama: namaRuangan,
       }),
     });
-    setIdKategori("");
+    setIdRuangan("");
 
     router.refresh();
     setModal(false);
@@ -40,7 +39,7 @@ export default function TambahKategori() {
         type="submit"
         onClick={handleChange}
       >
-        Add Data Kategori
+        Add Ruangan
       </Button>
       <input
         type="checkbox"
@@ -51,27 +50,27 @@ export default function TambahKategori() {
       <div className="modal">
         <div className="modal-box bg-white">
           <h1 className="font-bold text-lg text-black mb-3">
-            Tambah Data Kategori
+            Tambah Data Ruangan
           </h1>
           <div>
             <div className="mb-2">
               <FormComp
-                id="idKategori"
+                id="idRuangan"
                 type="text"
-                onChange={(e) => setIdKategori(e.target.value)}
-                placeholder="Masukan ID kategori"
+                onChange={(e) => setIdRuangan(e.target.value)}
+                placeholder="Masukan ID Ruangan"
               >
-                ID Kategori
+                ID Ruangan
               </FormComp>
             </div>
             <div className="mb-2">
               <FormComp
-                id="namaKategori"
+                id="namaRuangan"
                 type="text"
-                onChange={(e) => setNamaKategori(e.target.value)}
-                placeholder="Masukan nama kategori"
+                onChange={(e) => setNamaRuangan(e.target.value)}
+                placeholder="Masukan nama Ruangan"
               >
-                Nama Kategori
+                Nama Ruangan
               </FormComp>
             </div>
 

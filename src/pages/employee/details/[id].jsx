@@ -1,5 +1,5 @@
 import Button from "@/components/elements/button/button";
-import TabelDetailKaryawanComp from "@/components/elements/table/tabel_detail_karyawan";
+import TabelDetailKaryawanComp from "@/components/elements/table/karyawan/tabel_detail_karyawan";
 import Layout from "@/components/layout/layout";
 import Section from "@/components/section/section";
 import Sidebar from "@/components/sidebar/sidebar";

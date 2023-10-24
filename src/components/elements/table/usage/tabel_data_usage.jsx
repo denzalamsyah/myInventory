@@ -1,18 +1,15 @@
 import Link from "next/link";
-import { FaTrash } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import DeleteKaryawan from "../childtabel/karyawan/deleteKaryawan";
-import { PiPencilSimpleLineFill } from "react-icons/pi";
 import { CgMoreO } from "react-icons/cg";
-import DeleteKategori from "../childtabel/kategori/deleteKategori";
-import UpdateKategori from "../childtabel/kategori/updateKategori";
+import UpdateUsage from "../../childtabel/room/update";
+import DeleteUsage from "../../childtabel/room/deleteRoom";
 
-export default function TabelDataKategori() {
-  const [categoryData, setCategoryData] = useState([]);
+export default function TabelDataUsage() {
+  const [usageData, setUsageData] = useState([]);
 
-  const fetchCategory = async () => {
+  const fetchUsage = async () => {
     try {
-      const response = await fetch("http://localhost:8080/category", {
+      const response = await fetch("http://localhost:8080/pemakaian", {
         method: "GET",
       });
 
@@ -24,14 +21,14 @@ export default function TabelDataKategori() {
       console.log(response);
 
       const data = await response.json();
-      setCategoryData(data);
+      setUsageData(data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchCategory();
+    fetchUsage();
   }, []);
 
   return (
@@ -39,10 +36,16 @@ export default function TabelDataKategori() {
       <thead className="w-auto bg-slate-200">
         <tr>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            ID Kategori
+            ID
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            Nama Kategori
+            Kode Aset
+          </th>
+          <th className="border border-gray-300 py-1 text-gray-800 text-center">
+            No Induk
+          </th>
+          <th className="border border-gray-300 py-1 text-gray-800 text-center">
+            ID Ruangan
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
             Action
@@ -50,31 +53,34 @@ export default function TabelDataKategori() {
         </tr>
       </thead>
       <tbody className="overflow-scroll">
-        {categoryData && categoryData.length > 0 ? (
-          categoryData.map((category, index) => (
+        {usageData && usageData.length > 0 ? (
+          usageData.map((usage, index) => (
             <tr
               key={index}
               className="text-center border text-[12px] text-black border-gray-300"
             >
-              <td className="border border-gray-300 py-1">
-                {category.idKategori}
+              <td className="border border-gray-300 py-1">{usage.id}</td>
+              <td className="border border-gray-300 py-1 px-1">
+                {usage.kodeAset}
               </td>
               <td className="border border-gray-300 py-1 px-1">
-                {category.nama}
+                {usage.noInduk}
               </td>
-
+              <td className="border border-gray-300 py-1 px-1">
+                {usage.idRuangan}
+              </td>
               <td className="flex space-x-2  py-4 justify-center">
                 {/* detail */}
                 <Link
-                  href={`category/details/${category.id}`} // teknik template
+                  href={`usage/details/${usage.id}`} // teknik template
                   className="text-[#1570EF]"
                 >
                   <CgMoreO className="transition duration-150 ease-in-out" />
                 </Link>
                 {/* update */}
-                <UpdateKategori {...category} />
+                <UpdateUsage {...usage} />
                 {/* delete */}
-                <DeleteKategori id={category.id} nama={category.nama} />
+                <DeleteUsage id={usage.id} nama={usage.nama} />
               </td>
             </tr>
           ))

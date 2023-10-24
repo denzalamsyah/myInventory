@@ -1,19 +1,30 @@
 import Button from "../button/button";
 import { BiSearch } from "react-icons/bi";
-
+import React, { useRef } from "react";
+import ReactToPrint from "react-to-print";
 export default function LargeCard({ children, modal }) {
+  const componentRef = useRef(null);
   return (
     <div className="flex flex-col bg-white rounded-md px-4 py-6 shadow-lg">
       <div className="px-[5px]">
         <div className="flex items-center justify-between mb-6">
-          {modal}
-          <Button
-            className="text-[12px] px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:text-white hover:bg-blue-700"
-            href="#"
-            type="submit"
-          >
-            Download All
-          </Button>
+          <div className="flex gap-2">
+            {modal}
+            <ReactToPrint
+              trigger={() => (
+                <Button
+                  className="text-[12px] px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+                  href="#"
+                  type="submit"
+                >
+                  Download All
+                </Button>
+              )}
+              content={() => componentRef.current} // Gunakan componentRef.current
+              documentTitle="Data"
+              pageStyle="print"
+            />
+          </div>
 
           <form
             className="flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
@@ -30,7 +41,12 @@ export default function LargeCard({ children, modal }) {
             />
           </form>
         </div>
-        <div className="h-64 overflow-auto">{children}</div>
+        <div
+          ref={componentRef} // Atur ref pada elemen div
+          className="h-64 overflow-auto"
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
