@@ -12,7 +12,7 @@ export default function TabelDataKategori() {
 
   const fetchCategory = async () => {
     try {
-      const response = await fetch("http://localhost:8080/category", {
+      const response = await fetch("http://localhost:9000/api/kategori", {
         method: "GET",
       });
 
@@ -56,9 +56,7 @@ export default function TabelDataKategori() {
               key={index}
               className="text-center border text-[12px] text-black border-gray-300"
             >
-              <td className="border border-gray-300 py-1">
-                {category.idKategori}
-              </td>
+              <td className="border border-gray-300 py-1">{category.id}</td>
               <td className="border border-gray-300 py-1 px-1">
                 {category.nama}
               </td>

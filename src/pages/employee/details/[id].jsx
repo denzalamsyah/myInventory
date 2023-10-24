@@ -37,8 +37,8 @@ export default function DetailKaryawan({ data }) {
             />
             <div className=" w-[100px]">
               <Image
-                src="/img/user.png"
-                alt="Image User"
+                src={data.gambar}
+                alt={data.nama}
                 width={100}
                 height={100}
                 className="rounded-[5px] bg-gray-400"

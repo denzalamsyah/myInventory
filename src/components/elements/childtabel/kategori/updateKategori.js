@@ -8,7 +8,7 @@ import { PiPencilSimpleLineFill } from "react-icons/pi";
 
 export default function UpdateKategori(category) {
   const [modal, setModal] = useState(false);
-  const [idKategori, setIdKategori] = useState(category.idKategori);
+  // const [idKategori, setIdKategori] = useState(category.idKategori);
   const [namakategori, setNamaKategori] = useState(category.nama);
   const router = useRouter();
   function handleChange() {
@@ -17,13 +17,13 @@ export default function UpdateKategori(category) {
 
   async function handleUpdate(e) {
     e.preventDefault();
-    await fetch(`http://localhost:8080/category/${category.id}`, {
+    await fetch(`http://localhost:9000/api/kategori/${category.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        idKategori: idKategori,
+        // idKategori: idKategori,
         nama: namakategori,
       }),
     });
@@ -48,7 +48,7 @@ export default function UpdateKategori(category) {
             Edit kategori {category.nama}
           </h1>
           <div>
-            <div className="mb-2">
+            {/* <div className="mb-2">
               <FormComp
                 id="idKategori"
                 type="text"
@@ -57,7 +57,7 @@ export default function UpdateKategori(category) {
               >
                 ID Kategori
               </FormComp>
-            </div>
+            </div> */}
             <div className="mb-2">
               <FormComp
                 id="namaKategori"

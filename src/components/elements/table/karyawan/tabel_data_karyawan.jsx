@@ -5,12 +5,12 @@ import { CgMoreO } from "react-icons/cg";
 import { useState, useEffect } from "react";
 import DeleteKaryawan from "../../childtabel/karyawan/deleteKaryawan";
 import UpdateKaryawan from "../../childtabel/karyawan/updateKaryawan";
-
+import Image from "next/image";
 export default function TabelDataKaryawan() {
   const [employeeData, setEmployeeData] = useState([]);
   const fetchEmployee = async () => {
     try {
-      const response = await fetch("http://localhost:9000/api/karyawan", {
+      const response = await fetch("http://localhost:5000/employee", {
         method: "GET",
       });
 
@@ -78,7 +78,14 @@ export default function TabelDataKaryawan() {
               <td className="border border-gray-300 py-1 px-1 text-left">
                 {employee.nama}
               </td>
-              <td className="border border-gray-300">{employee.gambar}</td>
+              <td className="border border-gray-300">
+                <Image
+                  alt={employee.nama}
+                  src={employee.gambar}
+                  width={50}
+                  height={50}
+                />
+              </td>
               <td className="border border-gray-300">{employee.gender}</td>
               <td className="text-left border border-gray-300 py-1 px-1">
                 {employee.email}

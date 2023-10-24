@@ -2,7 +2,7 @@
   "employee": [
     {
       "id": 2,
-      "noInduk": "002",
+      "nomorInduk": "002",
       "gambar": "/img/user.png",
       "nama": "Bambang",
       "gender": "Laki-laki",
@@ -14,7 +14,7 @@
     },
     {
       "id": 4,
-      "noInduk": "004",
+      "nomorInduk": "004",
       "gambar": "/img/user.png",
       "nama": "syahrul",
       "gender": "Laki-laki",
@@ -23,18 +23,6 @@
       "email": "syahrul@gmail.com",
       "jabatan": "admin",
       "divisi": "Frontend"
-    },
-    {
-      "noInduk": "006",
-      "nama": "salman",
-      "gender": "Laki-laki",
-      "email": "syahrul@gmail.com",
-      "telepon": 628322455678,
-      "jabatan": "admin",
-      "divisi": "Frontend",
-      "alamat": "Jakarta",
-      "gambar": "/img/user.png",
-      "id": 6
     }
   ]
 }

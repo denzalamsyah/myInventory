@@ -10,7 +10,7 @@ import Sidebar from "@/components/sidebar/sidebar";
 import TabelAtasRoom from "@/template/room/tabel_atas";
 import TabelAtasUsage from "@/template/usage/tabel_atas";
 
-export default function Usage() {
+export default function RepairHistory() {
   return (
     <Layout>
       <Sidebar />

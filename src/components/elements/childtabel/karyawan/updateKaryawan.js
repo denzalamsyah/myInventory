@@ -31,7 +31,7 @@ export default function UpdateKaryawan(employee) {
   };
   async function handleUpdate(e) {
     e.preventDefault();
-    await fetch(`http://localhost:9000/api/karyawan/${employee.id}`, {
+    await fetch(`http://localhost:5000/employee/${employee.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

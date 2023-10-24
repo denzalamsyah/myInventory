@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function TambahKategori() {
   const [modal, setModal] = useState(false);
 
-  const [idKategori, setIdKategori] = useState("");
+  // const [idKategori, setIdKategori] = useState("");
   const [namakategori, setNamaKategori] = useState("");
   const router = useRouter();
   function handleChange() {
@@ -18,13 +18,13 @@ export default function TambahKategori() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await fetch("http://localhost:8080/category", {
+    await fetch("http://localhost:9000/api/kategori", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        idKategori: idKategori,
+        // idKategori: idKategori,
         nama: namakategori,
       }),
     });
@@ -54,7 +54,7 @@ export default function TambahKategori() {
             Tambah Data Kategori
           </h1>
           <div>
-            <div className="mb-2">
+            {/* <div className="mb-2">
               <FormComp
                 id="idKategori"
                 type="text"
@@ -63,7 +63,7 @@ export default function TambahKategori() {
               >
                 ID Kategori
               </FormComp>
-            </div>
+            </div> */}
             <div className="mb-2">
               <FormComp
                 id="namaKategori"

@@ -13,7 +13,7 @@ export default function DeleteKategori({ id, nama }) {
     setModal(!modal);
   }
   async function handleDelete(categoryId) {
-    await fetch(`http://localhost:8080/category/${categoryId}`, {
+    await fetch(`http://localhost:9000/api/kategori/${categoryId}`, {
       method: "DELETE",
     });
 

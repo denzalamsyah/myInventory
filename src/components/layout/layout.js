@@ -9,7 +9,7 @@ export default function Layout({ children }) {
   }, []);
 
   async function fetchUser() {
-    const res = await fetch(`http://localhost:9000/api/karyawan`, {
+    const res = await fetch(`http://localhost:5000/employee`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
