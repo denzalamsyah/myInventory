@@ -63,13 +63,6 @@ export default function TabelDataKategori() {
               </td>
 
               <td className="flex space-x-2  py-4 justify-center">
-                {/* detail */}
-                <Link
-                  href={`category/details/${category.id}`} // teknik template
-                  className="text-[#1570EF]"
-                >
-                  <CgMoreO className="transition duration-150 ease-in-out" />
-                </Link>
                 {/* update */}
                 <UpdateKategori {...category} />
                 {/* delete */}

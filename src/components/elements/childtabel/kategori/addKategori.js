@@ -56,16 +56,6 @@ export default function TambahKategori() {
             Tambah Data Kategori
           </h1>
           <div>
-            {/* <div className="mb-2">
-              <FormComp
-                id="idKategori"
-                type="text"
-                onChange={(e) => setIdKategori(e.target.value)}
-                placeholder="Masukan ID kategori"
-              >
-                ID Kategori
-              </FormComp>
-            </div> */}
             <div className="mb-2">
               <FormComp
                 id="namaKategori"

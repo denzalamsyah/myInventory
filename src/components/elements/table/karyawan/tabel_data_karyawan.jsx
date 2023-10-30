@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import DeleteKaryawan from "../../childtabel/karyawan/deleteKaryawan";
 import UpdateKaryawan from "../../childtabel/karyawan/updateKaryawan";
 import Image from "next/image";
+import DetailKaryawan from "../../childtabel/karyawan/detailKaryawan";
 export default function TabelDataKaryawan() {
   const [employeeData, setEmployeeData] = useState([]);
   const fetchEmployee = async () => {
@@ -95,18 +96,12 @@ export default function TabelDataKaryawan() {
               <td className="border border-gray-300">{employee.telepon}</td>
               <td className="border border-gray-300">{employee.jabatan}</td>
               <td className="border border-gray-300">{employee.alamat}</td>
-              <td className="flex space-x-2  py-4 justify-center">
-                {/* detail */}
-                <Link
-                  href={`employee/details/${employee.id}`} // teknik template
-                  className="text-[#1570EF]"
-                >
-                  <CgMoreO className="transition duration-150 ease-in-out" />
-                </Link>
+              <td className="grid grid-cols-3 gap-2">
+                <DetailKaryawan {...employee} />
                 {/* update */}
                 <UpdateKaryawan {...employee} />
                 {/* delete */}
-                <DeleteKaryawan id={employee.id} nama={employee.nama} />
+                <DeleteKaryawan id={employee.nomorInduk} nama={employee.nama} />
               </td>
             </tr>
           ))

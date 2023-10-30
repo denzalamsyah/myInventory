@@ -24,7 +24,6 @@ export default function UpdateKategori(category) {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        // idKategori: idKategori,
         nama: namakategori,
       }),
     });

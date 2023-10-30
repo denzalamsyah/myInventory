@@ -11,7 +11,7 @@ import { PiPencilSimpleLineFill } from "react-icons/pi";
 export default function UpdateKaryawan(employee) {
   const [modal, setModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(employee.gambar);
-  const [nomorInduk, setNomorInduk] = useState(employee.noInduk);
+  const [nomorInduk, setNomorInduk] = useState(employee.nomorInduk);
   const [nama, setNama] = useState(employee.nama);
   const [gender, setGender] = useState(employee.gender);
   const [email, setEmail] = useState(employee.email);
@@ -19,40 +19,61 @@ export default function UpdateKaryawan(employee) {
   const [jabatan, setJabatan] = useState(employee.jabatan);
   const [divisi, setDivisi] = useState(employee.divisi);
   const [alamat, setAlamat] = useState(employee.alamat);
+  const [imagePreview, setImagePreview] = useState(null);
   const router = useRouter();
-  function handleChange() {
-    setModal(!modal);
-  }
-  const handleImageChange = (e) => {
+
+  const onImageUpload = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setSelectedImage(file);
-    }
+    setSelectedImage(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  const handleChange = () => {
+    setModal(!modal);
   };
   async function handleUpdate(e) {
     e.preventDefault();
-    await fetch(`http://localhost:9000/api/karyawan/${employee.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        nomorInduk: nomorInduk,
-        nama: nama,
-        gender: gender,
-        email: email,
-        telepon: telepon,
-        jabatan: jabatan,
-        divisi: divisi,
-        alamat: alamat,
-        gambar: selectedImage,
-      }),
-    });
+    const formData = new FormData();
+    formData.append("nomorInduk", nomorInduk);
+    formData.append("nama", nama);
+    formData.append("gender", gender);
+    formData.append("email", email);
+    formData.append("telepon", telepon);
+    formData.append("jabatan", jabatan);
+    formData.append("divisi", divisi);
+    formData.append("alamat", alamat);
+    formData.append("gambar", selectedImage);
 
-    router.refresh();
-    setModal(false);
+    const response = await fetch(
+      `http://localhost:9000/api/karyawan/${employee.nomorInduk}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          nomorInduk: nomorInduk,
+          nama: nama,
+          gender: gender,
+          email: email,
+          telepon: telepon,
+          jabatan: jabatan,
+          divisi: divisi,
+          alamat: alamat,
+          gambar: selectedImage,
+        }),
+      }
+    );
+    if (response.ok) {
+      alert("Data berhasil diupdate");
+      router.refresh();
+      setModal(false);
+    } else {
+      alert("Gagal mengupdate data");
+    }
   }
+
   return (
     <div className="">
       <Link href="" className="text-[#10A760]" onClick={handleChange}>
@@ -71,29 +92,23 @@ export default function UpdateKaryawan(employee) {
           </h1>
           <div>
             <div className="mb-4 flex flex-row">
-              <input
-                type="file"
-                id="image"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="text-sm"
-                placeholder={employee.gambar}
-              />
-              {/* Gambar yang ditampilkan ketika diunggah */}
-              {selectedImage && (
+              {/* <Upload onChange={(e) => onImageUpload(e)} img={imagePreview} /> */}
+              {imagePreview && (
                 <Image
-                  src=""
-                  alt="Selected Image"
-                  className="w-[50px] h-[50px]"
-                  width={25}
-                  height={25}
+                  className="preview"
+                  src={selectedImage}
+                  alt="preview"
+                  width={50}
+                  height={50}
                 />
               )}
+              <input type="file" onChange={(e) => onImageUpload(e)} />
             </div>
             <div className="mb-2">
               <FormComp
                 id="nomorInduk"
                 type="text"
+                value={nomorInduk}
                 onChange={(e) => setNomorInduk(e.target.value)}
                 placeholder={employee.nomorInduk}
               >
@@ -105,6 +120,7 @@ export default function UpdateKaryawan(employee) {
                 id="nama"
                 type="text"
                 onChange={(e) => setNama(e.target.value)}
+                value={nama}
                 placeholder={employee.nama}
               >
                 Nama
@@ -116,12 +132,11 @@ export default function UpdateKaryawan(employee) {
                 name="gender"
                 onChange={(e) => setGender(e.target.value)}
                 label="Gender"
-                placeholder={employee.gender}
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                <option value="-">Pilih salah satu</option>
-                <option value="laki-laki">Laki-laki</option>
-                <option value="perempuan">Perempuan</option>
+                <option value="">Pilih salah satu</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
               </SelectInput>
             </div>
             <div className="mb-2">
@@ -129,6 +144,7 @@ export default function UpdateKaryawan(employee) {
                 id="email"
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 placeholder={employee.email}
               >
                 Email
@@ -139,6 +155,7 @@ export default function UpdateKaryawan(employee) {
                 id="telepon"
                 type="number"
                 onChange={(e) => setTelepon(e.target.value)}
+                value={telepon}
                 placeholder={employee.telepon}
               >
                 Telepon
@@ -150,10 +167,9 @@ export default function UpdateKaryawan(employee) {
                 name="jabatan"
                 onChange={(e) => setJabatan(e.target.value)}
                 label="Jabatan"
-                placeholder={employee.jabatan}
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                <option value="-">Pilih salah satu</option>
+                <option value="">Pilih salah satu</option>
                 <option value="manager">Manager</option>
                 <option value="crm">CRM</option>
               </SelectInput>
@@ -164,10 +180,9 @@ export default function UpdateKaryawan(employee) {
                 name="divisi"
                 onChange={(e) => setDivisi(e.target.value)}
                 label="Divisi"
-                placeholder={employee.divisi}
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                <option value="-">Pilih salah satu</option>
+                <option value="">Pilih salah satu</option>
                 <option value="Marketing">Marketing</option>
                 <option value="FrontEnd">FrontEnd</option>
                 <option value="BackEnd">BackEnd</option>
@@ -180,6 +195,7 @@ export default function UpdateKaryawan(employee) {
                 id="alamat"
                 type="text"
                 onChange={(e) => setAlamat(e.target.value)}
+                value={alamat}
                 placeholder={employee.alamat}
               >
                 Alamat

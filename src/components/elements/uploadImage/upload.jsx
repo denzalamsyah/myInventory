@@ -1,5 +1,5 @@
 import Image from "next/image";
-export default function Upload({ img, ...rest }) {
+export default function Upload({ onChange, img, ...rest }) {
   return (
     <div>
       {img && (
@@ -11,7 +11,7 @@ export default function Upload({ img, ...rest }) {
           height={50}
         />
       )}
-      <input type="file" {...rest} />
+      <input type="file" {...rest} onChange={onChange} />
     </div>
   );
 }
