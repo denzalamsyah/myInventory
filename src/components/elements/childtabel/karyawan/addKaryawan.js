@@ -30,36 +30,49 @@ export default function TambahKaryawan() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await fetch("http://localhost:9000/api/karyawan", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        nomorInduk: nomorInduk,
-        nama: nama,
-        gender: gender,
-        email: email,
-        telepon: telepon,
-        jabatan: jabatan,
-        divisi: divisi,
-        alamat: alamat,
-        gambar: selectedImage,
-      }),
-    });
-    setNomorInduk("");
-    setNama("");
-    setGender("");
-    setJabatan("");
-    setDivisi("");
-    setEmail("");
-    setTelepon("");
-    setAlamat("");
-    setSelectedImage("");
-    router.refresh();
-    setModal(false);
+    try {
+      const response = await fetch("http://localhost:9000/api/karyawan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          nomorInduk: nomorInduk,
+          nama: nama,
+          gender: gender,
+          email: email,
+          telepon: telepon,
+          jabatan: jabatan,
+          divisi: divisi,
+          alamat: alamat,
+          gambar: selectedImage,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Data berhasil ditambahkan");
+        setNomorInduk("");
+        setNama("");
+        setGender("");
+        setJabatan("");
+        setDivisi("");
+        setEmail("");
+        setTelepon("");
+        setAlamat("");
+        setSelectedImage("");
+        router.refresh();
+        setModal(false);
+      } else {
+        // Gagal menambahkan data
+        console.error("Gagal menambahkan data");
+      }
+    } catch (error) {
+      // Kesalahan dalam permintaan
+      console.error("Terjadi kesalahan dalam permintaan: " + error.message);
+    }
   }
+
   return (
     <div className="">
       <Button
@@ -80,7 +93,7 @@ export default function TambahKaryawan() {
           <h1 className="font-bold text-lg text-black mb-3">
             Tambah Data Karyawan
           </h1>
-          <div>
+          <form encType="multipart/form-data" method="POST">
             <div className="mb-4 flex flex-row">
               <Upload onChange={(e) => onImageUpload(e)} img={imagePreview} />
             </div>
@@ -113,8 +126,8 @@ export default function TambahKaryawan() {
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
                 <option value="">Pilih salah satu</option>
-                <option value="laki-laki">Laki-laki</option>
-                <option value="perempuan">Perempuan</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
               </SelectInput>
             </div>
             <div className="mb-2">
@@ -190,7 +203,7 @@ export default function TambahKaryawan() {
                 cancel
               </Button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

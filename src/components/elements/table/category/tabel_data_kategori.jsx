@@ -1,8 +1,5 @@
 import Link from "next/link";
-import { FaTrash } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import DeleteKaryawan from "../../childtabel/karyawan/deleteKaryawan";
-import { PiPencilSimpleLineFill } from "react-icons/pi";
 import { CgMoreO } from "react-icons/cg";
 import DeleteKategori from "../../childtabel/kategori/deleteKategori";
 import UpdateKategori from "../../childtabel/kategori/updateKategori";
@@ -14,6 +11,10 @@ export default function TabelDataKategori() {
     try {
       const response = await fetch("http://localhost:9000/api/kategori", {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
       });
 
       if (!response.ok) {
