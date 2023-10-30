@@ -1,3 +1,4 @@
+import MetaHead from "@/components/MetaHead/metahead";
 import LargeCard from "@/components/elements/childtabel/largetabel";
 import TambahRoom from "@/components/elements/childtabel/room/addRoom";
 import ChildCard from "@/components/elements/childtabel/tabel";
@@ -9,16 +10,19 @@ import TabelAtasRoom from "@/template/room/tabel_atas";
 
 export default function Room() {
   return (
-    <Layout>
-      <Sidebar />
-      <Section>
-        <ChildCard tittle="Room" className="overflow-y-auto">
-          <TabelAtasRoom />
-        </ChildCard>
-        <LargeCard modal={<TambahRoom />}>
-          <TabelDataRoom />
-        </LargeCard>
-      </Section>
-    </Layout>
+    <>
+      <MetaHead title="Room" description="Welcome to Room" />
+      <Layout>
+        <Sidebar />
+        <Section>
+          <ChildCard tittle="Room" className="overflow-y-auto">
+            <TabelAtasRoom />
+          </ChildCard>
+          <LargeCard modal={<TambahRoom />}>
+            <TabelDataRoom />
+          </LargeCard>
+        </Section>
+      </Layout>
+    </>
   );
 }

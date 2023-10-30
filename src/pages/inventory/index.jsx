@@ -1,3 +1,4 @@
+import MetaHead from "@/components/MetaHead/metahead";
 import TambahInventory from "@/components/elements/childtabel/inventory/addInventory";
 import LargeCard from "@/components/elements/childtabel/largetabel";
 import ChildCard from "@/components/elements/childtabel/tabel";
@@ -9,16 +10,22 @@ import TabelAtasInventori from "@/template/inventory/tabel_atas";
 
 export default function Inventory() {
   return (
-    <Layout>
-      <Sidebar></Sidebar>
-      <Section>
-        <ChildCard tittle="Persediaan Keseluruhan" className="overflow-y-auto">
-          <TabelAtasInventori />
-        </ChildCard>
-        <LargeCard modal={<TambahInventory />}>
-          <TabelDataInventory />
-        </LargeCard>
-      </Section>
-    </Layout>
+    <>
+      <MetaHead title="Inventory" description="Welcome to Inventory" />
+      <Layout>
+        <Sidebar></Sidebar>
+        <Section>
+          <ChildCard
+            tittle="Persediaan Keseluruhan"
+            className="overflow-y-auto"
+          >
+            <TabelAtasInventori />
+          </ChildCard>
+          <LargeCard modal={<TambahInventory />}>
+            <TabelDataInventory />
+          </LargeCard>
+        </Section>
+      </Layout>
+    </>
   );
 }

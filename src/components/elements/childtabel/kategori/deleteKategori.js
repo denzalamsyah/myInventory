@@ -15,6 +15,10 @@ export default function DeleteKategori({ id, nama }) {
   async function handleDelete(categoryId) {
     await fetch(`http://localhost:9000/api/kategori/${categoryId}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
     });
 
     router.refresh();

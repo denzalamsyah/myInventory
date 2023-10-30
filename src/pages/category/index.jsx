@@ -1,3 +1,4 @@
+import MetaHead from "@/components/MetaHead/metahead";
 import TambahKategori from "@/components/elements/childtabel/kategori/addKategori";
 import LargeCard from "@/components/elements/childtabel/largetabel";
 import ChildCard from "@/components/elements/childtabel/tabel";
@@ -9,16 +10,19 @@ import TabelAtasKategori from "@/template/kategori/tabel_atas";
 
 export default function Category() {
   return (
-    <Layout>
-      <Sidebar />
-      <Section>
-        <ChildCard tittle="Category" className="overflow-y-auto">
-          <TabelAtasKategori />
-        </ChildCard>
-        <LargeCard modal={<TambahKategori />}>
-          <TabelDataKategori />
-        </LargeCard>
-      </Section>
-    </Layout>
+    <>
+      <MetaHead title="Category" description="Welcome to Category" />
+      <Layout>
+        <Sidebar />
+        <Section>
+          <ChildCard tittle="Category" className="overflow-y-auto">
+            <TabelAtasKategori />
+          </ChildCard>
+          <LargeCard modal={<TambahKategori />}>
+            <TabelDataKategori />
+          </LargeCard>
+        </Section>
+      </Layout>
+    </>
   );
 }

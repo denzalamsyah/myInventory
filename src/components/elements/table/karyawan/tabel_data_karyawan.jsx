@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { FaTrash } from "react-icons/fa";
-import { PiPencilSimpleLineFill } from "react-icons/pi";
 import { CgMoreO } from "react-icons/cg";
 import { useState, useEffect } from "react";
 import DeleteKaryawan from "../../childtabel/karyawan/deleteKaryawan";
@@ -12,6 +10,10 @@ export default function TabelDataKaryawan() {
     try {
       const response = await fetch("http://localhost:9000/api/karyawan", {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
       });
 
       if (!response.ok) {
@@ -33,9 +35,9 @@ export default function TabelDataKaryawan() {
   }, []);
 
   return (
-    <table className="table caption-top w-full">
+    <table className="table caption-top">
       <thead className="w-auto bg-slate-200">
-        <tr>
+        <tr className="2xl:text-lg">
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
             No Induk
           </th>
@@ -70,7 +72,7 @@ export default function TabelDataKaryawan() {
           employeeData.map((employee, index) => (
             <tr
               key={index}
-              className="text-center border text-[12px] text-black border-gray-300"
+              className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
             >
               <td className="border border-gray-300 py-1">
                 {employee.nomorInduk}

@@ -34,6 +34,7 @@ export default function TambahKaryawan() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({
         nomorInduk: nomorInduk,
@@ -62,7 +63,7 @@ export default function TambahKaryawan() {
   return (
     <div className="">
       <Button
-        className="text-[12px] px-4 rounded-[5px] p-1 hover:text-blue-700 border hover:bg-white border-blue-700 text-white bg-blue-700"
+        className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 hover:text-blue-700 border hover:bg-white border-blue-700 text-white bg-blue-700"
         type="submit"
         onClick={handleChange}
       >

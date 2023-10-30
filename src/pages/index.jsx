@@ -9,9 +9,9 @@ export default function Home() {
       <h1 className="text-3xl font-bold underline text-red-500 mb-4">
         Welcome to WIT Admin
       </h1>
-      <div className="btn btn-outline btn-error">
-        <Link href="/login">Login</Link>
-      </div>
+      <Link href="/login">
+        <button className="btn btn-outline btn-error">Login</button>
+      </Link>
     </div>
   );
 }

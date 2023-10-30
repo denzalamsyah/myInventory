@@ -1,3 +1,4 @@
+import MetaHead from "@/components/MetaHead/metahead";
 import LargeCard from "@/components/elements/childtabel/largetabel";
 import TambahRoom from "@/components/elements/childtabel/room/addRoom";
 import ChildCard from "@/components/elements/childtabel/tabel";
@@ -12,16 +13,19 @@ import TabelAtasUsage from "@/template/usage/tabel_atas";
 
 export default function Usage() {
   return (
-    <Layout>
-      <Sidebar />
-      <Section>
-        <ChildCard tittle="Pemakaian" className="overflow-y-auto">
-          <TabelAtasUsage />
-        </ChildCard>
-        <LargeCard modal={<TambahUsage />}>
-          <TabelDataUsage />
-        </LargeCard>
-      </Section>
-    </Layout>
+    <>
+      <MetaHead title="Usage" description="Welcome to Usage" />
+      <Layout>
+        <Sidebar />
+        <Section>
+          <ChildCard tittle="Pemakaian" className="overflow-y-auto">
+            <TabelAtasUsage />
+          </ChildCard>
+          <LargeCard modal={<TambahUsage />}>
+            <TabelDataUsage />
+          </LargeCard>
+        </Section>
+      </Layout>
+    </>
   );
 }

@@ -1,11 +1,6 @@
-import Link from "next/link";
 import { useState, useEffect } from "react";
-import { CgMoreO } from "react-icons/cg";
-import UpdateUsage from "../../childtabel/room/update";
-import DeleteUsage from "../../childtabel/room/deleteRoom";
-
-export default function TabelDataUsage() {
-  const [usageData, setUsageData] = useState([]);
+export default function TabelDataRepairHistory() {
+  const [usageDataHistory, setUsageData] = useState([]);
 
   const fetchUsage = async () => {
     try {
@@ -34,7 +29,7 @@ export default function TabelDataUsage() {
   return (
     <table className="table caption-top w-full">
       <thead className="w-auto bg-slate-200">
-        <tr className="text-[12px] 2xl:text-lg">
+        <tr>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
             ID
           </th>
@@ -42,47 +37,47 @@ export default function TabelDataUsage() {
             Kode Aset
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            No Induk
+            Tanggal Kerusakan
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            ID Ruangan
+            Tanggal Perbaikan
           </th>
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
-            Action
+            Biaya
+          </th>
+          <th className="border border-gray-300 py-1 text-gray-800 text-center">
+            Tanggal Selesai DIperbaiki
+          </th>
+          <th className="border border-gray-300 py-1 text-gray-800 text-center">
+            Deskripsi
           </th>
         </tr>
       </thead>
       <tbody className="overflow-scroll">
-        {usageData && usageData.length > 0 ? (
-          usageData.map((usage, index) => (
+        {usageDataHistory && usageDataHistory.length > 0 ? (
+          usageDataHistory.map((usage, index) => (
             <tr
               key={index}
-              className="text-center border text-black border-gray-300"
+              className="text-center border text-[12px] text-black border-gray-300"
             >
-              <td className="border border-gray-300 py-1 text-[12px] 2xl:text-[16px]">
-                {usage.id}
-              </td>
-              <td className="border border-gray-300 py-1 px-1 text-[12px] 2xl:text-[16px]">
+              <td className="border border-gray-300 py-1">{usage.id}</td>
+              <td className="border border-gray-300 py-1 px-1">
                 {usage.kodeAset}
               </td>
-              <td className="border border-gray-300 py-1 px-1 text-[12px] 2xl:text-[16px]">
+              <td className="border border-gray-300 py-1 px-1">
                 {usage.noInduk}
               </td>
-              <td className="border border-gray-300 py-1 px-1 text-[12px] 2xl:text-[16px]">
+              <td className="border border-gray-300 py-1 px-1">
                 {usage.idRuangan}
               </td>
-              <td className="flex space-x-2  py-4 justify-center text-[12px] 2xl:text-[16px]">
-                {/* detail */}
-                <Link
-                  href={`usage/details/${usage.id}`} // teknik template
-                  className="text-[#1570EF]"
-                >
-                  <CgMoreO className="transition duration-150 ease-in-out" />
-                </Link>
-                {/* update */}
-                <UpdateUsage {...usage} />
-                {/* delete */}
-                <DeleteUsage id={usage.id} nama={usage.nama} />
+              <td className="border border-gray-300 py-1 px-1">
+                {usage.idRuangan}
+              </td>
+              <td className="border border-gray-300 py-1 px-1">
+                {usage.idRuangan}
+              </td>
+              <td className="border border-gray-300 py-1 px-1">
+                {usage.idRuangan}
               </td>
             </tr>
           ))

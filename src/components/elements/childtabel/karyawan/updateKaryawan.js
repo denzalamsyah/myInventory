@@ -31,10 +31,11 @@ export default function UpdateKaryawan(employee) {
   };
   async function handleUpdate(e) {
     e.preventDefault();
-    await fetch(`http://localhost:5000/employee/${employee.id}`, {
+    await fetch(`http://localhost:9000/api/karyawan/${employee.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({
         nomorInduk: nomorInduk,

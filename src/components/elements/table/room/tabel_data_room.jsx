@@ -36,7 +36,7 @@ export default function TabelDataRoom() {
   return (
     <table className="table caption-top w-full">
       <thead className="w-auto bg-slate-200">
-        <tr>
+        <tr className="text-[12px] 2xl:text-lg">
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
             ID Ruangan
           </th>
@@ -53,10 +53,14 @@ export default function TabelDataRoom() {
           roomData.map((room, index) => (
             <tr
               key={index}
-              className="text-center border text-[12px] text-black border-gray-300"
+              className="text-center border text-black border-gray-300"
             >
-              <td className="border border-gray-300 py-1">{room.idKategori}</td>
-              <td className="border border-gray-300 py-1 px-1">{room.nama}</td>
+              <td className="border border-gray-300 py-1 text-[12px] 2xl:text-lg">
+                {room.idKategori}
+              </td>
+              <td className="border border-gray-300 py-1 px-1 text-[12px] 2xl:text-lg">
+                {room.nama}
+              </td>
 
               <td className="flex space-x-2  py-4 justify-center">
                 {/* detail */}

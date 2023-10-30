@@ -1,121 +1,107 @@
-import Link from "next/link";
+import React, { Children, useState } from "react";
+import { HiMenuAlt3 } from "react-icons/hi";
 import Image from "next/image";
-export default function Sidebar() {
-  const menu = [
-    {
-      name: "Dashboard",
-      icon: "/img/icon1.png",
-      link: "/dashboard",
-    },
-    {
-      name: "Inventory",
-      icon: "/img/icon2.png",
-      link: "/inventory",
-    },
-    {
-      name: "Room",
-      icon: "/img/icon6.png",
-      link: "/room",
-    },
-    {
-      name: "Usage",
-      icon: "/img/icon7.png",
-      link: "/usage",
-    },
-    {
-      name: "Category",
-      icon: "/img/icon3.png",
-      link: "/category",
-    },
+import Link from "next/link";
+
+const Sidebar = ({ children }) => {
+  const menus = [
+    { name: "Dashboard", link: "/dashboard", icon: "/img/icon1.png" },
+    { name: "Inventory", link: "/inventory", icon: "/img/icon2.png" },
+    { name: "Room", link: "/room", icon: "/img/icon6.png" },
+    { name: "Usage", link: "/usage", icon: "/img/icon7.png" },
+    { name: "Category", link: "/category", icon: "/img/icon3.png" },
     {
       name: "Employee",
-      icon: "/img/icon4.png",
       link: "/employee",
+      icon: "/img/icon4.png",
+      text: "Report History",
     },
-  ];
-
-  const menu2 = [
     {
       name: "Usage History",
-      icon: "/img/icon1.png",
       link: "/usagehistory",
+      icon: "/img/icon5.png",
+      margin: true,
     },
-    {
-      name: "Repair History",
-      icon: "/img/icon2.png",
-      link: "/repairhistory",
-    },
+    { name: "Repair History", link: "/repairhistory", icon: "/img/icon8.png" },
   ];
+  const [open, setOpen] = useState(true);
   return (
-    <div className="border-r-[4px] h-screen w-[20%] pt-[30px] border-gray-500 bg-[#474747]">
-      <div className="flex justify-center mb-9 border-b-[3px] pb-[30px]">
-        <Link href="/dashboard">
-          <Image
-            src="/img/logoWIT.png"
-            alt="logo WIT"
-            width={100}
-            height={25}
-            className="shadow-xl"
+    <section className="flex gap-6">
+      <div
+        className={`bg-[#474747] min-h-screen ${
+          open ? "w-52 md:w-72 2xl:w-96" : "w-16"
+        } duration-500 text-white px-4`}
+      >
+        <div className="py-5 2xl:py-10 flex justify-center gap-2 border-b border-white">
+          <Link href="/dashboard">
+            <Image
+              src="/img/logoWIT.png"
+              alt="logo WIT"
+              width={100}
+              height={25}
+              className={`shadow-xl ${!open && "hidden"}`}
+            />
+          </Link>
+
+          <HiMenuAlt3
+            size={26}
+            className="cursor-pointer"
+            onClick={() => setOpen(!open)}
           />
-        </Link>
-      </div>
-      <div className="px-8 mb-[200px]">
-        <ul className="">
-          {menu.map((item, index) => (
-            <li
-              key={index}
-              className="mb-4 rounded-[5px] bg-[#585858] text-white text-[14px] hover:bg-white hover:text-black py-2 px-2 hover:rounded-[5px] shadow-xl"
+        </div>
+        <div className={`${open && "px-4"} mt-8  flex flex-col gap-4 relative`}>
+          {menus?.map((menu, i) => (
+            <Link
+              href={menu?.link}
+              key={i}
+              className={` ${
+                menu?.margin && "mt-5"
+              } group flex items-center text-sm 2xl:text-xl gap-3.5 font-medium p-2 bg-[#585858] shadow-lg hover:bg-white hover:text-black rounded-md`}
             >
-              <Link href={item.link} className="flex">
-                <Image
-                  src={item.icon}
-                  width={22}
-                  height={22}
-                  alt={item.name}
-                  className="mr-6 bg-white rounded-[5px]"
-                />
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <p className="text-[12px] mb-4 text-center">Report History</p>
-        <ul>
-          {menu2.map((item, index) => (
-            <li
-              key={index}
-              className="mb-4 rounded-[5px] bg-[#585858] text-white text-[14px] hover:bg-white hover:text-black py-2 px-2 hover:rounded-[5px] shadow-xl"
-            >
-              <Link href={item.link} className="flex">
-                <Image
-                  src={item.icon}
-                  width={22}
-                  height={22}
-                  alt={item.name}
-                  className="mr-6 bg-white rounded-[5px]"
-                />
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="px-8 flex items-end text-white text-[14px] fixed bottom-0">
-        <ul>
-          <li className="mb-4 text-white text-[14px] py-2 px-2 rounded-[5px]">
-            <Link href="/" className="flex">
-              {/* <Image
-                src="/img/logout.png"
-                width={22}
-                height={22}
-                alt="logout"
-                className="mr-6 bg-white rounded-[5px]"
-              /> */}
-              Logout
+              <Image src={menu?.icon} alt={menu?.name} width={25} height={25} />
+              <h2
+                className={`whitespace-pre duration-500 ${
+                  !open && "opacity-0 translate-x-28 overflow-hidden"
+                } `}
+              >
+                {menu?.name}
+              </h2>
+              <h2
+                className={`${
+                  open && "hidden"
+                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              >
+                {menu?.name}
+              </h2>
             </Link>
-          </li>
-        </ul>
+          ))}
+        </div>
+        <div className="py-5 text-sm fixed bottom-0">
+          <Link href="/">
+            <div className="px-2">
+              <Image
+                src="/img/logout.png"
+                alt="logout"
+                width={15}
+                height={15}
+                className={`${open && "hidden"}`}
+              />
+            </div>
+            <div className="px-4">
+              <h2
+                className={`whitespace-pre duration-500 2xl:text-xl ${
+                  !open && "opacity-0 translate-x-28 overflow-hidden"
+                }`}
+              >
+                Logout
+              </h2>
+            </div>
+          </Link>
+        </div>
       </div>
-    </div>
+      {children}
+    </section>
   );
-}
+};
+
+export default Sidebar;

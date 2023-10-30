@@ -15,6 +15,10 @@ export default function DeleteKaryawan({ id, nama }) {
   async function handleDelete(employeeId) {
     await fetch(`http://localhost:9000/api/karyawan/${employeeId}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
     });
     router.refresh();
     setModal(false);

@@ -62,7 +62,7 @@ export default function TabelDataInventory() {
   return (
     <table className="table caption-top w-full">
       <thead className="w-auto bg-slate-200">
-        <tr>
+        <tr className="2xl:text-lg">
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
             Kode Aset
           </th>
@@ -95,7 +95,10 @@ export default function TabelDataInventory() {
       <tbody className="overflow-scroll">
         {inventoryData && inventoryData.length > 0 ? (
           inventoryData.map((inventory, index) => (
-            <tr key={index} className="text-center border border-gray-300">
+            <tr
+              key={index}
+              className="text-center border border-gray-300 2xl:text-[26px]"
+            >
               <td className="border border-gray-300 py-1">
                 {inventory.nomorInduk}
               </td>

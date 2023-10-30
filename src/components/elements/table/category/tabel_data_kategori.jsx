@@ -37,7 +37,7 @@ export default function TabelDataKategori() {
   return (
     <table className="table caption-top w-full">
       <thead className="w-auto bg-slate-200">
-        <tr>
+        <tr className="text-[12px] 2xl:text-lg">
           <th className="border border-gray-300 py-1 text-gray-800 text-center">
             ID Kategori
           </th>
@@ -54,7 +54,7 @@ export default function TabelDataKategori() {
           categoryData.map((category, index) => (
             <tr
               key={index}
-              className="text-center border text-[12px] text-black border-gray-300"
+              className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
             >
               <td className="border border-gray-300 py-1">{category.id}</td>
               <td className="border border-gray-300 py-1 px-1">
