@@ -21,9 +21,7 @@ export default function Inventory() {
           >
             <TabelAtasInventori />
           </ChildCard>
-          <LargeCard modal={<TambahInventory />}>
-            <TabelDataInventory />
-          </LargeCard>
+          <TabelDataInventory modal={<TambahInventory />} />
         </Section>
       </Layout>
     </>

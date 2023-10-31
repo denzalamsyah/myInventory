@@ -18,9 +18,7 @@ export default function Category() {
           <ChildCard tittle="Category" className="overflow-y-auto">
             <TabelAtasKategori />
           </ChildCard>
-          <LargeCard modal={<TambahKategori />}>
-            <TabelDataKategori />
-          </LargeCard>
+          <TabelDataKategori modal={<TambahKategori />} />
         </Section>
       </Layout>
     </>

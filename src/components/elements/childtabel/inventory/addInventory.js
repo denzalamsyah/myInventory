@@ -4,30 +4,26 @@ import FormComp from "@/components/form/form";
 import SelectInput from "@/components/form/select";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Upload from "../../uploadImage/upload";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export default function TambahInventory() {
   const [modal, setModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
-  const [nomorInduk, setNomorInduk] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [karyawanId, setKaryawanId] = useState("");
   const [nama, setNama] = useState("");
   const [kodeAset, setKodeAset] = useState("");
   const [merk, setMerk] = useState("");
+  const [vendor, setVendor] = useState("");
   const [tanggalPembelian, setTanggalPembelian] = useState("");
   const [harga, setHarga] = useState(0);
-  const [ruangan, setRuangan] = useState("");
-  const [status, setStatus] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [masaManfaat, setMasaManfaat] = useState(0);
-  const [nilaiResedu, setNilaiResedu] = useState(0);
-  const [tahun1, setTahun1] = useState(0);
-  const [tahun2, setTahun2] = useState(0);
-  const [tahun3, setTahun3] = useState(0);
-  const [tahun4, setTahun4] = useState(0);
-  const [depresiasi, setDepresiasi] = useState(0);
   const [idKategori, setIdKategori] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const imageInputRef = useRef(null);
+  const MySwal = withReactContent(Swal);
   const router = useRouter();
   const onImageUpload = (e) => {
     const file = e.target.files[0];
@@ -38,58 +34,62 @@ export default function TambahInventory() {
     setModal(!modal);
   }
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(
-      "https://functional-zinc-production.up.railway.app/api/karyawan",
-      {
+
+    const formData = new FormData();
+    formData.append("karyawanId", karyawanId);
+    formData.append("nama", nama);
+    formData.append("kodeAsset", kodeAset);
+    formData.append("merk", merk);
+    formData.append("tanggalPembelian", tanggalPembelian);
+    formData.append("harga", harga);
+    formData.append("deskripsi", deskripsi);
+    formData.append("masaManfaat", masaManfaat);
+    formData.append("kategoriId", idKategori);
+    formData.append("gambar", selectedImage);
+    formData.append("vendor", vendor);
+    try {
+      const response = await fetch("http://localhost:9000/api/inventory", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
-        body: JSON.stringify({
-          nomorInduk: nomorInduk,
-          nama: nama,
-          kodeAset: kodeAset,
-          merk: merk,
-          tanggalPembelian: tanggalPembelian,
-          harga: harga,
-          ruangan: ruangan,
-          status: status,
-          deskripsi: deskripsi,
-          masaManfaat: masaManfaat,
-          nilaiResedu: nilaiResedu,
-          tahun1: tahun1,
-          tahun2: tahun2,
-          tahun3: tahun3,
-          tahun4: tahun4,
-          depresiasi: depresiasi,
-          idKategori: idKategori,
-          gambar: selectedImage,
-        }),
+        body: formData,
+      });
+      if (response.ok) {
+        setModal(false);
+        MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(
+          () => {
+            router.refresh();
+          }
+        );
+      } else {
+        MySwal.fire("Gagal menambahkan", "Klik tombol!", "error");
       }
-    );
-    setNomorInduk("");
-    setNama("");
-    setKodeAset("");
-    setMerk("");
-    setTanggalPembelian("");
-    setHarga(0);
-    setRuangan("");
-    setStatus("");
-    setDeskripsi("");
-    setMasaManfaat(0);
-    setNilaiResedu(0);
-    setTahun1(0);
-    setTahun2(0);
-    setTahun3(0);
-    setTahun4(0);
-    setDepresiasi(0);
-    setIdKategori("");
-    setSelectedImage(null);
-    router.refresh();
-    setModal(false);
-  }
+
+      if (response.ok) {
+        console.log("Data berhasil ditambahkan");
+        setKaryawanId("");
+        setNama("");
+        setKodeAset("");
+        setMerk("");
+        setTanggalPembelian("");
+        setHarga(0);
+        setDeskripsi("");
+        setMasaManfaat(0);
+        setIdKategori("");
+        setImagePreview(null);
+        setSelectedImage(null);
+        router.refresh();
+        setModal(false);
+      } else {
+        console.error("Gagal menambahkan data");
+      }
+    } catch (error) {
+      console.error("Terjadi kesalahan dalam permintaan: " + error.message);
+    }
+  };
   return (
     <div className="">
       <Button
@@ -110,22 +110,53 @@ export default function TambahInventory() {
           <h1 className="font-bold text-lg text-black mb-3">
             Tambah Data Inventory
           </h1>
-          <div>
-            <div className="mb-4 flex flex-row">
-              <Upload onChange={(e) => onImageUpload(e)} img={imagePreview} />
+          <form
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+            method="POST"
+          >
+            <div className="mb-4 flex justify-center w-28 h-24 bg-slate-200 rounded-md border-dashed border-2 border-gray-400">
+              <div className="relative w-full h-full">
+                {imagePreview ? (
+                  <div>
+                    <Image
+                      src={imagePreview}
+                      alt="preview"
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                    <button
+                      className="absolute top-0 text-[10px] right-0 text-black rounded-md p-1"
+                      onClick={() => {
+                        setImagePreview(null);
+                        document.getElementById("imageInput").value = ""; // Clear the file input
+                      }}
+                    >
+                      X
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex justify-center items-center w-full h-full text-center text-gray-600">
+                    <label
+                      htmlFor="imageInput"
+                      className="cursor-pointer text-[12px]"
+                    >
+                      <div>Drag & Drop or</div>
+                      <div>Click to Choose Image</div>
+                    </label>
+                  </div>
+                )}
+              </div>
+              <input
+                type="file"
+                id="imageInput"
+                className="hidden"
+                onChange={(e) => onImageUpload(e)}
+                ref={imageInputRef}
+              />
             </div>
             <div className="flex flex-row gap-[55px]">
               <div>
-                <div className="mb-2">
-                  <FormComp
-                    id="kodeAset"
-                    type="text"
-                    onChange={(e) => setKodeAset(e.target.value)}
-                    placeholder="Masukan Kode Aset"
-                  >
-                    Kode Aset
-                  </FormComp>
-                </div>
                 <div className="mb-2">
                   <FormComp
                     id="nama"
@@ -137,21 +168,28 @@ export default function TambahInventory() {
                   </FormComp>
                 </div>
                 <div className="mb-2">
-                  <SelectInput
-                    id="merk"
-                    name="merk"
-                    onChange={(e) => setMerk(e.target.value)}
-                    label="Merk"
-                    className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
+                  <FormComp
+                    id="kodeAsset"
+                    type="text"
+                    onChange={(e) => setKodeAset(e.target.value)}
+                    placeholder="Masukan Kode Aset"
                   >
-                    <option value="">Select Merk</option>
-                    <option value="laki-laki">A</option>
-                    <option value="perempuan">B</option>
-                  </SelectInput>
+                    Kode Aset
+                  </FormComp>
                 </div>
                 <div className="mb-2">
                   <FormComp
-                    id="tanggal"
+                    id="merk"
+                    type="text"
+                    onChange={(e) => setMerk(e.target.value)}
+                    placeholder="Masukan merk"
+                  >
+                    Merk
+                  </FormComp>
+                </div>
+                <div className="mb-2">
+                  <FormComp
+                    id="tanggalPembelian"
                     type="date"
                     onChange={(e) => setTanggalPembelian(e.target.value)}
                     placeholder="Masukan tanggal"
@@ -170,42 +208,13 @@ export default function TambahInventory() {
                   </FormComp>
                 </div>
                 <div className="mb-2">
-                  <SelectInput
-                    id="ruangan"
-                    name="ruangan"
-                    onChange={(e) => setRuangan(e.target.value)}
-                    label="Ruangan"
-                    className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
-                  >
-                    <option value="">Select Ruangan</option>
-                    <option value="manager">Manager</option>
-                    <option value="crm">CRM</option>
-                  </SelectInput>
-                </div>
-                <div className="mb-2">
-                  <SelectInput
-                    id="status"
-                    name="status"
-                    onChange={(e) => setStatus(e.target.value)}
-                    label="Status"
-                    className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
-                  >
-                    <option value="">Select Status</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="FrontEnd">FrontEnd</option>
-                    <option value="BackEnd">BackEnd</option>
-                    <option value="UI/UX">UI/UX</option>
-                    <option value="Sistem Analis">System Analyst</option>
-                  </SelectInput>
-                </div>
-                <div className="mb-2">
                   <FormComp
-                    id="nomorInduk"
+                    id="KaryawanId"
                     type="number"
-                    onChange={(e) => setNomorInduk(e.target.value)}
+                    onChange={(e) => setKaryawanId(e.target.value)}
                     placeholder="Masukan nomor induk"
                   >
-                    Nomor Induk
+                    ID Karyawan
                   </FormComp>
                 </div>
                 <div className="mb-2">
@@ -228,61 +237,6 @@ export default function TambahInventory() {
                     placeholder="Masukan masa manfaat"
                   >
                     Masa Manfaat
-                  </FormComp>
-                </div>
-                <div className="mb-2">
-                  <FormComp
-                    id="nilaiResedu"
-                    type="number"
-                    onChange={(e) => setNilaiResedu(e.target.value)}
-                    placeholder="Masukan nilai resedu"
-                  >
-                    Nilai Resedu
-                  </FormComp>
-                </div>
-                <div className="mb-2">
-                  <FormComp
-                    id="tahu1"
-                    type="number"
-                    onChange={(e) => setTahun1(e.target.value)}
-                  >
-                    Tahun 1
-                  </FormComp>
-                </div>
-                <div className="mb-2">
-                  <FormComp
-                    id="tahu2"
-                    type="number"
-                    onChange={(e) => setTahun2(e.target.value)}
-                  >
-                    Tahun 2
-                  </FormComp>
-                </div>
-                <div className="mb-2">
-                  <FormComp
-                    id="tahu3"
-                    type="number"
-                    onChange={(e) => setTahun3(e.target.value)}
-                  >
-                    Tahun 3
-                  </FormComp>
-                </div>
-                <div className="mb-2">
-                  <FormComp
-                    id="tahun4"
-                    type="number"
-                    onChange={(e) => setTahun4(e.target.value)}
-                  >
-                    Tahun 4
-                  </FormComp>
-                </div>
-                <div className="mb-2">
-                  <FormComp
-                    id="depresiasi"
-                    type="number"
-                    onChange={(e) => setDepresiasi(e.target.value)}
-                  >
-                    Depresiasi
                   </FormComp>
                 </div>
                 <div className="mb-2">
@@ -311,7 +265,7 @@ export default function TambahInventory() {
                 Cancel
               </Button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

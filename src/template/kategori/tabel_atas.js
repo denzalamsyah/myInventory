@@ -1,4 +1,29 @@
+import React, { useState, useEffect } from "react";
 export default function TabelAtasKategori() {
+  const [categoryCount, setCategoryCount] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseCategoryName = await fetch(
+          "http://localhost:9000/api/kategori/count",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
+        if (responseCategoryName.ok) {
+          const data = await responseCategoryName.json();
+          setCategoryCount(data);
+        }
+      } catch {
+        console.error("failed to fetch data", error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <div className="flex space-x-[100px]">
       <div>
@@ -26,7 +51,7 @@ export default function TabelAtasKategori() {
         <table>
           <tbody className="text-[12px] text-gray-800">
             <tr className="2xl:text-[16px]">
-              <td className="text-center px-10">3</td>
+              <td className="text-center px-10">{categoryCount}</td>
             </tr>
           </tbody>
         </table>

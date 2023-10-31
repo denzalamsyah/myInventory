@@ -233,7 +233,7 @@ export default function UpdateKaryawan(employee) {
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}
               >
-                cancel
+                Cancel
               </Button>
             </div>
           </div>

@@ -214,9 +214,9 @@ export default function TambahKaryawan() {
                 label="Jabatan"
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                <option value="">Pilih salah satu</option>
-                <option value="manager">Manager</option>
-                <option value="crm">CRM</option>
+                <option value="Staff">Pilih salah satu</option>
+                <option value="Manager">Manager</option>
+                <option value="CRM">CRM</option>
               </SelectInput>
             </div>
             <div className="mb-2">
@@ -256,7 +256,7 @@ export default function TambahKaryawan() {
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}
               >
-                cancel
+                Cancel
               </Button>
             </div>
           </form>

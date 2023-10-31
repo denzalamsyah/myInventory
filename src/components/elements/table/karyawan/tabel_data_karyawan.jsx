@@ -10,7 +10,7 @@ export default function TabelDataKaryawan({ modal }) {
   const [employeeData, setEmployeeData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [screenSize, setScreenSize] = useState("md");
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(4);
   const componentRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
 

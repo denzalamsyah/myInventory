@@ -1,4 +1,3 @@
-import Employee from "@/pages/employee";
 import React, { useState, useEffect } from "react";
 
 export default function TabelAtasKaryawan() {
