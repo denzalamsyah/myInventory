@@ -11,7 +11,7 @@ import withReactContent from "sweetalert2-react-content";
 export default function TambahInventory() {
   const [modal, setModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [karyawanId, setKaryawanId] = useState("");
+  const [karyawanId, setKaryawanId] = useState(0);
   const [nama, setNama] = useState("");
   const [kodeAset, setKodeAset] = useState("");
   const [merk, setMerk] = useState("");
@@ -20,7 +20,7 @@ export default function TambahInventory() {
   const [harga, setHarga] = useState(0);
   const [deskripsi, setDeskripsi] = useState("");
   const [masaManfaat, setMasaManfaat] = useState(0);
-  const [idKategori, setIdKategori] = useState("");
+  const [idKategori, setIdKategori] = useState(0);
   const [imagePreview, setImagePreview] = useState(null);
   const imageInputRef = useRef(null);
   const MySwal = withReactContent(Swal);
@@ -38,17 +38,17 @@ export default function TambahInventory() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("karyawanId", karyawanId);
-    formData.append("nama", nama);
+    formData.append("gambar", selectedImage);
     formData.append("kodeAsset", kodeAset);
+    formData.append("nama", nama);
     formData.append("merk", merk);
+    formData.append("masaManfaat", masaManfaat);
     formData.append("tanggalPembelian", tanggalPembelian);
     formData.append("harga", harga);
-    formData.append("deskripsi", deskripsi);
-    formData.append("masaManfaat", masaManfaat);
-    formData.append("kategoriId", idKategori);
-    formData.append("gambar", selectedImage);
     formData.append("vendor", vendor);
+    formData.append("deskripsi", deskripsi);
+    formData.append("kategoriId", idKategori);
+    formData.append("karyawanId", karyawanId);
     try {
       const response = await fetch("http://localhost:9000/api/inventory", {
         method: "POST",
@@ -70,7 +70,7 @@ export default function TambahInventory() {
 
       if (response.ok) {
         console.log("Data berhasil ditambahkan");
-        setKaryawanId("");
+        setKaryawanId(0);
         setNama("");
         setKodeAset("");
         setMerk("");
@@ -78,9 +78,10 @@ export default function TambahInventory() {
         setHarga(0);
         setDeskripsi("");
         setMasaManfaat(0);
-        setIdKategori("");
+        setIdKategori(0);
         setImagePreview(null);
         setSelectedImage(null);
+        setVendor("");
         router.refresh();
         setModal(false);
       } else {
@@ -231,6 +232,16 @@ export default function TambahInventory() {
               <div>
                 <div className="mb-2">
                   <FormComp
+                    id="vendor"
+                    type="text"
+                    onChange={(e) => setDeskripsi(e.target.value)}
+                    placeholder="Masukan vendor"
+                  >
+                    Vendor
+                  </FormComp>
+                </div>
+                <div className="mb-2">
+                  <FormComp
                     id="masaManfaat"
                     type="number"
                     onChange={(e) => setMasaManfaat(e.target.value)}
@@ -242,7 +253,7 @@ export default function TambahInventory() {
                 <div className="mb-2">
                   <FormComp
                     id="idKategori"
-                    type="text"
+                    type="number"
                     onChange={(e) => setIdKategori(e.target.value)}
                     placeholder="Masukan id kategori"
                   >

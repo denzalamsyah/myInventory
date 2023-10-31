@@ -1,7 +1,3 @@
-import Link from "next/link";
-import { FaTrash } from "react-icons/fa";
-import { PiPencilSimpleLineFill } from "react-icons/pi";
-import { CgMoreO } from "react-icons/cg";
 import { useState, useEffect, useRef } from "react";
 import UpdateInventory from "../../childtabel/inventory/updateInventory";
 import DeleteInventory from "../../childtabel/inventory/deleteInventory";
@@ -30,7 +26,7 @@ export default function TabelDataInventory({ modal }) {
 
   useEffect(() => {
     fetchInventory(currentPage, searchQuery);
-  });
+  }, [currentPage, searchQuery]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -50,11 +46,11 @@ export default function TabelDataInventory({ modal }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const fetchInventory = async () => {
+  const fetchInventory = async (page, query = "") => {
     try {
-      const url = searchQuery
-        ? `http://localhost:9000/api/inventory/search?nama=${searchQuery}`
-        : `http://localhost:9000/api/inventory?page=${currentPage}&size=${pageSize}`;
+      const url = query
+        ? `http://localhost:9000/api/inventory/search?nama=${query}`
+        : `http://localhost:9000/api/inventory?page=${page}&size=${pageSize}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -145,7 +141,7 @@ export default function TabelDataInventory({ modal }) {
                     Status
                   </th>
                   <th className="border border-gray-300 py-1 text-gray-800 text-center">
-                    Nomor Induk
+                    Harga
                   </th>
                 </tr>
               </thead>
@@ -157,7 +153,7 @@ export default function TabelDataInventory({ modal }) {
                       className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                     >
                       <td className="border border-gray-300 py-1">
-                        {inventory.kode_asset}
+                        {inventory.kodeAsset}
                       </td>
                       <td className="border border-gray-300 py-1 px-1 text-left">
                         {inventory.nama}
@@ -180,7 +176,7 @@ export default function TabelDataInventory({ modal }) {
                         {inventory.status}
                       </td>
                       <td className="text-left border border-gray-300 py-1 px-1">
-                        {inventory.nomor_induk}
+                        {inventory.harga}
                       </td>
                       <td className="border border-gray-300">
                         <div className="flex justify-center gap-2">

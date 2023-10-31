@@ -9,22 +9,23 @@ export default function Dashboard() {
   const [content, setContent] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    fetchContent();
-  }, []);
-
   async function fetchContent() {
     const res = await fetch(`http://localhost:9000/api/karyawan`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
+    console.log(res);
     if (res.ok) {
       const text = await res.text();
       setContent(text);
     }
   }
+  useEffect(() => {
+    fetchContent();
+  }, []);
   return (
     <>
       <MetaHead title="Dashboard" description="Welcome to Dashboard" />
