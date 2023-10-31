@@ -18,9 +18,7 @@ export default function Employee() {
           <ChildCard tittle="Karyawan" className="overflow-y-auto">
             <TabelAtasKaryawan />
           </ChildCard>
-          <LargeCard modal={<TambahKaryawan />}>
-            <TabelDataKaryawan />
-          </LargeCard>
+          <TabelDataKaryawan modal={<TambahKaryawan />} />
         </Section>
       </Layout>
     </>

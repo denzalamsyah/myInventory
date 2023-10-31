@@ -5,26 +5,40 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export default function DeleteKaryawan({ id, nama }) {
   const [modal, setModal] = useState(false);
   const router = useRouter();
+  const MySwal = withReactContent(Swal);
 
   function handleChange() {
     setModal(!modal);
   }
   async function handleDelete(employeeId) {
-    await fetch(`http://localhost:9000/api/karyawan/${employeeId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    });
-    router.refresh();
-    setModal(false);
+    const response = await fetch(
+      `http://localhost:9000/api/karyawan/${employeeId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
+    if (response.ok) {
+      setModal(false);
+      MySwal.fire("Berhasil menghapus data!", "Klik tombol!", "success").then(
+        () => {
+          router.refresh();
+        }
+      );
+    } else {
+      MySwal.fire("Gagal menghapus data", "Klik tombol!", "error");
+    }
   }
   return (
-    <div className="">
+    <>
       <Link href="#" className="text-[#DA3E33F7]" onClick={handleChange}>
         <FaTrash />
       </Link>
@@ -57,6 +71,6 @@ export default function DeleteKaryawan({ id, nama }) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

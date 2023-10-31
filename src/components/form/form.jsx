@@ -20,6 +20,7 @@ export default function FormComp({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        required
       />
     </div>
   );

@@ -51,8 +51,8 @@ export default function TabelDataKategori() {
         </tr>
       </thead>
       <tbody className="overflow-scroll">
-        {categoryData && categoryData.length > 0 ? (
-          categoryData.map((category, index) => (
+        {categoryData.data && categoryData.data.length > 0 ? (
+          categoryData.data.map((category, index) => (
             <tr
               key={index}
               className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"

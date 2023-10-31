@@ -32,7 +32,7 @@
 //             </div>
 //             <div className="flex">
 //               <TabelDetailKaryawanComp
-//                 id={data.id}
+//                 id={data.nomorInduk}
 //                 nama={data.nama}
 //                 gender={data.gender}
 //                 email={data.email}
@@ -58,13 +58,10 @@
 //   );
 // }
 
-// export async function getServerSideProps() {
-//   // const id = context.query.id;
-//   // console.log("id", id);
-
-//   const response = await fetch(
-//     `http://localhost:9000/api/karyawan/`
-//   );
+// export async function getServerSideProps(context) {
+//   const id = context.query.id;
+//   console.log("id", id);
+//   const response = await fetch(`http://localhost:9000/api/karyawan/${id}`);
 //   const data = await response.json();
 //   return {
 //     props: { data: data },

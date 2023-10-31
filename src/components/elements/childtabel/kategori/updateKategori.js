@@ -5,31 +5,42 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PiPencilSimpleLineFill } from "react-icons/pi";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function UpdateKategori(category) {
   const [modal, setModal] = useState(false);
   // const [idKategori, setIdKategori] = useState(category.idKategori);
   const [namakategori, setNamaKategori] = useState(category.nama);
   const router = useRouter();
+  const MySwal = withReactContent(Swal);
   function handleChange() {
     setModal(!modal);
   }
 
   async function handleUpdate(e) {
     e.preventDefault();
-    await fetch(`http://localhost:9000/api/kategori/${category.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        nama: namakategori,
-      }),
-    });
-
-    router.refresh();
-    setModal(false);
+    const response = await fetch(
+      `http://localhost:9000/api/kategori/${category.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          nama: namakategori,
+        }),
+      }
+    );
+    if (response.ok) {
+      setModal(false);
+      MySwal.fire("Updated!", "Klik tombol!", "success").then(() => {
+        router.refresh();
+      });
+    } else {
+      MySwal.fire("Update Gagal", "Klik tombol!", "error");
+    }
   }
   return (
     <div className="">

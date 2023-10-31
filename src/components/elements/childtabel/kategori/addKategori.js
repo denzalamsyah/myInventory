@@ -1,39 +1,43 @@
 "use client";
 import Button from "@/components/elements/button/button";
 import FormComp from "@/components/form/form";
-import SelectInput from "@/components/form/select";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export default function TambahKategori() {
   const [modal, setModal] = useState(false);
 
   // const [idKategori, setIdKategori] = useState("");
   const [namakategori, setNamaKategori] = useState("");
   const router = useRouter();
+  const MySwal = withReactContent(Swal);
   function handleChange() {
     setModal(!modal);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await fetch("http://localhost:9000/api/kategori", {
+    const response = await fetch("http://localhost:9000/api/kategori", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        // idKategori: idKategori,
         nama: namakategori,
       }),
     });
-    // setIdKategori("");
-    setNamaKategori("");
-
-    router.refresh();
-    setModal(false);
+    if (response.ok) {
+      setModal(false);
+      MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(
+        () => {
+          router.refresh();
+        }
+      );
+    } else {
+      MySwal.fire("Gagal menambahkan", "Klik tombol!", "error");
+    }
   }
   return (
     <div className="">

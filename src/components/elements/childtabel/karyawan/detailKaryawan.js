@@ -18,7 +18,7 @@ export default function DetailKaryawan(employee) {
   const fetchEmployee = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/karyawan/${employee.nomorInduk}`,
+        `http://localhost:9000/api/karyawan/${employee.id}`,
         {
           method: "GET",
           headers: {
@@ -27,14 +27,11 @@ export default function DetailKaryawan(employee) {
           },
         }
       );
+      console.log("response", response);
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
-
-      // Log the response to inspect what you received
-      console.log(response);
-
       const data = await response.json();
       setEmployeeData(data);
     } catch (error) {
@@ -47,7 +44,7 @@ export default function DetailKaryawan(employee) {
   }, []);
 
   return (
-    <div className="">
+    <>
       <Link
         href="#" // teknik template
         className="text-[#1570EF]"
@@ -105,6 +102,6 @@ export default function DetailKaryawan(employee) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

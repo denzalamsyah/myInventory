@@ -9,8 +9,15 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      scrollbar: {
+        width: "20px",
+        track: "inset 0 0 5px grey",
+        thumb: "red",
+        thumbHover: "#b30000",
+      },
+    },
   },
 
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("tailwind-scrollbar")],
 };
