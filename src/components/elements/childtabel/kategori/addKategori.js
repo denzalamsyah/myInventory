@@ -59,7 +59,7 @@ export default function TambahKategori() {
           <h1 className="font-bold text-lg text-black mb-3">
             Tambah Data Kategori
           </h1>
-          <div>
+          <form onSubmit={handleSubmit} method="POST">
             <div className="mb-2">
               <FormComp
                 id="namaKategori"
@@ -74,7 +74,7 @@ export default function TambahKategori() {
             <div className=" modal-action flex mt-4">
               <Button
                 className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                onClick={handleSubmit}
+                type="submit"
               >
                 Add
               </Button>
@@ -85,7 +85,7 @@ export default function TambahKategori() {
                 Cancel
               </Button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

@@ -2,6 +2,8 @@ import React, { Children, useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Sidebar = ({ children }) => {
   const menus = [
@@ -25,6 +27,25 @@ const Sidebar = ({ children }) => {
     { name: "Repair History", link: "/repairhistory", icon: "/img/icon8.png" },
   ];
   const [open, setOpen] = useState(true);
+  const [profile, setProfile] = useState();
+  const router = useRouter();
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+  async function fetchProfile() {
+    const res = await fetch("http://localhost:9000/api/login", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+  }
+
+  function logout() {
+    localStorage.removeItem("token");
+    router.push("/");
+  }
   return (
     <section className="flex gap-6">
       <div
@@ -77,7 +98,7 @@ const Sidebar = ({ children }) => {
           ))}
         </div>
         <div className="py-5 text-sm fixed bottom-0">
-          <Link href="/">
+          <Link href="" onClick={logout}>
             <div className="px-2">
               <Image
                 src="/img/logout.png"

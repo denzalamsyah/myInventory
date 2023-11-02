@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { CgMoreO } from "react-icons/cg";
-import UpdateUsage from "../../childtabel/room/update";
+import UpdateUsage from "../../childtabel/room/updateRoom";
 import DeleteUsage from "../../childtabel/room/deleteRoom";
 
 export default function TabelDataUsageHistory() {

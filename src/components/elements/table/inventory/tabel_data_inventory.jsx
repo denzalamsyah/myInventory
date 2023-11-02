@@ -5,7 +5,8 @@ import Image from "next/image";
 import ReactToPrint from "react-to-print";
 import Button from "../../button/button";
 import { BiSearch } from "react-icons/bi";
-import DetailIventory from "@/pages/inventory/details/[id]";
+import TabelDetailInventoryComp from "./tabel_detail_inventory";
+import DetailInventory from "../../childtabel/inventory/detailInventory";
 export default function TabelDataInventory({ modal }) {
   const [inventoryData, setInventoryData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -79,20 +80,13 @@ export default function TabelDataInventory({ modal }) {
         <div className="flex items-center justify-between mb-6">
           <div className="md:flex md:gap-2 md:space-y-0 space-y-2">
             {modal}
-            <ReactToPrint
-              trigger={() => (
-                <Button
-                  className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-                  href="#"
-                  type="submit"
-                >
-                  Download All
-                </Button>
-              )}
-              content={() => componentRef.current} // Gunakan componentRef.current
-              documentTitle="Data"
-              pageStyle="print"
-            />
+            <Button
+              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              href=""
+              type="submit"
+            >
+              Download All
+            </Button>
           </div>
           <form
             className="hidden md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
@@ -124,24 +118,27 @@ export default function TabelDataInventory({ modal }) {
           <div>
             <table className="table caption-top">
               <thead className=" bg-slate-200">
-                <tr className="2xl:text-lg">
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                <tr className="2xl:text-lg py-3">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Kode Aset
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Nama
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Gambar
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Merk
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Status
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Harga
+                  </th>
+                  <th className="border border-gray-300  text-gray-800 text-center">
+                    Action
                   </th>
                 </tr>
               </thead>
@@ -163,9 +160,9 @@ export default function TabelDataInventory({ modal }) {
                           <Image
                             alt={inventory.nama}
                             src={inventory.gambar}
-                            width={25}
-                            height={25}
-                            className="rounded-md"
+                            width={50}
+                            height={50}
+                            className="rounded-sm"
                           />
                         </div>
                       </td>
@@ -181,7 +178,7 @@ export default function TabelDataInventory({ modal }) {
                       <td className="border border-gray-300">
                         <div className="flex justify-center gap-2">
                           <div className="flex items-center justify-center">
-                            <DetailIventory {...inventory} />
+                            <DetailInventory {...inventory} />
                           </div>
                           <div className="flex items-center justify-center">
                             {/* update */}

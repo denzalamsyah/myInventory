@@ -3,29 +3,29 @@ import Layout from "@/components/layout/layout";
 import Sidebar from "@/components/sidebar/sidebar";
 import SectionDashboard from "@/template/dashboard/dashboard";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export default function Dashboard() {
-  const [content, setContent] = useState(null);
+  const MySwal = withReactContent(Swal);
   const router = useRouter();
 
-  async function fetchContent() {
-    const res = await fetch(`http://localhost:9000/api/karyawan`, {
-      method: "GET",
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+  async function fetchProfile() {
+    const res = await fetch("http://localhost:9000/api/karyawan", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
-    console.log(res);
-    if (res.ok) {
-      const text = await res.text();
-      setContent(text);
+
+    if (!res.ok) {
+      router.push("/login");
+      MySwal.fire("Login dulu", "Klik tombol!", "error");
     }
   }
-  useEffect(() => {
-    fetchContent();
-  }, []);
   return (
     <>
       <MetaHead title="Dashboard" description="Welcome to Dashboard" />

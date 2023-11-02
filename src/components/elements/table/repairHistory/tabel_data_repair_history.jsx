@@ -1,31 +1,28 @@
 import { useState, useEffect, useRef } from "react";
-import { CgMoreO } from "react-icons/cg";
-import { BiSearch } from "react-icons/bi";
-import Button from "../../button/button";
 import ReactToPrint from "react-to-print";
-import UpdateRoom from "../../childtabel/room/updateRoom";
-import DeleteRoom from "../../childtabel/room/deleteRoom";
-
-export default function TabelDataRoom({ modal }) {
-  const [roomData, setRoomData] = useState([]);
-  const componentRef = useRef(null);
-  const [searchQuery, setSearchQuery] = useState("");
+import Button from "../../button/button";
+import { BiSearch } from "react-icons/bi";
+import UpdatePerbaikan from "../../childtabel/repair/updateRepair";
+import DeletePerbaikan from "../../childtabel/repair/deleteRepair";
+export default function TabelDataRepairHistory({ modal }) {
+  const [repairDataHistory, setRepairData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [screenSize, setScreenSize] = useState("md");
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(4);
+  const componentRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const screenSizes = {
-    "2xl": 10,
-    md: 5,
+    "2xl": 6,
+    md: 4,
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchRoom(currentPage, searchQuery); // Gunakan searchQuery
+    fetchRepair(currentPage, searchQuery);
   };
-
   useEffect(() => {
-    fetchRoom(currentPage, searchQuery);
+    fetchRepair(currentPage, searchQuery);
   }, [currentPage, searchQuery]);
 
   useEffect(() => {
@@ -53,11 +50,11 @@ export default function TabelDataRoom({ modal }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const fetchRoom = async (page, query = "") => {
+  const fetchRepair = async (page, query = "") => {
     try {
       const url = query
-        ? `http://localhost:9000/api/ruangan/search?nama=${query}`
-        : `http://localhost:9000/api/ruangan?page=${page}&size=${pageSize}`;
+        ? `http://localhost:9000/api/perbaikan/search?nama=${query}`
+        : `http://localhost:9000/api/perbaikan?page=${page}&size=${pageSize}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -69,21 +66,22 @@ export default function TabelDataRoom({ modal }) {
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
+
       console.log(response);
 
       const data = await response.json();
-      setRoomData(data);
+      setRepairData(data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchRoom(currentPage);
+    fetchRepair(currentPage);
   }, [currentPage]);
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-md px-4 pt-6 shadow-lg">
+    <div className="flex flex-col h-full bg-white rounded-md px-4 py-6 shadow-lg">
       <div className="px-[5px]">
         <div className="flex items-center justify-between mb-6">
           <div className="md:flex md:gap-2 md:space-y-0 space-y-2">
@@ -98,7 +96,7 @@ export default function TabelDataRoom({ modal }) {
                   Download All
                 </Button>
               )}
-              content={() => componentRef.current} // Gunakan componentRef.current
+              content={() => componentRef.current}
               documentTitle="Data"
               pageStyle="print"
             />
@@ -125,44 +123,77 @@ export default function TabelDataRoom({ modal }) {
           ref={componentRef}
           className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
           style={{
-            height: "45vh",
+            height: "65vh",
             width: "148vh",
             scrollSnapType: "x mandatory",
           }}
         >
           <div>
             <table className="table caption-top w-full">
-              <thead className="w-auto bg-slate-200">
-                <tr className="text-[12px] 2xl:text-lg">
+              <thead className=" bg-slate-200">
+                <tr className="2xl:text-lg py-3">
                   <th className="border border-gray-300 py-1 text-gray-800 text-center">
-                    ID Ruangan
+                    ID
                   </th>
                   <th className="border border-gray-300 py-1 text-gray-800 text-center">
-                    Nama Ruangan
+                    Kode Aset
                   </th>
                   <th className="border border-gray-300 py-1 text-gray-800 text-center">
-                    Action
+                    Tanggal Kerusakan
+                  </th>
+                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                    Tanggal Perbaikan
+                  </th>
+                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                    Biaya
+                  </th>
+                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                    Tanggal Selesai Diperbaiki
+                  </th>
+                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                    Deskripsi
                   </th>
                 </tr>
               </thead>
-              <tbody className="overflow-scroll">
-                {roomData.data && roomData.data.length > 0 ? (
-                  roomData.data.map((room, index) => (
+              <tbody className="">
+                {repairDataHistory.data && repairDataHistory.data.length > 0 ? (
+                  repairDataHistory.data.map((repair, index) => (
                     <tr
                       key={index}
-                      className="text-center border text-black border-gray-300"
+                      className="text-center border text-[12px] text-black border-gray-300"
                     >
-                      <td className="border border-gray-300 py-1 text-[12px] 2xl:text-lg">
+                      <td className="border border-gray-300 py-1">
                         {index + 1}
                       </td>
-                      <td className="border border-gray-300 py-1 px-1 text-[12px] 2xl:text-lg">
-                        {room.nama}
+                      <td className="border border-gray-300 py-1 px-1">
+                        {repair.tanggalKerusakan}
                       </td>
-                      <td className="flex space-x-2  py-4 justify-center">
-                        {/* update */}
-                        <UpdateRoom {...room} />
-                        {/* delete */}
-                        <DeleteRoom id={room.id} nama={room.nama} />
+                      <td className="border border-gray-300 py-1 px-1">
+                        {repair.tanggalPerbaikan}
+                      </td>
+                      <td className="border border-gray-300 py-1 px-1">
+                        {repair.biaya}
+                      </td>
+                      <td className="border border-gray-300 py-1 px-1">
+                        {repair.tanggalSelesaiPerbaikan}
+                      </td>
+                      <td className="border border-gray-300 py-1 px-1">
+                        {repair.deskripsi}
+                      </td>
+                      <td className="border border-gray-300">
+                        <div className="flex justify-center gap-2">
+                          <div className="flex items-center justify-center">
+                            {/* update */}
+                            <UpdatePerbaikan {...repair} />
+                          </div>
+                          <div className="flex items-center justify-center">
+                            {/* delete */}
+                            <DeletePerbaikan
+                              id={repair.id}
+                              nama={repair.inventoryId}
+                            />
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   ))
@@ -191,7 +222,7 @@ export default function TabelDataRoom({ modal }) {
           <button
             className="join-item bg-transparent hover:bg-blue-700 hover:text-white p-2"
             onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === roomData.totalPages}
+            disabled={currentPage === repairDataHistory.totalPages}
           >
             »
           </button>

@@ -1,6 +1,6 @@
 import MetaHead from "@/components/MetaHead/metahead";
-import LargeCard from "@/components/elements/childtabel/largetabel";
-import TabelDataRepairHistory from "@/components/elements/table/repairHistory/tabel_data_usage_history";
+import TambahPerbaikan from "@/components/elements/childtabel/repair/addRepair";
+import TabelDataRepairHistory from "@/components/elements/table/repairHistory/tabel_data_repair_history";
 import Layout from "@/components/layout/layout";
 import Section from "@/components/section/section";
 import Sidebar from "@/components/sidebar/sidebar";
@@ -15,9 +15,7 @@ export default function RepairHistory() {
       <Layout>
         <Sidebar />
         <Section>
-          <LargeCard>
-            <TabelDataRepairHistory />
-          </LargeCard>
+          <TabelDataRepairHistory modal={<TambahPerbaikan />} />
         </Section>
       </Layout>
     </>

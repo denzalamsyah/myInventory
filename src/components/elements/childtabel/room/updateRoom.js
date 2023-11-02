@@ -5,31 +5,43 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PiPencilSimpleLineFill } from "react-icons/pi";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function UpdateRoom(room) {
   const [modal, setModal] = useState(false);
-  const [idRuangan, setIdRuangan] = useState(room.idRuangan);
+  // const [idRuangan, setIdRuangan] = useState(room.idRuangan);
   const [namaRuangan, setNamaRuangan] = useState(room.nama);
   const router = useRouter();
+  const MySwal = withReactContent(Swal);
   function handleChange() {
     setModal(!modal);
   }
 
   async function handleUpdate(e) {
     e.preventDefault();
-    await fetch(`http://localhost:8080/ruangan/${room.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        idRuangan: idRuangan,
-        nama: namaRuangan,
-      }),
-    });
-
-    router.refresh();
-    setModal(false);
+    const response = await fetch(
+      `http://localhost:9000/api/ruangan/${room.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          // idRuangan: idRuangan,
+          nama: namaRuangan,
+        }),
+      }
+    );
+    if (response.ok) {
+      setModal(false);
+      MySwal.fire("Updated!", "Klik tombol!", "success").then(() => {
+        router.refresh();
+      });
+    } else {
+      MySwal.fire("Update Gagal", "Klik tombol!", "error");
+    }
   }
   return (
     <div className="">
@@ -48,16 +60,6 @@ export default function UpdateRoom(room) {
             Edit Ruangan {room.nama}
           </h1>
           <div>
-            <div className="mb-2">
-              <FormComp
-                id="idRuangan"
-                type="text"
-                onChange={(e) => setIdRuangan(e.target.value)}
-                placeholder={room.idRuangan}
-              >
-                ID Ruangan
-              </FormComp>
-            </div>
             <div className="mb-2">
               <FormComp
                 id="namaRuangan"

@@ -18,9 +18,7 @@ export default function Room() {
           <ChildCard tittle="Room" className="overflow-y-auto">
             <TabelAtasRoom />
           </ChildCard>
-          <LargeCard modal={<TambahRoom />}>
-            <TabelDataRoom />
-          </LargeCard>
+          <TabelDataRoom modal={<TambahRoom />} />
         </Section>
       </Layout>
     </>

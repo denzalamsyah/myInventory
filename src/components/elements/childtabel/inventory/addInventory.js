@@ -5,7 +5,6 @@ import SelectInput from "@/components/form/select";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
-import Upload from "../../uploadImage/upload";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 export default function TambahInventory() {
@@ -16,13 +15,14 @@ export default function TambahInventory() {
   const [kodeAset, setKodeAset] = useState("");
   const [merk, setMerk] = useState("");
   const [vendor, setVendor] = useState("");
-  const [tanggalPembelian, setTanggalPembelian] = useState("");
+  const [tanggalPembelian, setTanggalPembelian] = useState(null);
   const [harga, setHarga] = useState(0);
   const [deskripsi, setDeskripsi] = useState("");
   const [masaManfaat, setMasaManfaat] = useState(0);
   const [idKategori, setIdKategori] = useState(0);
   const [imagePreview, setImagePreview] = useState(null);
   const imageInputRef = useRef(null);
+  const [idRuangan, setIdRuangan] = useState(0);
   const MySwal = withReactContent(Swal);
   const router = useRouter();
   const onImageUpload = (e) => {
@@ -49,6 +49,7 @@ export default function TambahInventory() {
     formData.append("deskripsi", deskripsi);
     formData.append("kategoriId", idKategori);
     formData.append("karyawanId", karyawanId);
+    formData.append("ruanganId", idRuangan);
     try {
       const response = await fetch("http://localhost:9000/api/inventory", {
         method: "POST",
@@ -74,7 +75,7 @@ export default function TambahInventory() {
         setNama("");
         setKodeAset("");
         setMerk("");
-        setTanggalPembelian("");
+        setTanggalPembelian(null);
         setHarga(0);
         setDeskripsi("");
         setMasaManfaat(0);
@@ -127,7 +128,7 @@ export default function TambahInventory() {
                       objectFit="cover"
                     />
                     <button
-                      className="absolute top-0 text-[10px] right-0 text-black rounded-md p-1"
+                      className="absolute top-0 text-[8px] right-0 text-black rounded-sm bg-gray-300 p-1"
                       onClick={() => {
                         setImagePreview(null);
                         document.getElementById("imageInput").value = ""; // Clear the file input
@@ -223,7 +224,7 @@ export default function TambahInventory() {
                     id="deskripsi"
                     type="text"
                     onChange={(e) => setDeskripsi(e.target.value)}
-                    placeholder="Masukan deskripsi"
+                    placeholder="Masukkan deskripsi"
                   >
                     Deskripsi
                   </FormComp>
@@ -234,7 +235,7 @@ export default function TambahInventory() {
                   <FormComp
                     id="vendor"
                     type="text"
-                    onChange={(e) => setDeskripsi(e.target.value)}
+                    onChange={(e) => setVendor(e.target.value)}
                     placeholder="Masukan vendor"
                   >
                     Vendor
@@ -260,12 +261,22 @@ export default function TambahInventory() {
                     ID Kategori
                   </FormComp>
                 </div>
+                <div className="mb-2">
+                  <FormComp
+                    id="idRuangan"
+                    type="number"
+                    onChange={(e) => setIdRuangan(e.target.value)}
+                    placeholder="Masukan id ruangan"
+                  >
+                    ID Ruangan
+                  </FormComp>
+                </div>
               </div>
             </div>
             <div className=" modal-action flex mt-4">
               <Button
                 className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                onClick={handleSubmit}
+                type="submit"
               >
                 Add
               </Button>

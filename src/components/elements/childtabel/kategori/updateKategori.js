@@ -59,16 +59,6 @@ export default function UpdateKategori(category) {
             Edit kategori {category.nama}
           </h1>
           <div>
-            {/* <div className="mb-2">
-              <FormComp
-                id="idKategori"
-                type="text"
-                onChange={(e) => setIdKategori(e.target.value)}
-                placeholder={category.idKategori}
-              >
-                ID Kategori
-              </FormComp>
-            </div> */}
             <div className="mb-2">
               <FormComp
                 id="namaKategori"

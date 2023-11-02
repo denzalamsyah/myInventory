@@ -1,36 +1,44 @@
 "use client";
 import Button from "@/components/elements/button/button";
 import FormComp from "@/components/form/form";
-import SelectInput from "@/components/form/select";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function TambahRoom() {
   const [modal, setModal] = useState(false);
-  const [idRuangan, setIdRuangan] = useState("");
+  // const [idRuangan, setIdRuangan] = useState("");
   const [namaRuangan, setNamaRuangan] = useState("");
   const router = useRouter();
+  const MySwal = withReactContent(Swal);
   function handleChange() {
     setModal(!modal);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await fetch("http://localhost:8080/category", {
+    const response = await fetch("http://localhost:9000/api/ruangan", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        idRuangan: idRuangan,
+        // idRuangan: idRuangan,
         nama: namaRuangan,
       }),
     });
-    setIdRuangan("");
-
-    router.refresh();
-    setModal(false);
+    if (response.ok) {
+      setModal(false);
+      MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(
+        () => {
+          router.refresh();
+        }
+      );
+    } else {
+      MySwal.fire("Gagal menambahkan", "Klik tombol!", "error");
+    }
   }
   return (
     <div className="">
@@ -52,17 +60,7 @@ export default function TambahRoom() {
           <h1 className="font-bold text-lg text-black mb-3">
             Tambah Data Ruangan
           </h1>
-          <div>
-            <div className="mb-2">
-              <FormComp
-                id="idRuangan"
-                type="text"
-                onChange={(e) => setIdRuangan(e.target.value)}
-                placeholder="Masukan ID Ruangan"
-              >
-                ID Ruangan
-              </FormComp>
-            </div>
+          <form onSubmit={handleSubmit} method="POST">
             <div className="mb-2">
               <FormComp
                 id="namaRuangan"
@@ -77,7 +75,7 @@ export default function TambahRoom() {
             <div className=" modal-action flex mt-4">
               <Button
                 className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                onClick={handleSubmit}
+                type="submit"
               >
                 Add
               </Button>
@@ -88,7 +86,7 @@ export default function TambahRoom() {
                 Cancel
               </Button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

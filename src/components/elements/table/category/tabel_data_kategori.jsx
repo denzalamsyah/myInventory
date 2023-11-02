@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { CgMoreO } from "react-icons/cg";
 import DeleteKategori from "../../childtabel/kategori/deleteKategori";
 import UpdateKategori from "../../childtabel/kategori/updateKategori";
 import { BiSearch } from "react-icons/bi";
@@ -14,9 +12,7 @@ export default function TabelDataKategori({ modal }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [screenSize, setScreenSize] = useState("md");
   const [pageSize, setPageSize] = useState(5);
-  const calculateNextId = (page, pageSize) => {
-    return (page - 1) * pageSize + index + 1;
-  };
+  const [downloadCategories, setDownloadCategories] = useState(null);
   const screenSizes = {
     "2xl": 10,
     md: 5,
@@ -70,8 +66,6 @@ export default function TabelDataKategori({ modal }) {
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
-
-      // Log the response to inspect what you received
       console.log(response);
 
       const data = await response.json();
@@ -90,20 +84,13 @@ export default function TabelDataKategori({ modal }) {
         <div className="flex items-center justify-between mb-6">
           <div className="md:flex md:gap-2 md:space-y-0 space-y-2">
             {modal}
-            <ReactToPrint
-              trigger={() => (
-                <Button
-                  className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-                  href="#"
-                  type="submit"
-                >
-                  Download All
-                </Button>
-              )}
-              content={() => componentRef.current} // Gunakan componentRef.current
-              documentTitle="Data"
-              pageStyle="print"
-            />
+            <Button
+              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              href=""
+              type="submit"
+            >
+              Download All
+            </Button>
           </div>
           <form
             className="hidden md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
@@ -160,7 +147,6 @@ export default function TabelDataKategori({ modal }) {
                       <td className="border border-gray-300 py-1 px-1">
                         {category.nama}
                       </td>
-
                       <td className="flex space-x-2  py-4 justify-center">
                         {/* update */}
                         <UpdateKategori {...category} />
