@@ -27,14 +27,14 @@ const Sidebar = ({ children }) => {
     { name: "Repair History", link: "/repairhistory", icon: "/img/icon8.png" },
   ];
   const [open, setOpen] = useState(true);
-  const [profile, setProfile] = useState();
   const router = useRouter();
 
   useEffect(() => {
     fetchProfile();
   }, []);
   async function fetchProfile() {
-    const res = await fetch("http://localhost:9000/api/login", {
+    const res = await fetch("http://localhost:9000/api/kategori", {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),

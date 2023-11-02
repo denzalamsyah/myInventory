@@ -7,7 +7,10 @@ import { useRouter } from "next/router";
 import InputComp from "@/components/elements/input/input";
 import InputPassComp from "@/components/elements/input/inputPass";
 import MetaHead from "@/components/MetaHead/metahead";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 export default function SignIn() {
+  const MySwal = withReactContent(Swal);
   const router = useRouter();
   const [state, setState] = useState({
     email: "",
@@ -30,9 +33,14 @@ export default function SignIn() {
     if (res.ok) {
       const json = await res.json();
       localStorage.setItem("token", json.token);
-      router.push("/dashboard");
+
+      MySwal.fire("Login berhasil!", "Klik tombol!", "success").then(() => {
+        router.push("/dashboard");
+      });
     } else {
-      alert("Login gagal");
+      MySwal.fire("Login gagal!", "Email or Password incorrect!", "error").then(
+        () => {}
+      );
     }
   }
 

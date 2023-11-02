@@ -65,6 +65,7 @@ export default function UpdateKategori(category) {
                 type="text"
                 onChange={(e) => setNamaKategori(e.target.value)}
                 placeholder={category.nama}
+                value={namakategori}
               >
                 Nama Kategori
               </FormComp>

@@ -66,6 +66,7 @@ export default function UpdateRoom(room) {
                 type="text"
                 onChange={(e) => setNamaRuangan(e.target.value)}
                 placeholder={room.nama}
+                value={namaRuangan}
               >
                 Nama Ruangan
               </FormComp>

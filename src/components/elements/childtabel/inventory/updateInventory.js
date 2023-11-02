@@ -25,12 +25,7 @@ export default function UpdateInventory(inventory) {
   const [status, setStatus] = useState(inventory.status);
   const [deskripsi, setDeskripsi] = useState(inventory.deskripsi);
   const [masaManfaat, setMasaManfaat] = useState(inventory.masaManfaat);
-  // const [nilaiResedu, setNilaiResedu] = useState(inventory.nilaiResidu);
-  // const [tahun1, setTahun1] = useState(inventory.tahun1);
-  // const [tahun2, setTahun2] = useState(inventory.tahun2);
-  // const [tahun3, setTahun3] = useState(inventory.tahun3);
-  // const [tahun4, setTahun4] = useState(inventory.tahun4);
-  // const [depresiasi, setDepresiasi] = useState(inventory.depresiasi);
+
   const [idKategori, setIdKategori] = useState(inventory.kategoriId);
   const [imagePreview, setImagePreview] = useState(null);
   const imageInputRef = useRef(null);
@@ -60,12 +55,6 @@ export default function UpdateInventory(inventory) {
     formData.append("deskripsi", deskripsi);
     formData.append("kategoriId", idKategori);
     formData.append("karyawanId", karyawanId);
-    // formData.append("nilaiResidu", nilaiResedu);
-    // formData.append("tahun1", tahun1);
-    // formData.append("tahun2", tahun2);
-    // formData.append("tahun3", tahun3);
-    // formData.append("tahun4", tahun4);
-    // formData.append("depresiasi", depresiasi);
     formData.append("status", status);
     formData.append("ruanganId", idRuangan);
 
@@ -151,6 +140,7 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="kodeAset"
                     type="text"
+                    value={kodeAset}
                     onChange={(e) => setKodeAset(e.target.value)}
                     placeholder={inventory.kodeAsset}
                   >
@@ -161,6 +151,7 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="nama"
                     type="text"
+                    value={nama}
                     onChange={(e) => setNama(e.target.value)}
                     placeholder={inventory.nama}
                   >
@@ -171,6 +162,7 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="merk"
                     type="text"
+                    value={merk}
                     onChange={(e) => setMerk(e.target.value)}
                     placeholder={inventory.merk}
                   >
@@ -181,6 +173,7 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="vendor"
                     type="text"
+                    value={vendor}
                     onChange={(e) => setVendor(e.target.value)}
                     placeholder={inventory.vendor}
                   >
@@ -191,6 +184,7 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="tanggal"
                     type="date"
+                    value={tanggalPembelian}
                     onChange={(e) => setTanggalPembelian(e.target.value)}
                     placeholder={inventory.tanggalPembelian}
                   >
@@ -201,6 +195,7 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="harga"
                     type="number"
+                    value={harga}
                     onChange={(e) => setHarga(e.target.value)}
                     placeholder={inventory.harga}
                   >
@@ -211,6 +206,7 @@ export default function UpdateInventory(inventory) {
                   <SelectInput
                     id="status"
                     name="status"
+                    value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     label="Status"
                     className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
@@ -225,6 +221,7 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="idRuangan"
                     type="number"
+                    value={idRuangan}
                     onChange={(e) => setIdRuangan(e.target.value)}
                     placeholder={inventory.ruanganId}
                   >
@@ -235,6 +232,7 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="deskripsi"
                     type="text"
+                    value={deskripsi}
                     onChange={(e) => setDeskripsi(e.target.value)}
                     placeholder={inventory.deskripsi}
                   >
@@ -247,76 +245,19 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="masaManfaat"
                     type="number"
+                    value={masaManfaat}
                     onChange={(e) => setMasaManfaat(e.target.value)}
                     placeholder={inventory.masaManfaat}
                   >
                     Masa Manfaat
                   </FormComp>
                 </div>
-                {/* <div className="mb-2 text-left">
-                  <FormComp
-                    id="nilaiResedu"
-                    type="number"
-                    onChange={(e) => setNilaiResedu(e.target.value)}
-                    placeholder={inventory.nilaiResedu}
-                  >
-                    Nilai Resedu
-                  </FormComp>
-                </div>
-                <div className="mb-2 text-left">
-                  <FormComp
-                    id="tahu1"
-                    type="number"
-                    onChange={(e) => setTahun1(e.target.value)}
-                    placeholder={inventory.tahun1}
-                  >
-                    Tahun 1
-                  </FormComp>
-                </div>
-                <div className="mb-2 text-left">
-                  <FormComp
-                    id="tahu2"
-                    type="number"
-                    onChange={(e) => setTahun2(e.target.value)}
-                    placeholder={inventory.tahun2}
-                  >
-                    Tahun 2
-                  </FormComp>
-                </div>
-                <div className="mb-2 text-left">
-                  <FormComp
-                    id="tahu3"
-                    type="number"
-                    onChange={(e) => setTahun3(e.target.value)}
-                    placeholder={inventory.tahun3}
-                  >
-                    Tahun 3
-                  </FormComp>
-                </div>
-                <div className="mb-2 text-left">
-                  <FormComp
-                    id="tahun4"
-                    type="number"
-                    onChange={(e) => setTahun4(e.target.value)}
-                    placeholder={inventory.tahun4}
-                  >
-                    Tahun 4
-                  </FormComp>
-                </div>
-                <div className="mb-2 text-left">
-                  <FormComp
-                    id="depresiasi"
-                    type="number"
-                    onChange={(e) => setDepresiasi(e.target.value)}
-                    placeholder={inventory.depresiasi}
-                  >
-                    Depresiasi
-                  </FormComp>
-                </div> */}
+
                 <div className="mb-2 text-left">
                   <FormComp
                     id="idKategori"
                     type="number"
+                    value={idKategori}
                     onChange={(e) => setIdKategori(e.target.value)}
                     placeholder={inventory.idKategori}
                   >
@@ -327,6 +268,7 @@ export default function UpdateInventory(inventory) {
                   <FormComp
                     id="idKaryawan"
                     type="number"
+                    value={karyawanId}
                     onChange={(e) => setKaryawanId(e.target.value)}
                     placeholder={inventory.idKaryawan}
                   >

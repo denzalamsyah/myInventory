@@ -13,9 +13,7 @@ export default function UsageHistory() {
       <Layout>
         <Sidebar />
         <Section>
-          <LargeCard>
-            <TabelDataUsageHistory />
-          </LargeCard>
+          <TabelDataUsageHistory />
         </Section>
       </Layout>
     </>
