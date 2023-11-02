@@ -8,7 +8,7 @@ import withReactContent from "sweetalert2-react-content";
 
 export default function TambahRoom() {
   const [modal, setModal] = useState(false);
-  // const [idRuangan, setIdRuangan] = useState("");
+  const [kodeRuangan, setKodeRuangan] = useState("");
   const [namaRuangan, setNamaRuangan] = useState("");
   const router = useRouter();
   const MySwal = withReactContent(Swal);
@@ -25,7 +25,7 @@ export default function TambahRoom() {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        // idRuangan: idRuangan,
+        kode: kodeRuangan,
         nama: namaRuangan,
       }),
     });
@@ -63,6 +63,16 @@ export default function TambahRoom() {
           <form onSubmit={handleSubmit} method="POST">
             <div className="mb-2">
               <FormComp
+                id="kodeRuangan"
+                type="text"
+                onChange={(e) => setKodeRuangan(e.target.value)}
+                placeholder="Masukan kode Ruangan"
+              >
+                Kode Ruangan
+              </FormComp>
+            </div>
+            <div className="mb-2">
+              <FormComp
                 id="namaRuangan"
                 type="text"
                 onChange={(e) => setNamaRuangan(e.target.value)}
@@ -71,7 +81,6 @@ export default function TambahRoom() {
                 Nama Ruangan
               </FormComp>
             </div>
-
             <div className=" modal-action flex mt-4">
               <Button
                 className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"

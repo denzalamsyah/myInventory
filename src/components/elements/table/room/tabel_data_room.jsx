@@ -138,6 +138,9 @@ export default function TabelDataRoom({ modal }) {
                     ID Ruangan
                   </th>
                   <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                    Kode Ruangan
+                  </th>
+                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
                     Nama Ruangan
                   </th>
                   <th className="border border-gray-300 py-1 text-gray-800 text-center">
@@ -154,6 +157,9 @@ export default function TabelDataRoom({ modal }) {
                     >
                       <td className="border border-gray-300 py-1 text-[12px] 2xl:text-lg">
                         {index + 1}
+                      </td>
+                      <td className="border border-gray-300 py-1 px-1 text-[12px] 2xl:text-lg">
+                        {room.kode}
                       </td>
                       <td className="border border-gray-300 py-1 px-1 text-[12px] 2xl:text-lg">
                         {room.nama}

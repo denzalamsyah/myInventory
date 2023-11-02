@@ -10,7 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 
 export default function UpdateKategori(category) {
   const [modal, setModal] = useState(false);
-  // const [idKategori, setIdKategori] = useState(category.idKategori);
+  const [kodeKategori, setKodeKategori] = useState(category.kode);
   const [namakategori, setNamaKategori] = useState(category.nama);
   const router = useRouter();
   const MySwal = withReactContent(Swal);
@@ -30,6 +30,7 @@ export default function UpdateKategori(category) {
         },
         body: JSON.stringify({
           nama: namakategori,
+          koode: kodeKategori,
         }),
       }
     );
@@ -59,6 +60,17 @@ export default function UpdateKategori(category) {
             Edit kategori {category.nama}
           </h1>
           <div>
+            <div className="mb-2">
+              <FormComp
+                id="kodeKategori"
+                type="text"
+                onChange={(e) => setNamaKategori(e.target.value)}
+                placeholder={category.kode}
+                value={kodeKategori}
+              >
+                Kode Kategori
+              </FormComp>
+            </div>
             <div className="mb-2">
               <FormComp
                 id="namaKategori"

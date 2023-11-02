@@ -10,7 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 
 export default function UpdateRoom(room) {
   const [modal, setModal] = useState(false);
-  // const [idRuangan, setIdRuangan] = useState(room.idRuangan);
+  const [kodeRuangan, setKodeRuangan] = useState(room.kode);
   const [namaRuangan, setNamaRuangan] = useState(room.nama);
   const router = useRouter();
   const MySwal = withReactContent(Swal);
@@ -29,7 +29,7 @@ export default function UpdateRoom(room) {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         body: JSON.stringify({
-          // idRuangan: idRuangan,
+          kode: kodeRuangan,
           nama: namaRuangan,
         }),
       }
@@ -60,6 +60,17 @@ export default function UpdateRoom(room) {
             Edit Ruangan {room.nama}
           </h1>
           <div>
+            <div className="mb-2">
+              <FormComp
+                id="kodeRuangan"
+                type="text"
+                onChange={(e) => setKodeRuangan(e.target.value)}
+                placeholder={room.kode}
+                value={kodeRuangan}
+              >
+                Kode Ruangan
+              </FormComp>
+            </div>
             <div className="mb-2">
               <FormComp
                 id="namaRuangan"

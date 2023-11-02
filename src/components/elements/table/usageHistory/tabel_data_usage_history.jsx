@@ -160,7 +160,7 @@ export default function TabelDataUsageHistory() {
                       className="text-center border text-[12px] text-black border-gray-300"
                     >
                       <td className="border border-gray-300 py-1">
-                        {usage.id}
+                        {index + 1}
                       </td>
                       <td className="border border-gray-300 py-1 px-1">
                         {usage.nomorIndukOld}

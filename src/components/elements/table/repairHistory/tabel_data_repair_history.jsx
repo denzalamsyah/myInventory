@@ -153,6 +153,9 @@ export default function TabelDataRepairHistory({ modal }) {
                   <th className="border border-gray-300 py-1 text-gray-800 text-center">
                     Deskripsi
                   </th>
+                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody className="">
@@ -164,6 +167,9 @@ export default function TabelDataRepairHistory({ modal }) {
                     >
                       <td className="border border-gray-300 py-1">
                         {index + 1}
+                      </td>
+                      <td className="border border-gray-300 py-1">
+                        {repair.inventoryId}
                       </td>
                       <td className="border border-gray-300 py-1 px-1">
                         {repair.tanggalKerusakan}

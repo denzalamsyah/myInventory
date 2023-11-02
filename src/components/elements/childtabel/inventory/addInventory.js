@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 export default function TambahInventory() {
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [karyawanId, setKaryawanId] = useState(0);
   const [nama, setNama] = useState("");
@@ -30,13 +31,13 @@ export default function TambahInventory() {
     setSelectedImage(file);
     setImagePreview(URL.createObjectURL(file));
   };
-  function handleChange() {
+  function handleChange(e) {
     setModal(!modal);
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const formData = new FormData();
     formData.append("gambar", selectedImage);
     formData.append("kodeAsset", kodeAset);
@@ -58,35 +59,16 @@ export default function TambahInventory() {
         },
         body: formData,
       });
+      setLoading(false);
       if (response.ok) {
         setModal(false);
         MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(
           () => {
-            router.refresh();
+            router.push("/inventory");
           }
         );
       } else {
         MySwal.fire("Gagal menambahkan", "Klik tombol!", "error");
-      }
-
-      if (response.ok) {
-        console.log("Data berhasil ditambahkan");
-        setKaryawanId(0);
-        setNama("");
-        setKodeAset("");
-        setMerk("");
-        setTanggalPembelian(null);
-        setHarga(0);
-        setDeskripsi("");
-        setMasaManfaat(0);
-        setIdKategori(0);
-        setImagePreview(null);
-        setSelectedImage(null);
-        setVendor("");
-        router.refresh();
-        setModal(false);
-      } else {
-        console.error("Gagal menambahkan data");
       }
     } catch (error) {
       console.error("Terjadi kesalahan dalam permintaan: " + error.message);
@@ -274,12 +256,21 @@ export default function TambahInventory() {
               </div>
             </div>
             <div className=" modal-action flex mt-4">
-              <Button
-                className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                type="submit"
-              >
-                Add
-              </Button>
+              {!loading ? (
+                <Button
+                  className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
+                  type="submit"
+                >
+                  Add
+                </Button>
+              ) : (
+                <Button
+                  className="bg-blue-600 rounded-[5px] mx-6 text-blue text-sm px-4 py-1 hover:bg-green-700 loading btn-primary"
+                  type="button"
+                >
+                  Add...
+                </Button>
+              )}
               <Button
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}

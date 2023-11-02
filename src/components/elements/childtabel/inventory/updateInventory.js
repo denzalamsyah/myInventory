@@ -225,7 +225,7 @@ export default function UpdateInventory(inventory) {
                     onChange={(e) => setIdRuangan(e.target.value)}
                     placeholder={inventory.ruanganId}
                   >
-                    ID Ruangan
+                    Ruangan
                   </FormComp>
                 </div>
                 <div className="mb-2 text-left">
@@ -261,7 +261,7 @@ export default function UpdateInventory(inventory) {
                     onChange={(e) => setIdKategori(e.target.value)}
                     placeholder={inventory.idKategori}
                   >
-                    ID Kategori
+                    Kategori
                   </FormComp>
                 </div>
                 <div className="mb-2 text-left">
@@ -272,7 +272,7 @@ export default function UpdateInventory(inventory) {
                     onChange={(e) => setKaryawanId(e.target.value)}
                     placeholder={inventory.idKaryawan}
                   >
-                    ID Karyawan
+                    Karyawan
                   </FormComp>
                 </div>
               </div>

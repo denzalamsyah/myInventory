@@ -127,6 +127,9 @@ export default function TabelDataKategori({ modal }) {
                     ID Kategori
                   </th>
                   <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                    Kode Kategori
+                  </th>
+                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
                     Nama Kategori
                   </th>
                   <th className="border border-gray-300 py-1 text-gray-800 text-center">
@@ -143,6 +146,9 @@ export default function TabelDataKategori({ modal }) {
                     >
                       <td className="border border-gray-300 py-1">
                         {index + 1}
+                      </td>
+                      <td className="border border-gray-300 py-1">
+                        {category.kode}
                       </td>
                       <td className="border border-gray-300 py-1 px-1">
                         {category.nama}

@@ -8,7 +8,7 @@ import withReactContent from "sweetalert2-react-content";
 export default function TambahKategori() {
   const [modal, setModal] = useState(false);
 
-  // const [idKategori, setIdKategori] = useState("");
+  const [kodeKategori, setKodeKategori] = useState("");
   const [namakategori, setNamaKategori] = useState("");
   const router = useRouter();
   const MySwal = withReactContent(Swal);
@@ -26,6 +26,7 @@ export default function TambahKategori() {
       },
       body: JSON.stringify({
         nama: namakategori,
+        kode: kodeKategori,
       }),
     });
     if (response.ok) {
@@ -60,6 +61,16 @@ export default function TambahKategori() {
             Tambah Data Kategori
           </h1>
           <form onSubmit={handleSubmit} method="POST">
+            <div className="mb-2">
+              <FormComp
+                id="kodeKategori"
+                type="text"
+                onChange={(e) => setKodeKategori(e.target.value)}
+                placeholder="Masukan kode kategori"
+              >
+                Nama Kategori
+              </FormComp>
+            </div>
             <div className="mb-2">
               <FormComp
                 id="namaKategori"
