@@ -10,6 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 
 export default function TambahKaryawan() {
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [nomorInduk, setNomorInduk] = useState("");
   const [nama, setNama] = useState("");
@@ -36,7 +37,7 @@ export default function TambahKaryawan() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const formData = new FormData();
     formData.append("nomorInduk", nomorInduk);
     formData.append("nama", nama);
@@ -56,6 +57,7 @@ export default function TambahKaryawan() {
         },
         body: formData,
       });
+      setLoading(false);
       if (response.ok) {
         setModal(false);
         MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(
@@ -65,23 +67,6 @@ export default function TambahKaryawan() {
         );
       } else {
         MySwal.fire("Gagal menambahkan", "Klik tombol!", "error");
-      }
-
-      if (response.ok) {
-        console.log("Data berhasil ditambahkan");
-        setNomorInduk("");
-        setNama("");
-        setGender("");
-        setJabatan("");
-        setDivisi("");
-        setEmail("");
-        setTelepon("");
-        setAlamat("");
-        setSelectedImage(null);
-        router.refresh();
-        setModal(false);
-      } else {
-        console.error("Gagal menambahkan data");
       }
     } catch (error) {
       console.error("Terjadi kesalahan dalam permintaan: " + error.message);
@@ -246,12 +231,18 @@ export default function TambahKaryawan() {
               </FormComp>
             </div>
             <div className=" modal-action flex mt-4">
-              <Button
-                className="bg-blue-600 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-green-700"
-                type="submit"
-              >
-                Add
-              </Button>
+              {!loading ? (
+                <Button
+                  className="bg-blue-600 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-green-700"
+                  type="submit"
+                >
+                  Add
+                </Button>
+              ) : (
+                <div className=" w-[10%] bg-green-500  p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral"></span>
+                </div>
+              )}
               <Button
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}

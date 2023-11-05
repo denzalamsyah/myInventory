@@ -1,49 +1,41 @@
 "use client";
-import Button from "@/components/elements/button/button";
-import { FaTrash } from "react-icons/fa";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useEffect } from "react";
+import Link from "next/link";
+import { BiLogOutCircle } from "react-icons/bi";
+import Button from "../elements/button/button";
 import Image from "next/image";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-export default function DeleteInventory({ id, nama }) {
+export default function Logout() {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const MySwal = withReactContent(Swal);
 
   function handleChange() {
     setModal(!modal);
   }
-  async function handleDelete(inventoryId) {
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+  async function fetchProfile() {
+    const res = await fetch("http://localhost:9000/api/kategori", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+  }
+  function logout() {
     setLoading(true);
-    const response = await fetch(
-      `http://localhost:9000/api/inventory/${inventoryId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
-    );
+    localStorage.removeItem("token");
+    router.push("/");
     setLoading(false);
-    if (response.ok) {
-      setModal(false);
-      MySwal.fire("Berhasil menghapus data!", "Klik tombol!", "success").then(
-        () => {
-          router.refresh();
-        }
-      );
-    } else {
-      MySwal.fire("Gagal menghapus data", "Klik tombol!", "error");
-    }
   }
   return (
-    <div className="">
+    <div className="relative">
       <Link href="" className="text-[#DA3E33F7]" onClick={handleChange}>
-        <FaTrash />
+        <BiLogOutCircle />
       </Link>
       <input
         type="checkbox"
@@ -55,14 +47,14 @@ export default function DeleteInventory({ id, nama }) {
         <div className="modal-box bg-white flex flex-col justify-center items-center">
           <Image alt="del icon" src="/img/del.png" width={75} height={75} />
           <h1 className="font-bold text-lg text-black mb-3 mt-3">
-            Are you sure to delete {nama}!
+            Are you sure to logout?
           </h1>
           <div className="modal-action flex mt-4">
             {!loading ? (
               <Button
                 className="bg-red-400 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-red-600 "
                 type="button"
-                onClick={() => handleDelete(id)}
+                onClick={() => logout()}
               >
                 Yes
               </Button>

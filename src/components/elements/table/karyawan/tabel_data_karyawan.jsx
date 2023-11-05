@@ -12,19 +12,19 @@ export default function TabelDataKaryawan({ modal }) {
   const [screenSize, setScreenSize] = useState("md");
   const [pageSize, setPageSize] = useState(4);
   const componentRef = useRef(null);
-  const [searchQuery, setSearchQuery] = useState("");
-
+  const [searchQuery, setSearchQuery] = useState();
+  const [searchParam, setSearchParam] = useState("nama");
   const screenSizes = {
     "2xl": 6,
     md: 4,
   };
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchEmployee(currentPage, searchQuery); // Gunakan searchQuery
+    fetchEmployee(currentPage, searchQuery, searchParam); // Gunakan searchQuery
   };
   useEffect(() => {
-    fetchEmployee(currentPage, searchQuery); // Gunakan searchQuery
-  }, [currentPage, searchQuery]);
+    fetchEmployee(currentPage, searchQuery, searchParam); // Gunakan searchQuery
+  }, [currentPage, searchQuery, searchParam]);
   useEffect(() => {
     const handleResize = () => {
       const newSize = window.matchMedia("(min-width: 1536px)").matches
@@ -51,10 +51,10 @@ export default function TabelDataKaryawan({ modal }) {
     };
   }, []);
 
-  const fetchEmployee = async (page, query = "") => {
+  const fetchEmployee = async (page, query = "", param) => {
     try {
       const url = query
-        ? `http://localhost:9000/api/karyawan/search?nama=${query}`
+        ? `http://localhost:9000/api/karyawan/search?${param}=${query}`
         : `http://localhost:9000/api/karyawan?page=${page}&size=${pageSize}`;
       const response = await fetch(url, {
         method: "GET",
@@ -64,15 +64,12 @@ export default function TabelDataKaryawan({ modal }) {
         },
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
+      if (response.ok) {
+        const data = await response.json();
+        setEmployeeData(data);
+      } else {
+        console.log("data kosong");
       }
-
-      // Log the response to inspect what you received
-      console.log(response);
-
-      const data = await response.json();
-      setEmployeeData(data);
     } catch (error) {
       console.error(error);
     }
@@ -119,6 +116,15 @@ export default function TabelDataKaryawan({ modal }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+            <select
+              value={searchParam}
+              onChange={(e) => setSearchParam(e.target.value)}
+              className="px-[16px] py-1 w-full bg-white text-[12px] text-gray-700 focus:none outline-none"
+            >
+              <option value="nama">Nama</option>
+              <option value="email">Email</option>
+              <option value="telepon">Telepon</option>
+            </select>
           </form>
         </div>
         <div
@@ -126,7 +132,7 @@ export default function TabelDataKaryawan({ modal }) {
           className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
           style={{
             height: "45vh",
-            width: "148vh",
+            width: "100%",
             scrollSnapType: "x mandatory",
           }}
         >
@@ -230,7 +236,7 @@ export default function TabelDataKaryawan({ modal }) {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="8" className="text-center">
+                    <td colSpan="12" className="text-center">
                       Tidak ada data
                     </td>
                   </tr>

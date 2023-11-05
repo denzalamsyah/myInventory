@@ -39,7 +39,7 @@ export default function TabelDetailInventoryComp({
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Harga</th>
-            <td className="w-[250px]">: {harga}</td>
+            <td className="w-[250px]">: Rp. {harga}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Vendor</th>
@@ -67,27 +67,27 @@ export default function TabelDetailInventoryComp({
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Nilai Residu</th>
-            <td className="w-[250px]">: {nilaiResedu}</td>
+            <td className="w-[250px]">: Rp. {nilaiResedu}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Tahun 1</th>
-            <td className="w-[250px]">: {tahun1}</td>
+            <td className="w-[250px]">: Rp. {tahun1}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Tahun 2</th>
-            <td className="w-[250px]">: {tahun2}</td>
+            <td className="w-[250px]">: Rp. {tahun2}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Tahun 3</th>
-            <td className="w-[250px]">: {tahun3}</td>
+            <td className="w-[250px]">: Rp. {tahun3}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Tahun 4</th>
-            <td className="w-[250px]">: {tahun4}</td>
+            <td className="w-[250px]">: Rp. {tahun4}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Depresiasi</th>
-            <td className="w-[250px]">: {depresiasi}</td>
+            <td className="w-[250px]">: Rp. {depresiasi}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">ID Kategori</th>

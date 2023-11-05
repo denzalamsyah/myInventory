@@ -60,11 +60,12 @@ export default function TambahInventory() {
         body: formData,
       });
       setLoading(false);
+
       if (response.ok) {
         setModal(false);
         MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(
           () => {
-            router.push("/inventory");
+            router.refresh();
           }
         );
       } else {
@@ -264,12 +265,9 @@ export default function TambahInventory() {
                   Add
                 </Button>
               ) : (
-                <Button
-                  className="bg-blue-600 rounded-[5px] mx-6 text-blue text-sm px-4 py-1 hover:bg-green-700 loading btn-primary"
-                  type="button"
-                >
-                  Add...
-                </Button>
+                <div className=" w-[10%] bg-green-500  p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral"></span>
+                </div>
               )}
               <Button
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"

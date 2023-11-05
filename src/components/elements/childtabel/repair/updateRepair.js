@@ -39,7 +39,7 @@ export default function UpdatePerbaikan(repair) {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         body: JSON.stringify({
-          nama: inventory,
+          inventoryId: inventory,
           tanggalKerusakan: tanggalKerusakan,
           deskripsi: deskripsi,
           tanggalPerbaikan: tanggalPerbaikan,
@@ -48,6 +48,7 @@ export default function UpdatePerbaikan(repair) {
         }),
       }
     );
+    console.log(response);
     if (response.ok) {
       setModal(false);
       MySwal.fire("Updated!", "Klik tombol!", "success").then(() => {
@@ -71,7 +72,7 @@ export default function UpdatePerbaikan(repair) {
       <div className="modal">
         <div className="modal-box bg-white">
           <h1 className="font-bold text-lg text-black mb-3">
-            Edit kategori {repair.inventoryId}
+            Edit kategori {repair.inventoryId.kodeAsset}
           </h1>
           <div>
             <div className="mb-2">
@@ -80,7 +81,7 @@ export default function UpdatePerbaikan(repair) {
                 type="number"
                 value={inventory}
                 onChange={(e) => setInventory(e.target.value)}
-                placeholder={repair.inventoryId}
+                placeholder={repair.inventoryId.kodeAsset}
               >
                 Inventory
               </FormComp>

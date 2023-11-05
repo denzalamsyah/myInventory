@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Logout from "./logout";
 
 const Sidebar = ({ children }) => {
   const menus = [
     { name: "Dashboard", link: "/dashboard", icon: "/img/icon1.png" },
     { name: "Inventory", link: "/inventory", icon: "/img/icon2.png" },
     { name: "Room", link: "/room", icon: "/img/icon6.png" },
-    { name: "Usage", link: "/usage", icon: "/img/icon7.png" },
     { name: "Category", link: "/category", icon: "/img/icon3.png" },
     {
       name: "Employee",
@@ -26,8 +26,7 @@ const Sidebar = ({ children }) => {
     },
     { name: "Repair History", link: "/repairhistory", icon: "/img/icon8.png" },
   ];
-  const [open, setOpen] = useState(true);
-  const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     fetchProfile();
@@ -46,6 +45,7 @@ const Sidebar = ({ children }) => {
     localStorage.removeItem("token");
     router.push("/");
   }
+
   return (
     <section className="flex gap-6">
       <div
@@ -97,7 +97,8 @@ const Sidebar = ({ children }) => {
             </Link>
           ))}
         </div>
-        <div className="py-5 text-sm fixed bottom-0">
+        <div className="py-5 text-sm fixed items-end bottom-0">
+          {/* <Logout></Logout> */}
           <Link href="" onClick={logout}>
             <div className="px-2">
               <Image

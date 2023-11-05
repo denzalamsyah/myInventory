@@ -8,6 +8,7 @@ import withReactContent from "sweetalert2-react-content";
 
 export default function TambahRoom() {
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [kodeRuangan, setKodeRuangan] = useState("");
   const [namaRuangan, setNamaRuangan] = useState("");
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function TambahRoom() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     const response = await fetch("http://localhost:9000/api/ruangan", {
       method: "POST",
       headers: {
@@ -29,6 +31,7 @@ export default function TambahRoom() {
         nama: namaRuangan,
       }),
     });
+    setLoading(false);
     if (response.ok) {
       setModal(false);
       MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(
@@ -82,12 +85,18 @@ export default function TambahRoom() {
               </FormComp>
             </div>
             <div className=" modal-action flex mt-4">
-              <Button
-                className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                type="submit"
-              >
-                Add
-              </Button>
+              {!loading ? (
+                <Button
+                  className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
+                  type="submit"
+                >
+                  Add
+                </Button>
+              ) : (
+                <div className=" w-[10%] bg-green-500  p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral"></span>
+                </div>
+              )}
               <Button
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}

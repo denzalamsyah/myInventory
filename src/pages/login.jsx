@@ -12,6 +12,7 @@ import withReactContent from "sweetalert2-react-content";
 export default function SignIn() {
   const MySwal = withReactContent(Swal);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -23,6 +24,7 @@ export default function SignIn() {
     setState(copy);
   }
   async function handleSubmit() {
+    setLoading(true);
     const res = await fetch(`http://localhost:9000/api/login`, {
       method: "POST",
       body: JSON.stringify(state),
@@ -30,6 +32,7 @@ export default function SignIn() {
         "Content-Type": "application/json",
       },
     });
+    setLoading(false);
     if (res.ok) {
       const json = await res.json();
       localStorage.setItem("token", json.token);
@@ -81,12 +84,18 @@ export default function SignIn() {
             </div>
 
             <div>
-              <button
-                className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-                onClick={handleSubmit}
-              >
-                Login
-              </button>
+              {!loading ? (
+                <button
+                  className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+                  onClick={handleSubmit}
+                >
+                  Login
+                </button>
+              ) : (
+                <div className="w-full bg-blue-500  p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral"></span>
+                </div>
+              )}
             </div>
             <div className="flex flex-col justify-center items-center mt-6">
               <p className="text-gray-500">Trouble Logging?</p>

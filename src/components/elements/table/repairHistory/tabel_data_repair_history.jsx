@@ -8,13 +8,14 @@ export default function TabelDataRepairHistory({ modal }) {
   const [repairDataHistory, setRepairData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [screenSize, setScreenSize] = useState("md");
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(7);
   const componentRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
 
+  console.log(repairDataHistory);
   const screenSizes = {
-    "2xl": 6,
-    md: 4,
+    "2xl": 10,
+    md: 7,
   };
 
   const handleSearch = (e) => {
@@ -70,7 +71,7 @@ export default function TabelDataRepairHistory({ modal }) {
       console.log(response);
 
       const data = await response.json();
-      setRepairData(data);
+      setRepairData(data.data);
     } catch (error) {
       console.error(error);
     }
@@ -124,7 +125,7 @@ export default function TabelDataRepairHistory({ modal }) {
           className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
           style={{
             height: "65vh",
-            width: "148vh",
+            width: "100%",
             scrollSnapType: "x mandatory",
           }}
         >
@@ -132,80 +133,85 @@ export default function TabelDataRepairHistory({ modal }) {
             <table className="table caption-top w-full">
               <thead className=" bg-slate-200">
                 <tr className="2xl:text-lg py-3">
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
-                    ID
+                  <th className="border border-gray-300 text-gray-800 text-center">
+                    No
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Kode Aset
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Tanggal Kerusakan
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Tanggal Perbaikan
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Biaya
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Tanggal Selesai Diperbaiki
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Deskripsi
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody className="">
-                {repairDataHistory.data && repairDataHistory.data.length > 0 ? (
-                  repairDataHistory.data.map((repair, index) => (
-                    <tr
-                      key={index}
-                      className="text-center border text-[12px] text-black border-gray-300"
-                    >
-                      <td className="border border-gray-300 py-1">
-                        {index + 1}
-                      </td>
-                      <td className="border border-gray-300 py-1">
-                        {repair.inventoryId}
-                      </td>
-                      <td className="border border-gray-300 py-1 px-1">
-                        {repair.tanggalKerusakan}
-                      </td>
-                      <td className="border border-gray-300 py-1 px-1">
-                        {repair.tanggalPerbaikan}
-                      </td>
-                      <td className="border border-gray-300 py-1 px-1">
-                        {repair.biaya}
-                      </td>
-                      <td className="border border-gray-300 py-1 px-1">
-                        {repair.tanggalSelesaiPerbaikan}
-                      </td>
-                      <td className="border border-gray-300 py-1 px-1">
-                        {repair.deskripsi}
-                      </td>
-                      <td className="border border-gray-300">
-                        <div className="flex justify-center gap-2">
-                          <div className="flex items-center justify-center">
-                            {/* update */}
-                            <UpdatePerbaikan {...repair} />
-                          </div>
-                          <div className="flex items-center justify-center">
-                            {/* delete */}
-                            <DeletePerbaikan
-                              id={repair.id}
-                              nama={repair.inventoryId}
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
+                {repairDataHistory && repairDataHistory.length > 0 ? (
+                  repairDataHistory.map(
+                    (repair, index) => (
+                      console.log(repair),
+                      (
+                        <tr
+                          key={index}
+                          className="text-center border text-[12px] text-black border-gray-300"
+                        >
+                          <td className="border border-gray-300 py-1">
+                            {index + 1}
+                          </td>
+                          <td className="border border-gray-300 py-1">
+                            {repair.inventoryId.kodeAsset}
+                          </td>
+                          <td className="border border-gray-300 py-1 px-1">
+                            {repair.tanggalKerusakan}
+                          </td>
+                          <td className="border border-gray-300 py-1 px-1">
+                            {repair.tanggalPerbaikan}
+                          </td>
+                          <td className="border border-gray-300 py-1 px-1">
+                            {repair.biaya}
+                          </td>
+                          <td className="border border-gray-300 py-1 px-1">
+                            {repair.tanggalSelesaiPerbaikan}
+                          </td>
+                          <td className="border border-gray-300 py-1 px-1">
+                            {repair.deskripsi}
+                          </td>
+                          <td className="border border-gray-300">
+                            <div className="flex justify-center gap-2">
+                              <div className="flex items-center justify-center">
+                                {/* update */}
+                                <UpdatePerbaikan {...repair} />
+                              </div>
+                              <div className="flex items-center justify-center">
+                                {/* delete */}
+                                <DeletePerbaikan
+                                  id={repair.id}
+                                  nama={repair.inventoryId.kodeAsset}
+                                />
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    )
+                  )
                 ) : (
                   <tr>
-                    <td colSpan="8" className="text-center">
+                    <td colSpan="12" className="text-center">
                       Tidak ada data
                     </td>
                   </tr>

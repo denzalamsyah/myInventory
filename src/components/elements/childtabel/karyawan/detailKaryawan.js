@@ -46,7 +46,7 @@ export default function DetailKaryawan(employee) {
   return (
     <>
       <Link
-        href="#" // teknik template
+        href="" // teknik template
         className="text-[#1570EF]"
         onClick={handleChange}
       >
@@ -60,14 +60,14 @@ export default function DetailKaryawan(employee) {
       />
       <div className="modal">
         <div className="modal-box max-w-[60rem] bg-white flex flex-col justify-center items-center">
-          <div className="bg-white w-full h-[530px] rounded-md shadow-lg p-10">
+          <div className="bg-white w-full h-[530px] p-10">
             <div className="grid grid-cols-2 text-left border-b border-gray-400 mb-5 pb-3">
               <h1 className="font-bold text-sm text-black">
                 {employeeData.nama}
               </h1>
               <div className="text-right">
                 <Button className="text-sm rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
-                  <Link onClick={handleChange} href="#">
+                  <Link onClick={handleChange} href="">
                     Back
                   </Link>
                 </Button>

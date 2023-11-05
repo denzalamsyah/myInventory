@@ -10,6 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 
 export default function UpdateRoom(room) {
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [kodeRuangan, setKodeRuangan] = useState(room.kode);
   const [namaRuangan, setNamaRuangan] = useState(room.nama);
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function UpdateRoom(room) {
 
   async function handleUpdate(e) {
     e.preventDefault();
+    setLoading(true);
     const response = await fetch(
       `http://localhost:9000/api/ruangan/${room.id}`,
       {
@@ -34,6 +36,7 @@ export default function UpdateRoom(room) {
         }),
       }
     );
+    setLoading(false);
     if (response.ok) {
       setModal(false);
       MySwal.fire("Updated!", "Klik tombol!", "success").then(() => {
@@ -83,12 +86,18 @@ export default function UpdateRoom(room) {
               </FormComp>
             </div>
             <div className=" modal-action flex mt-4">
-              <Button
-                className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                onClick={handleUpdate}
-              >
-                Update
-              </Button>
+              {!loading ? (
+                <Button
+                  className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
+                  onClick={handleUpdate}
+                >
+                  Add
+                </Button>
+              ) : (
+                <div className=" w-[10%] bg-green-500  p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral"></span>
+                </div>
+              )}
               <Button
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}

@@ -1,13 +1,14 @@
 "use client";
 import Button from "@/components/elements/button/button";
 import FormComp from "@/components/form/form";
+import SelectInput from "@/components/form/select";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 export default function TambahPerbaikan() {
   const [modal, setModal] = useState(false);
-
+  const [repairData, setRepairData] = useState([]);
   const [inventory, setInventory] = useState(0);
   const [tanggalKerusakan, setTanggalKerusakan] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
@@ -48,6 +49,33 @@ export default function TambahPerbaikan() {
       MySwal.fire("Gagal menambahkan", "Klik tombol!", "error");
     }
   }
+
+  const fetchRepair = async () => {
+    try {
+      const response = await fetch("http://localhost:9000/api/inventory", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      console.log(response);
+
+      const data = await response.json();
+      setRepairData(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchRepair();
+  }, []);
+
   return (
     <div className="">
       <Button
@@ -70,14 +98,20 @@ export default function TambahPerbaikan() {
           </h1>
           <form onSubmit={handleSubmit} method="POST">
             <div className="mb-2">
-              <FormComp
+              <SelectInput
                 id="inventory"
-                type="number"
+                name="number"
                 onChange={(e) => setInventory(e.target.value)}
-                placeholder="Masukan id inventory"
+                label="Nama Inventory"
+                className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                ID Inventory
-              </FormComp>
+                {repairData.map(
+                  (repair) => (
+                    console.log(repair),
+                    (<option value={repair.id}>{repair.kodeAsset}</option>)
+                  )
+                )}
+              </SelectInput>
             </div>
             <div className="mb-2">
               <FormComp

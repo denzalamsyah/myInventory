@@ -13,18 +13,19 @@ export default function TabelDataKategori({ modal }) {
   const [screenSize, setScreenSize] = useState("md");
   const [pageSize, setPageSize] = useState(5);
   const [downloadCategories, setDownloadCategories] = useState(null);
+  const [searchParam, setSearchParam] = useState("nama");
   const screenSizes = {
     "2xl": 10,
     md: 5,
   };
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchCategory(currentPage, searchQuery); // Gunakan searchQuery
+    fetchCategory(currentPage, searchQuery, searchParam); // Gunakan searchQuery
   };
 
   useEffect(() => {
-    fetchCategory(currentPage, searchQuery);
-  }, [currentPage, searchQuery]);
+    fetchCategory(currentPage, searchQuery, searchParam);
+  }, [currentPage, searchQuery, searchParam]);
   useEffect(() => {
     const handleResize = () => {
       const newSize = window.matchMedia("(min-width: 1536px)").matches
@@ -50,10 +51,10 @@ export default function TabelDataKategori({ modal }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const fetchCategory = async (page, query = "") => {
+  const fetchCategory = async (page, query = "", param) => {
     try {
       const url = query
-        ? `http://localhost:9000/api/kategori/search?nama=${query}`
+        ? `http://localhost:9000/api/kategori/search?${param}=${query}`
         : `http://localhost:9000/api/kategori?page=${page}&size=${pageSize}`;
       const response = await fetch(url, {
         method: "GET",
@@ -108,6 +109,14 @@ export default function TabelDataKategori({ modal }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+            <select
+              value={searchParam}
+              onChange={(e) => setSearchParam(e.target.value)}
+              className="px-[16px] py-1 w-full bg-white text-[12px] text-gray-700 focus:none outline-none"
+            >
+              <option value="nama">Nama</option>
+              <option value="kode">Kode Kategori</option>
+            </select>
           </form>
         </div>
         <div
@@ -115,24 +124,24 @@ export default function TabelDataKategori({ modal }) {
           className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
           style={{
             height: "45vh",
-            width: "148vh",
+            width: "100%",
             scrollSnapType: "x mandatory",
           }}
         >
           <div>
             <table className="table caption-top w-full">
               <thead className="bg-slate-200">
-                <tr className="text-[12px] 2xl:text-lg">
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                <tr className="text-[12px] 2xl:text-lg py-3">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     ID Kategori
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Kode Kategori
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Nama Kategori
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Action
                   </th>
                 </tr>
@@ -163,7 +172,7 @@ export default function TabelDataKategori({ modal }) {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="8" className="text-center">
+                    <td colSpan="12" className="text-center">
                       Tidak ada data
                     </td>
                   </tr>

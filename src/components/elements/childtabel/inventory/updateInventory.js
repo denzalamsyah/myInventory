@@ -12,6 +12,7 @@ import withReactContent from "sweetalert2-react-content";
 
 export default function UpdateInventory(inventory) {
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(inventory.gambar);
   const [karyawanId, setKaryawanId] = useState(inventory.karyawanId);
   const [nama, setNama] = useState(inventory.nama);
@@ -43,6 +44,7 @@ export default function UpdateInventory(inventory) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     formData.append("gambar", selectedImage);
     formData.append("kodeAsset", kodeAset);
@@ -68,6 +70,7 @@ export default function UpdateInventory(inventory) {
         body: formData,
       }
     );
+    setLoading(false);
     if (response.ok) {
       setModal(false);
       MySwal.fire("Updated!", "Klik tombol!", "success").then(() => {
@@ -278,12 +281,18 @@ export default function UpdateInventory(inventory) {
               </div>
             </div>
             <div className=" modal-action flex mt-4">
-              <Button
-                className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                onClick={handleSubmit}
-              >
-                Add
-              </Button>
+              {!loading ? (
+                <Button
+                  className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
+                  onClick={handleSubmit}
+                >
+                  Add
+                </Button>
+              ) : (
+                <div className=" w-[10%] bg-green-500  p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral"></span>
+                </div>
+              )}
               <Button
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}

@@ -13,6 +13,7 @@ export default function TabelDataRoom({ modal }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [screenSize, setScreenSize] = useState("md");
   const [pageSize, setPageSize] = useState(5);
+  const [searchParam, setSearchParam] = useState("nama");
 
   const screenSizes = {
     "2xl": 10,
@@ -21,12 +22,12 @@ export default function TabelDataRoom({ modal }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchRoom(currentPage, searchQuery); // Gunakan searchQuery
+    fetchRoom(currentPage, searchQuery, searchParam); // Gunakan searchQuery
   };
 
   useEffect(() => {
-    fetchRoom(currentPage, searchQuery);
-  }, [currentPage, searchQuery]);
+    fetchRoom(currentPage, searchQuery, searchParam);
+  }, [currentPage, searchQuery, searchParam]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -53,10 +54,10 @@ export default function TabelDataRoom({ modal }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const fetchRoom = async (page, query = "") => {
+  const fetchRoom = async (page, query = "", param) => {
     try {
       const url = query
-        ? `http://localhost:9000/api/ruangan/search?nama=${query}`
+        ? `http://localhost:9000/api/ruangan/search?${param}=${query}`
         : `http://localhost:9000/api/ruangan?page=${page}&size=${pageSize}`;
       const response = await fetch(url, {
         method: "GET",
@@ -119,6 +120,14 @@ export default function TabelDataRoom({ modal }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+            <select
+              value={searchParam}
+              onChange={(e) => setSearchParam(e.target.value)}
+              className="px-[16px] py-1 w-full bg-white text-[12px] text-gray-700 focus:none outline-none"
+            >
+              <option value="nama">Nama</option>
+              <option value="kode">Kode Ruangan</option>
+            </select>
           </form>
         </div>
         <div
@@ -126,24 +135,24 @@ export default function TabelDataRoom({ modal }) {
           className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
           style={{
             height: "45vh",
-            width: "148vh",
+            width: "100%",
             scrollSnapType: "x mandatory",
           }}
         >
           <div>
             <table className="table caption-top w-full">
               <thead className="w-auto bg-slate-200">
-                <tr className="text-[12px] 2xl:text-lg">
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                <tr className="text-[12px] 2xl:text-lg py-3">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     ID Ruangan
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Kode Ruangan
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Nama Ruangan
                   </th>
-                  <th className="border border-gray-300 py-1 text-gray-800 text-center">
+                  <th className="border border-gray-300 text-gray-800 text-center">
                     Action
                   </th>
                 </tr>
@@ -174,7 +183,7 @@ export default function TabelDataRoom({ modal }) {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="8" className="text-center">
+                    <td colSpan="12" className="text-center">
                       Tidak ada data
                     </td>
                   </tr>

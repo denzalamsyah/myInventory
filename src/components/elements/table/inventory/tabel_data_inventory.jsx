@@ -5,8 +5,8 @@ import Image from "next/image";
 import ReactToPrint from "react-to-print";
 import Button from "../../button/button";
 import { BiSearch } from "react-icons/bi";
-import TabelDetailInventoryComp from "./tabel_detail_inventory";
 import DetailInventory from "../../childtabel/inventory/detailInventory";
+
 export default function TabelDataInventory({ modal }) {
   const [inventoryData, setInventoryData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -14,7 +14,8 @@ export default function TabelDataInventory({ modal }) {
   const [pageSize, setPageSize] = useState(4);
   const componentRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [searchParam, setSearchParam] = useState("nama");
+  // const [isLoading, setIsLoading] = useState(false);
   const screenSizes = {
     "2xl": 6,
     md: 4,
@@ -22,12 +23,13 @@ export default function TabelDataInventory({ modal }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchInventory(currentPage, searchQuery);
+
+    fetchInventory(currentPage, searchQuery, searchParam);
   };
 
   useEffect(() => {
-    fetchInventory(currentPage, searchQuery);
-  }, [currentPage, searchQuery]);
+    fetchInventory(currentPage, searchQuery, searchParam);
+  }, [currentPage, searchQuery, searchParam]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,11 +49,13 @@ export default function TabelDataInventory({ modal }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const fetchInventory = async (page, query = "") => {
+  const fetchInventory = async (page, query = "", param) => {
     try {
+      // setIsLoading(true);
       const url = query
-        ? `http://localhost:9000/api/inventory/search?nama=${query}`
+        ? `http://localhost:9000/api/inventory/search?${param}=${query}`
         : `http://localhost:9000/api/inventory?page=${page}&size=${pageSize}`;
+
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -59,20 +63,24 @@ export default function TabelDataInventory({ modal }) {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       });
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
+      if (response.ok) {
+        const data = await response.json();
+        setInventoryData(data);
+      } else {
+        console.log("data kosong");
       }
-      console.log(response);
-      const data = await response.json();
-      setInventoryData(data);
+
+      // setIsLoading(false);
     } catch {
       console.error("error");
     }
   };
-
   useEffect(() => {
     fetchInventory(currentPage);
   }, [currentPage]);
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div className="flex flex-col h-full bg-white rounded-md px-4 pt-6 shadow-lg">
@@ -104,6 +112,17 @@ export default function TabelDataInventory({ modal }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+            <select
+              value={searchParam}
+              onChange={(e) => setSearchParam(e.target.value)}
+              className="px-[16px]  py-1 w-full bg-white text-[12px] text-gray-700 focus:none outline-none"
+            >
+              <option value="nama">Nama</option>
+              <option value="merk">Merk</option>
+              <option value="status">Status</option>
+              <option value="vendor">Vendor</option>
+              <option value="kodeAsset">Kode Asset</option>
+            </select>
           </form>
         </div>
         <div
@@ -111,7 +130,7 @@ export default function TabelDataInventory({ modal }) {
           className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
           style={{
             height: "45vh",
-            width: "148vh",
+            width: "100%",
             scrollSnapType: "x mandatory",
           }}
         >
@@ -152,7 +171,7 @@ export default function TabelDataInventory({ modal }) {
                       <td className="border border-gray-300 py-1">
                         {inventory.kodeAsset}
                       </td>
-                      <td className="border border-gray-300 py-1 px-1 text-left">
+                      <td className="border border-gray-300 py-1 px-2 text-left">
                         {inventory.nama}
                       </td>
                       <td className="border border-gray-300">
@@ -172,13 +191,16 @@ export default function TabelDataInventory({ modal }) {
                       <td className="border border-gray-300">
                         {inventory.status}
                       </td>
-                      <td className="text-left border border-gray-300 py-1 px-1">
-                        {inventory.harga}
+                      <td className="text-left border border-gray-300 py-1 px-2">
+                        Rp. {inventory.harga}
                       </td>
                       <td className="border border-gray-300">
                         <div className="flex justify-center gap-2">
                           <div className="flex items-center justify-center">
                             <DetailInventory {...inventory} />
+                            {/* <Link href={`/inventory/details/${inventory.id}`}>
+                              <CgMoreO className="transition duration-150 ease-in-out" />
+                            </Link> */}
                           </div>
                           <div className="flex items-center justify-center">
                             {/* update */}
@@ -196,8 +218,8 @@ export default function TabelDataInventory({ modal }) {
                     </tr>
                   ))
                 ) : (
-                  <tr>
-                    <td colSpan="8" className="text-center">
+                  <tr className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300">
+                    <td colSpan="12" className="text-center">
                       Tidak ada data
                     </td>
                   </tr>

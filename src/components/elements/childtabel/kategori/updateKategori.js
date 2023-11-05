@@ -64,7 +64,7 @@ export default function UpdateKategori(category) {
               <FormComp
                 id="kodeKategori"
                 type="text"
-                onChange={(e) => setNamaKategori(e.target.value)}
+                onChange={(e) => setKodeKategori(e.target.value)}
                 placeholder={category.kode}
                 value={kodeKategori}
               >

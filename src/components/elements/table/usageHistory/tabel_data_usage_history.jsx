@@ -121,7 +121,7 @@ export default function TabelDataUsageHistory() {
           className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
           style={{
             height: "65vh",
-            width: "148vh",
+            width: "100%",
             scrollSnapType: "x mandatory",
           }}
         >
@@ -130,13 +130,13 @@ export default function TabelDataUsageHistory() {
               <thead className="bg-slate-200">
                 <tr className="2xl:text-lg py-3">
                   <th className="border border-gray-300  text-gray-800 text-center">
-                    ID
+                    No
                   </th>
                   <th className="border border-gray-300  text-gray-800 text-center">
-                    Nomor Induk Lama
+                    Nama/Nomor Induk Lama
                   </th>
                   <th className="border border-gray-300  text-gray-800 text-center">
-                    Nomor Induk Baru
+                    Nama/Nomor Induk Baru
                   </th>
                   <th className="border border-gray-300  text-gray-800 text-center">
                     Tanggal
@@ -163,10 +163,10 @@ export default function TabelDataUsageHistory() {
                         {index + 1}
                       </td>
                       <td className="border border-gray-300 py-1 px-1">
-                        {usage.nomorIndukOld}
+                        {usage.karyawanNamaOld} - {usage.nomorIndukOld}
                       </td>
                       <td className="border border-gray-300 py-1 px-1">
-                        {usage.nomorIndukNew}
+                        {usage.karyawanNamaNew} - {usage.nomorIndukNew}
                       </td>
                       <td className="border border-gray-300 py-1 px-1">
                         {usage.tanggalPemakaian}
@@ -184,7 +184,7 @@ export default function TabelDataUsageHistory() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="8" className="text-center">
+                    <td colSpan="12" className="text-center">
                       Tidak ada data
                     </td>
                   </tr>
