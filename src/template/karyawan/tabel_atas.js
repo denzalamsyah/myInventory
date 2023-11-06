@@ -173,10 +173,10 @@ export default function TabelAtasKaryawan() {
           <tbody className="text-[12px] 2xl:text-lg text-gray- bg-gray-100">
             <tr>
               <td className="text-center text-[12px] 2xl:text-lg text-gray-800">
-                {maleCount}
+                {femaleCount}
               </td>
               <td className="text-center text-[12px] 2xl:text-lg text-gray-800">
-                {femaleCount}
+                {maleCount}
               </td>
             </tr>
           </tbody>

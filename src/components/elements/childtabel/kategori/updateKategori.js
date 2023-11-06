@@ -30,7 +30,7 @@ export default function UpdateKategori(category) {
         },
         body: JSON.stringify({
           nama: namakategori,
-          koode: kodeKategori,
+          kode: kodeKategori,
         }),
       }
     );

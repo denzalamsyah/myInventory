@@ -60,25 +60,25 @@ export default function DetailInventory(inventory) {
       />
       <div className="modal">
         <div className="modal-box max-w-[70rem] bg-white flex flex-col justify-center items-center">
-          <div className="bg-white w-full h-[530px] rounded-md p-10">
-            <div className="grid grid-cols-2 text-left border-b border-gray-400 mb-5 pb-1">
+          <div className="bg-white w-full h-[530px] rounded-md p-3">
+            <div className="grid grid-cols-2 text-left border-b border-gray-400 mb-3">
               <div>
                 <h1 className="font-bold text-sm text-black">
                   {inventoryData.nama}
                 </h1>
               </div>
               <div className="flex justify-end space-x-2">
-                <Button className="text-sm rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
+                <Button className="text-[12px] rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
                   <Link onClick={handleChange} href="">
                     History Perbaikan
                   </Link>
                 </Button>
-                <Button className="text-sm rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
+                <Button className="text-[12px] rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
                   <Link onClick={handleChange} href="">
                     History Pemakaian
                   </Link>
                 </Button>
-                <Button className="text-sm rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
+                <Button className="text-[12px] rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
                   <Link onClick={handleChange} href="">
                     Kembali
                   </Link>
@@ -101,8 +101,9 @@ export default function DetailInventory(inventory) {
                   harga={inventoryData?.harga}
                   vendor={inventoryData?.vendor}
                   deskripsi={inventoryData?.deskripsi}
-                  kategoriId={inventoryData?.kategoriId}
-                  karyawanId={inventoryData?.karyawanId}
+                  kategoriId={inventoryData.kategoriId?.nama}
+                  karyawanId={inventoryData.karyawanId?.nama}
+                  ruanganId={inventoryData.ruanganId?.nama}
                   nilaiResedu={inventoryData?.nilaiResidu}
                   tahun1={inventoryData?.tahun1}
                   tahun2={inventoryData?.tahun2}
@@ -110,6 +111,7 @@ export default function DetailInventory(inventory) {
                   tahun4={inventoryData?.tahun4}
                   depresiasi={inventoryData?.depresiasi}
                   status={inventoryData?.status}
+                  pembeli={inventoryData?.pembeli}
                 />
               </div>
               <div className="w-[100px]">

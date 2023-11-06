@@ -9,6 +9,7 @@ export default function TabelDetailInventoryComp({
   deskripsi,
   kategoriId,
   karyawanId,
+  ruanganId,
   nilaiResedu,
   tahun1,
   tahun2,
@@ -16,11 +17,12 @@ export default function TabelDetailInventoryComp({
   tahun4,
   depresiasi,
   status,
+  pembeli,
 }) {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-2">
       <table className="table">
-        <tbody className="text-left">
+        <tbody className="text-left text-[12px]">
           <tr className=" flex flex-row border-none">
             <th className="text-gray-600 w-40">Kode Aset</th>
             <td className="w-[250px] ">: {kodeAsset}</td>
@@ -50,20 +52,24 @@ export default function TabelDetailInventoryComp({
             <td className="w-[250px]">: {status}</td>
           </tr>
           <tr className="flex flex-row border-none">
-            <th className="text-gray-600 w-40">ID karyawan</th>
+            <th className="text-gray-600 w-40">Nama karyawan</th>
             <td className="w-[250px]">: {karyawanId}</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Deskripsi</th>
             <td className="w-[250px]">: {deskripsi}</td>
           </tr>
+          <tr className="flex flex-row border-none">
+            <th className="text-gray-600 w-40">ID Ruangan</th>
+            <td className="w-[250px]">: {ruanganId}</td>
+          </tr>
         </tbody>
       </table>
       <table className="table">
-        <tbody className="text-left">
+        <tbody className="text-left text-[12px]">
           <tr className=" flex flex-row border-none">
             <th className="text-gray-600  w-40">Masa Manfaat</th>
-            <td className="w-[250px] ">: {masaManfaat}</td>
+            <td className="w-[250px] ">: {masaManfaat} Tahun</td>
           </tr>
           <tr className="flex flex-row border-none">
             <th className="text-gray-600 w-40">Nilai Residu</th>
@@ -90,8 +96,12 @@ export default function TabelDetailInventoryComp({
             <td className="w-[250px]">: Rp. {depresiasi}</td>
           </tr>
           <tr className="flex flex-row border-none">
-            <th className="text-gray-600 w-40">ID Kategori</th>
+            <th className="text-gray-600 w-40">Kategori</th>
             <td className="w-[250px]">: {kategoriId}</td>
+          </tr>
+          <tr className="flex flex-row border-none">
+            <th className="text-gray-600 w-40">Pembeli</th>
+            <td className="w-[250px]">: {pembeli}</td>
           </tr>
         </tbody>
       </table>

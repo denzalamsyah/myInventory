@@ -42,7 +42,7 @@ export default function DeleteKategori({ id, nama }) {
   }
   return (
     <div className="">
-      <Link href="#" className="text-[#DA3E33F7]" onClick={handleChange}>
+      <Link href="" className="text-[#DA3E33F7]" onClick={handleChange}>
         <FaTrash />
       </Link>
       <input
@@ -67,7 +67,7 @@ export default function DeleteKategori({ id, nama }) {
                 Yes
               </Button>
             ) : (
-              <div className=" w-[10%] bg-red-400  p-2 rounded-md flex justify-center">
+              <div className=" w-[10%] bg-red-400 px-4 p-2 rounded-md flex justify-center">
                 <span className="loading loading-spinner text-neutral"></span>
               </div>
             )}

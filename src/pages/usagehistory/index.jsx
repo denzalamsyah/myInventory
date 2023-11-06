@@ -1,6 +1,4 @@
 import MetaHead from "@/components/MetaHead/metahead";
-import LargeCard from "@/components/elements/childtabel/largetabel";
-import TambahUsage from "@/components/elements/childtabel/usage/addUsage";
 import TabelDataUsageHistory from "@/components/elements/table/usageHistory/tabel_data_usage_history";
 import Layout from "@/components/layout/layout";
 import Section from "@/components/section/section";

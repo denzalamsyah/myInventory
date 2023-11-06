@@ -65,7 +65,7 @@ export default function TabelDataInventory({ modal }) {
       });
       if (response.ok) {
         const data = await response.json();
-        setInventoryData(data);
+        setInventoryData(data.data);
       } else {
         console.log("data kosong");
       }
@@ -145,6 +145,9 @@ export default function TabelDataInventory({ modal }) {
                     Nama
                   </th>
                   <th className="border border-gray-300  text-gray-800 text-center">
+                    Vendor
+                  </th>
+                  <th className="border border-gray-300  text-gray-800 text-center">
                     Gambar
                   </th>
                   <th className="border border-gray-300  text-gray-800 text-center">
@@ -162,8 +165,8 @@ export default function TabelDataInventory({ modal }) {
                 </tr>
               </thead>
               <tbody className="">
-                {inventoryData.data && inventoryData.data.length > 0 ? (
-                  inventoryData.data.map((inventory, index) => (
+                {inventoryData && inventoryData.length > 0 ? (
+                  inventoryData.map((inventory, index) => (
                     <tr
                       key={index}
                       className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
@@ -173,6 +176,9 @@ export default function TabelDataInventory({ modal }) {
                       </td>
                       <td className="border border-gray-300 py-1 px-2 text-left">
                         {inventory.nama}
+                      </td>
+                      <td className="border border-gray-300 py-1 px-2 text-left">
+                        {inventory.vendor}
                       </td>
                       <td className="border border-gray-300">
                         <div className="flex  justify-center items-center">
@@ -204,7 +210,23 @@ export default function TabelDataInventory({ modal }) {
                           </div>
                           <div className="flex items-center justify-center">
                             {/* update */}
-                            <UpdateInventory {...inventory} />
+                            <UpdateInventory
+                              Id={inventory.id}
+                              Nama={inventory.nama}
+                              Gambar={inventory.gambar}
+                              KodeAsset={inventory.kodeAsset}
+                              Merk={inventory.merk}
+                              Vendor={inventory.vendor}
+                              TanggalPembelian={inventory.tanggalPembelian}
+                              Harga={inventory.harga}
+                              Status={inventory.status}
+                              Deskripsi={inventory.deskripsi}
+                              MasaManfaat={inventory.masaManfaat}
+                              RuanganId={inventory.ruanganId}
+                              KategoriId={inventory.kategoriId}
+                              KaryawanId={inventory.karyawanId}
+                              Pembeli={inventory.pembeli}
+                            />
                           </div>
                           <div className="flex items-center justify-center">
                             {/* delete */}

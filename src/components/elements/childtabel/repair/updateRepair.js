@@ -1,15 +1,17 @@
 "use client";
 import Button from "@/components/elements/button/button";
 import FormComp from "@/components/form/form";
+import SelectInput from "@/components/form/select";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PiPencilSimpleLineFill } from "react-icons/pi";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 export default function UpdatePerbaikan(repair) {
   const [modal, setModal] = useState(false);
+  const [repairData, setRepairData] = useState([]);
   const [inventory, setInventory] = useState(repair.inventoryId);
   const [tanggalKerusakan, setTanggalKerusakan] = useState(
     repair.tanggalKerusakan
@@ -24,6 +26,7 @@ export default function UpdatePerbaikan(repair) {
   );
   const router = useRouter();
   const MySwal = withReactContent(Swal);
+  console.log(inventory);
   function handleChange() {
     setModal(!modal);
   }
@@ -31,7 +34,7 @@ export default function UpdatePerbaikan(repair) {
   async function handleUpdate(e) {
     e.preventDefault();
     const response = await fetch(
-      `http://localhost:9000/api/kategori/${repair.id}`,
+      `http://localhost:9000/api/perbaikan/${repair.id}`,
       {
         method: "PUT",
         headers: {
@@ -58,6 +61,32 @@ export default function UpdatePerbaikan(repair) {
       MySwal.fire("Update Gagal", "Klik tombol!", "error");
     }
   }
+
+  const fetchRepair = async () => {
+    try {
+      const response = await fetch("http://localhost:9000/api/inventory", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      console.log(response);
+
+      const data = await response.json();
+      setRepairData(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchRepair();
+  }, []);
   return (
     <div className="">
       <Link className="text-[#10A760]" href="" onClick={handleChange}>
@@ -76,15 +105,26 @@ export default function UpdatePerbaikan(repair) {
           </h1>
           <div>
             <div className="mb-2">
-              <FormComp
+              <SelectInput
                 id="inventory"
-                type="number"
+                name="number"
                 value={inventory}
                 onChange={(e) => setInventory(e.target.value)}
-                placeholder={repair.inventoryId.kodeAsset}
+                label="Nama Inventory"
+                className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                Inventory
-              </FormComp>
+                <option value={inventory.id}>{inventory.kodeAsset}</option>
+                {repairData.map(
+                  (repair) => (
+                    console.log(repair),
+                    (
+                      <option key={repair.id} value={repair.id}>
+                        {repair.kodeAsset}
+                      </option>
+                    )
+                  )
+                )}
+              </SelectInput>
             </div>
             <div className="mb-2">
               <FormComp

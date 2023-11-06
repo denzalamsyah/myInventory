@@ -80,7 +80,7 @@ export default function DetailKaryawan(employee) {
             </div>
             <div className="flex">
               <TabelDetailKaryawanComp
-                id={employeeData.nomorInduk}
+                id={employeeData.id}
                 nama={employeeData.nama}
                 gender={employeeData.gender}
                 email={employeeData.email}

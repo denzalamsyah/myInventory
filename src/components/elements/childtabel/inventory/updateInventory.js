@@ -3,36 +3,56 @@ import Button from "@/components/elements/button/button";
 import FormComp from "@/components/form/form";
 import SelectInput from "@/components/form/select";
 import { useRouter } from "next/navigation";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { PiPencilSimpleLineFill } from "react-icons/pi";
 import Image from "next/image";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-export default function UpdateInventory(inventory) {
+export default function UpdateInventory({
+  Id,
+  Nama,
+  Gambar,
+  KodeAsset,
+  Merk,
+  Vendor,
+  TanggalPembelian,
+  Harga,
+  Status,
+  Deskripsi,
+  MasaManfaat,
+  RuanganId,
+  KategoriId,
+  KaryawanId,
+  Pembeli,
+}) {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(inventory.gambar);
-  const [karyawanId, setKaryawanId] = useState(inventory.karyawanId);
-  const [nama, setNama] = useState(inventory.nama);
-  const [kodeAset, setKodeAset] = useState(inventory.kodeAsset);
-  const [merk, setMerk] = useState(inventory.merk);
-  const [vendor, setVendor] = useState(inventory.vendor);
-  const [tanggalPembelian, setTanggalPembelian] = useState(
-    inventory.tanggalPembelian
-  );
-  const [harga, setHarga] = useState(inventory.harga);
-  const [status, setStatus] = useState(inventory.status);
-  const [deskripsi, setDeskripsi] = useState(inventory.deskripsi);
-  const [masaManfaat, setMasaManfaat] = useState(inventory.masaManfaat);
-
-  const [idKategori, setIdKategori] = useState(inventory.kategoriId);
+  const [selectedImage, setSelectedImage] = useState(Gambar);
+  const [nama, setNama] = useState(Nama);
+  const [kodeAset, setKodeAset] = useState(KodeAsset);
+  const [merk, setMerk] = useState(Merk);
+  const [vendor, setVendor] = useState(Vendor);
+  const [tanggalPembelian, setTanggalPembelian] = useState(TanggalPembelian);
+  const [harga, setHarga] = useState(Harga);
+  const [status, setStatus] = useState(Status);
+  const [deskripsi, setDeskripsi] = useState(Deskripsi);
+  const [masaManfaat, setMasaManfaat] = useState(MasaManfaat);
   const [imagePreview, setImagePreview] = useState(null);
   const imageInputRef = useRef(null);
-  const [idRuangan, setIdRuangan] = useState(inventory.ruanganId);
   const MySwal = withReactContent(Swal);
   const router = useRouter();
+  const [idRuangan, setIdRuangan] = useState(RuanganId);
+  const [roomData, setRoomData] = useState([]);
+  const [karyawanId, setKaryawanId] = useState(KaryawanId);
+  const [karyawanData, setKaryawanData] = useState([]);
+  const [idKategori, setIdKategori] = useState(KategoriId);
+  const [categoryData, setCategoryData] = useState([]);
+  const [pembeli, setPembeli] = useState(Pembeli);
+  console.log(karyawanId);
+  console.log(idKategori);
+  console.log(idRuangan);
   const onImageUpload = (e) => {
     const file = e.target.files[0];
     setSelectedImage(file);
@@ -59,17 +79,15 @@ export default function UpdateInventory(inventory) {
     formData.append("karyawanId", karyawanId);
     formData.append("status", status);
     formData.append("ruanganId", idRuangan);
+    formData.append("pembeli", pembeli);
 
-    const response = await fetch(
-      `http://localhost:9000/api/inventory/${inventory.id}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: formData,
-      }
-    );
+    const response = await fetch(`http://localhost:9000/api/inventory/${Id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: formData,
+    });
     setLoading(false);
     if (response.ok) {
       setModal(false);
@@ -80,8 +98,68 @@ export default function UpdateInventory(inventory) {
       MySwal.fire("Gagal mengubah data", "Klik tombol!", "error");
     }
   }
+
+  const fetchSelect = async () => {
+    try {
+      const response = await fetch("http://localhost:9000/api/ruangan", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (response.ok) {
+        console.log(response);
+
+        const data = await response.json();
+        setRoomData(data.data);
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+
+      const resKaryawan = await fetch("http://localhost:9000/api/karyawan", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (resKaryawan.ok) {
+        console.log(resKaryawan);
+
+        const data = await resKaryawan.json();
+        setKaryawanData(data.data);
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+
+      const resKategori = await fetch("http://localhost:9000/api/kategori", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (resKategori.ok) {
+        console.log(resKategori);
+        const data = await resKategori.json();
+        setCategoryData(data.data);
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSelect();
+  }, []);
   return (
-    <>
+    <div className="">
       <Link href="" onClick={handleChange} className="text-[#10A760]">
         <PiPencilSimpleLineFill />
       </Link>
@@ -94,7 +172,7 @@ export default function UpdateInventory(inventory) {
       <div className="modal">
         <div className="modal-box max-w-[60rem] max-h-[40rem] px-11 bg-white">
           <h1 className="font-bold text-lg text-black mb-3">
-            Update Data Inventory {inventory.nama}!
+            Update Data Inventory {Nama}!
           </h1>
           <div>
             <div className="mb-4 flex justify-center w-28 h-24 bg-slate-200 rounded-md border-dashed border-2 border-gray-400">
@@ -141,11 +219,11 @@ export default function UpdateInventory(inventory) {
               <div>
                 <div className="mb-2 text-left">
                   <FormComp
-                    id="kodeAset"
+                    id="kodeAsset"
                     type="text"
                     value={kodeAset}
                     onChange={(e) => setKodeAset(e.target.value)}
-                    placeholder={inventory.kodeAsset}
+                    placeholder={KodeAsset}
                   >
                     Kode Aset
                   </FormComp>
@@ -156,7 +234,7 @@ export default function UpdateInventory(inventory) {
                     type="text"
                     value={nama}
                     onChange={(e) => setNama(e.target.value)}
-                    placeholder={inventory.nama}
+                    placeholder={Nama}
                   >
                     Nama
                   </FormComp>
@@ -167,7 +245,7 @@ export default function UpdateInventory(inventory) {
                     type="text"
                     value={merk}
                     onChange={(e) => setMerk(e.target.value)}
-                    placeholder={inventory.merk}
+                    placeholder={Merk}
                   >
                     Merk
                   </FormComp>
@@ -178,18 +256,18 @@ export default function UpdateInventory(inventory) {
                     type="text"
                     value={vendor}
                     onChange={(e) => setVendor(e.target.value)}
-                    placeholder={inventory.vendor}
+                    placeholder={Vendor}
                   >
                     Vendor
                   </FormComp>
                 </div>
                 <div className="mb-2 text-left">
                   <FormComp
-                    id="tanggal"
+                    id="tanggalPembelian"
                     type="date"
                     value={tanggalPembelian}
                     onChange={(e) => setTanggalPembelian(e.target.value)}
-                    placeholder={inventory.tanggalPembelian}
+                    placeholder={TanggalPembelian}
                   >
                     Tanggal Pembelian
                   </FormComp>
@@ -200,7 +278,7 @@ export default function UpdateInventory(inventory) {
                     type="number"
                     value={harga}
                     onChange={(e) => setHarga(e.target.value)}
-                    placeholder={inventory.harga}
+                    placeholder={Harga}
                   >
                     Harga
                   </FormComp>
@@ -221,15 +299,25 @@ export default function UpdateInventory(inventory) {
                   </SelectInput>
                 </div>
                 <div className="mb-2 text-left">
-                  <FormComp
+                  <SelectInput
                     id="idRuangan"
                     type="number"
                     value={idRuangan}
                     onChange={(e) => setIdRuangan(e.target.value)}
-                    placeholder={inventory.ruanganId}
+                    label="Kode Ruangan"
+                    className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
-                    Ruangan
-                  </FormComp>
+                    {roomData.map(
+                      (room) => (
+                        console.log(room),
+                        (
+                          <option key={room.id} value={room.id}>
+                            {room.kode}
+                          </option>
+                        )
+                      )
+                    )}
+                  </SelectInput>
                 </div>
                 <div className="mb-2 text-left">
                   <FormComp
@@ -237,7 +325,7 @@ export default function UpdateInventory(inventory) {
                     type="text"
                     value={deskripsi}
                     onChange={(e) => setDeskripsi(e.target.value)}
-                    placeholder={inventory.deskripsi}
+                    placeholder={Deskripsi}
                   >
                     Deskripsi
                   </FormComp>
@@ -246,37 +334,67 @@ export default function UpdateInventory(inventory) {
               <div>
                 <div className="mb-2 text-left">
                   <FormComp
+                    id="pembeli"
+                    type="text"
+                    value={pembeli}
+                    onChange={(e) => setPembeli(e.target.value)}
+                    placeholder={Pembeli}
+                  >
+                    Pembeli
+                  </FormComp>
+                </div>
+                <div className="mb-2 text-left">
+                  <FormComp
                     id="masaManfaat"
                     type="number"
                     value={masaManfaat}
                     onChange={(e) => setMasaManfaat(e.target.value)}
-                    placeholder={inventory.masaManfaat}
+                    placeholder={MasaManfaat}
                   >
                     Masa Manfaat
                   </FormComp>
                 </div>
 
                 <div className="mb-2 text-left">
-                  <FormComp
+                  <SelectInput
                     id="idKategori"
                     type="number"
                     value={idKategori}
                     onChange={(e) => setIdKategori(e.target.value)}
-                    placeholder={inventory.idKategori}
+                    label="Kode Kategori"
+                    className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
-                    Kategori
-                  </FormComp>
+                    {categoryData.map(
+                      (category) => (
+                        console.log(category),
+                        (
+                          <option key={category.id} value={category.id}>
+                            {category.kode}
+                          </option>
+                        )
+                      )
+                    )}
+                  </SelectInput>
                 </div>
                 <div className="mb-2 text-left">
-                  <FormComp
+                  <SelectInput
                     id="idKaryawan"
-                    type="number"
                     value={karyawanId}
                     onChange={(e) => setKaryawanId(e.target.value)}
-                    placeholder={inventory.idKaryawan}
+                    label="Nama Karyawan"
+                    className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
-                    Karyawan
-                  </FormComp>
+                    {karyawanData.map(
+                      (karyawan) => (
+                        console.log(karyawan),
+                        (
+                          <option key={karyawan.id} value={karyawan.id}>
+                            {karyawan.nama}
+                          </option>
+                        )
+                      )
+                    )}
+                  </SelectInput>
                 </div>
               </div>
             </div>
@@ -303,6 +421,6 @@ export default function UpdateInventory(inventory) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

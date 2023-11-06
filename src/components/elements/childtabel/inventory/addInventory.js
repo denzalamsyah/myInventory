@@ -4,7 +4,7 @@ import FormComp from "@/components/form/form";
 import SelectInput from "@/components/form/select";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 export default function TambahInventory() {
@@ -26,6 +26,10 @@ export default function TambahInventory() {
   const [idRuangan, setIdRuangan] = useState(0);
   const MySwal = withReactContent(Swal);
   const router = useRouter();
+  const [roomData, setRoomData] = useState([]);
+  const [karyawanData, setKaryawanData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [pembeli, setPembeli] = useState("");
   const onImageUpload = (e) => {
     const file = e.target.files[0];
     setSelectedImage(file);
@@ -51,6 +55,7 @@ export default function TambahInventory() {
     formData.append("kategoriId", idKategori);
     formData.append("karyawanId", karyawanId);
     formData.append("ruanganId", idRuangan);
+    formData.append("pembeli", pembeli);
     try {
       const response = await fetch("http://localhost:9000/api/inventory", {
         method: "POST",
@@ -75,6 +80,66 @@ export default function TambahInventory() {
       console.error("Terjadi kesalahan dalam permintaan: " + error.message);
     }
   };
+
+  const fetchSelect = async () => {
+    try {
+      const response = await fetch("http://localhost:9000/api/ruangan", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (response.ok) {
+        console.log(response);
+
+        const data = await response.json();
+        setRoomData(data.data);
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+
+      const resKaryawan = await fetch("http://localhost:9000/api/karyawan", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (resKaryawan.ok) {
+        console.log(resKaryawan);
+
+        const data = await resKaryawan.json();
+        setKaryawanData(data.data);
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+
+      const resKategori = await fetch("http://localhost:9000/api/kategori", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (resKategori.ok) {
+        console.log(resKategori);
+        const data = await resKategori.json();
+        setCategoryData(data.data);
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSelect();
+  }, []);
   return (
     <div className="">
       <Button
@@ -193,14 +258,25 @@ export default function TambahInventory() {
                   </FormComp>
                 </div>
                 <div className="mb-2">
-                  <FormComp
+                  <SelectInput
                     id="KaryawanId"
                     type="number"
                     onChange={(e) => setKaryawanId(e.target.value)}
-                    placeholder="Masukan nomor induk"
+                    label="Nama Karyawan"
+                    className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
-                    ID Karyawan
-                  </FormComp>
+                    <option value="">Pilih Karyawan</option>
+                    {karyawanData.map(
+                      (karyawan) => (
+                        console.log(karyawan),
+                        (
+                          <option key={karyawan.id} value={karyawan.id}>
+                            {karyawan.nama}
+                          </option>
+                        )
+                      )
+                    )}
+                  </SelectInput>
                 </div>
                 <div className="mb-2">
                   <FormComp
@@ -226,6 +302,16 @@ export default function TambahInventory() {
                 </div>
                 <div className="mb-2">
                   <FormComp
+                    id="pembeli"
+                    type="text"
+                    onChange={(e) => setPembeli(e.target.value)}
+                    placeholder="Masukan nama pembeli"
+                  >
+                    Pembeli
+                  </FormComp>
+                </div>
+                <div className="mb-2">
+                  <FormComp
                     id="masaManfaat"
                     type="number"
                     onChange={(e) => setMasaManfaat(e.target.value)}
@@ -235,24 +321,46 @@ export default function TambahInventory() {
                   </FormComp>
                 </div>
                 <div className="mb-2">
-                  <FormComp
+                  <SelectInput
                     id="idKategori"
                     type="number"
                     onChange={(e) => setIdKategori(e.target.value)}
-                    placeholder="Masukan id kategori"
+                    label="ID Kategori"
+                    className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
-                    ID Kategori
-                  </FormComp>
+                    <option value="">Pilih Kategori</option>
+                    {categoryData.map(
+                      (category) => (
+                        console.log(category),
+                        (
+                          <option key={category.id} value={category.id}>
+                            {category.kode}
+                          </option>
+                        )
+                      )
+                    )}
+                  </SelectInput>
                 </div>
                 <div className="mb-2">
-                  <FormComp
+                  <SelectInput
                     id="idRuangan"
-                    type="number"
+                    name="number"
                     onChange={(e) => setIdRuangan(e.target.value)}
-                    placeholder="Masukan id ruangan"
+                    label="ID Ruangan"
+                    className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
-                    ID Ruangan
-                  </FormComp>
+                    <option value="">Pilih Ruangan</option>
+                    {roomData.map(
+                      (room) => (
+                        console.log(room),
+                        (
+                          <option key={room.id} value={room.id}>
+                            {room.kode}
+                          </option>
+                        )
+                      )
+                    )}
+                  </SelectInput>
                 </div>
               </div>
             </div>

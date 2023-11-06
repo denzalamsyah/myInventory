@@ -67,7 +67,7 @@ export default function DeleteRoom({ id, nama }) {
                 Yes
               </Button>
             ) : (
-              <div className=" w-[10%] bg-red-400  p-2 rounded-md flex justify-center">
+              <div className=" w-[10%] bg-red-400 px-4  p-2 rounded-md flex justify-center">
                 <span className="loading loading-spinner text-neutral"></span>
               </div>
             )}

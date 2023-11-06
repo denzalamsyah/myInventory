@@ -70,7 +70,7 @@ export default function TambahKategori() {
                 onChange={(e) => setKodeKategori(e.target.value)}
                 placeholder="Masukan kode kategori"
               >
-                Nama Kategori
+                Kode Kategori
               </FormComp>
             </div>
             <div className="mb-2">

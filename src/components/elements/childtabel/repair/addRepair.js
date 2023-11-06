@@ -105,6 +105,7 @@ export default function TambahPerbaikan() {
                 label="Nama Inventory"
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
+                <option value="">Pilih Inventory</option>
                 {repairData.map(
                   (repair) => (
                     console.log(repair),

@@ -1,78 +1,170 @@
+import SelectInput from "@/components/form/select";
 import React, { useState, useEffect } from "react";
 export default function TabelAtasKategori() {
-  const [categoryCount, setCategoryCount] = useState(0);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const responseCategoryName = await fetch(
-          "http://localhost:9000/api/kategori/count",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        );
-        if (responseCategoryName.ok) {
-          const data = await responseCategoryName.json();
-          setCategoryCount(data);
-        }
-      } catch {
-        console.error("failed to fetch data", error);
+  // const [categoryCount, setCategoryCount] = useState(0);
+  const [namaKategori, setNamaKategori] = useState([]);
+  const [categoriCount, setCategoryCount] = useState(0);
+  const [dataApk, setDataApk] = useState(0);
+  const [dataAPL, setDataAPL] = useState(0);
+  const [dataAK, setDataAK] = useState(0);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const responseCategoryName = await fetch(
+  //         "http://localhost:9000/api/kategori/count",
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: "Bearer " + localStorage.getItem("token"),
+  //           },
+  //         }
+  //       );
+  //       if (responseCategoryName.ok) {
+  //         const data = await responseCategoryName.json();
+  //         setCategoryCount(data);
+  //       }
+  //     } catch {
+  //       console.error("failed to fetch data", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
+  const fetchKategori = async () => {
+    try {
+      const response = await fetch("http://localhost:9000/api/kategori", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+      console.log(response);
+      if (response.ok) {
+        const data = await response.json();
+        setNamaKategori(data.data);
       }
-    };
-    fetchData();
+      const countcategory = await fetch(
+        "http://localhost:9000/api/kategori/count",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+
+      if (countcategory.ok) {
+        const data = await countcategory.json();
+        setCategoryCount(data);
+      }
+
+      const resAPK = await fetch(
+        "http://localhost:9000/api/inventory/count-apk",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (resAPK.ok) {
+        const data = await resAPK.json();
+        setDataApk(data);
+      }
+
+      const resAPL = await fetch(
+        "http://localhost:9000/api/inventory/count-apl",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (resAPL.ok) {
+        const data = await resAPL.json();
+        setDataAPL(data);
+      }
+      const resAK = await fetch(
+        "http://localhost:9000/api/inventory/count-ak",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(resAK);
+      if (resAK.ok) {
+        const data = await resAK.json();
+        setDataAK(data);
+      }
+    } catch {
+      console.log("error");
+    }
+  };
+
+  useEffect(() => {
+    fetchKategori();
   }, []);
   return (
     <div className="flex space-x-[100px]">
       <div>
-        <h1 className="text-[12px] 2xl:text-lg font-bold text-gray-800 mb-2">
-          Nama Kategori
-        </h1>
         <table>
+          <thead className="text-[12px] font-bold text-gray-800">
+            <tr className="bg-green-200 2xl:text-[16px]">Nama kategori</tr>
+          </thead>
           <tbody className="text-[12px] 2xl:text-[16px] text-gray-800 ">
             <tr>
-              <td>Aset Kantor</td>
-            </tr>
-            <tr>
-              <td>Aset Perangkat Keras</td>
-            </tr>
-            <tr>
-              <td>Aset Perangkat Lunak</td>
+              <td>
+                {namaKategori.map((item) => {
+                  return (
+                    <tr className="text-left text-[12px] px-10" key={item.id}>
+                      {item.nama}
+                    </tr>
+                  );
+                })}
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div>
-        <h1 className="text-[12px] 2xl:text-lg font-bold text-gray-800 mb-2">
-          Total Kategori
-        </h1>
         <table>
+          <thead className="text-[12px] font-bold text-gray-800">
+            <tr>Total Kategori</tr>
+          </thead>
           <tbody className="text-[12px] text-gray-800">
             <tr className="2xl:text-[16px]">
-              <td className="text-center px-10">{categoryCount}</td>
+              <td className="text-center px-10">{categoriCount}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div>
-        <h1 className="text-[12px] 2xl:text-lg font-bold text-gray-800 text-center mb-2">
-          Jumlah Aset Kategori Terbesar
-        </h1>
         <table>
-          <thead className="text-[12px] text-gray-800">
+          <thead className="text-[12px] font-bold text-gray-800">
             <tr className="bg-green-200 2xl:text-[16px]">
-              <td className="px-2 text-center">Aset Kantor</td>
-              <td className="px-2">Aset Perangkat Keras</td>
-              <td className="px-2">Aset Perangkat Lunak</td>
+              {namaKategori.map((item) => {
+                return (
+                  <td className="text-left text-[12px] px-10" key={item.id}>
+                    {item.nama}
+                  </td>
+                );
+              })}
             </tr>
           </thead>
           <tbody className="text-[12px] 2xl:text-[16px] text-gray-800 bg-gray-100">
             <tr>
-              <td className="text-center">200</td>
-              <td className="text-center">250</td>
-              <td className="text-center">100</td>
+              <td className="text-center px-10">{dataAK}</td>
+              <td className="text-center px-10">{dataAPL}</td>
+              <td className="text-center px-10">{dataApk}</td>
             </tr>
           </tbody>
         </table>
