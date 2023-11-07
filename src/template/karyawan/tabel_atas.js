@@ -107,8 +107,8 @@ export default function TabelAtasKaryawan() {
   }, []);
 
   return (
-    <div className="md:flex md:space-x-[100px] md:space-y-0 space-y-4">
-      <div className="w-full">
+    <div className="flex gap-8">
+      <div>
         <h1 className="text-[12px] 2xl:text-lg font-bold text-gray-800 mb-2">
           Divisi
         </h1>
@@ -147,7 +147,7 @@ export default function TabelAtasKaryawan() {
           </tbody>
         </table>
       </div>
-      <div className="w-full">
+      {/* <div>
         <h1 className="text-[12px] 2xl:text-lg font-bold text-gray-800 mb-2">
           Jabatan
         </h1>
@@ -158,8 +158,8 @@ export default function TabelAtasKaryawan() {
             </tr>
           </tbody>
         </table>
-      </div>
-      <div className="w-full">
+      </div> */}
+      <div>
         <h1 className="text-[12px] 2xl:text-lg font-bold text-gray-800 mb-2">
           Gender
         </h1>
