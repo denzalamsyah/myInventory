@@ -10,6 +10,24 @@ import Button from "../button/button";
 const VerifyPage = () => {
   const [email, setEmail] = useState("");
 
+  const verify = async () => {
+    try {
+      const res = await fetch(`http://localhost:9000/api/forgot-password`, {
+        method: "GET",
+        body: JSON.stringify({ email }),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+      if (res.ok) {
+        const json = await res.json();
+        console.log(json);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="bg-white p-8 rounded-lg shadow-md w-[400px]">
       <h1 className="text-2xl font-semibold mb-8 text-black">Reset password</h1>

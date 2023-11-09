@@ -1,16 +1,15 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { CgMoreO } from "react-icons/cg";
-import Button from "../../button/button";
 import TabelDetailInventoryComp from "../../table/inventory/tabel_detail_inventory";
 import { useRouter } from "next/router";
-export default function DetailInventory(inventory) {
+export default function DetailInventory({ Id }) {
   const [modal, setModal] = useState(false);
   const [inventoryData, setInventoryData] = useState([]);
   const router = useRouter();
-
+  console.log(inventoryData);
+  console.log(Id);
   function handleChange() {
     setModal(!modal);
   }
@@ -18,7 +17,7 @@ export default function DetailInventory(inventory) {
   const fetchInventory = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/inventory/${inventory.id}`,
+        `http://localhost:9000/api/inventory/${Id}`,
         {
           method: "GET",
           headers: {
@@ -59,70 +58,32 @@ export default function DetailInventory(inventory) {
         className="modal-toggle"
       />
       <div className="modal">
-        <div className="modal-box max-w-[70rem] bg-white flex flex-col justify-center items-center">
+        <div className="modal-box max-w-[65rem] bg-white ">
           <div className="bg-white w-full h-[530px] rounded-md p-3">
-            <div className="grid grid-cols-2 text-left border-b border-gray-400 mb-3">
-              <div>
-                <h1 className="font-bold text-sm text-black">
-                  {inventoryData.nama}
+            <div className="grid grid-cols-3 lg:grid-cols-6 text-left border-b py-2 border-gray-400 mb-3">
+              <Link href={`/employee/details/${Id}`}>
+                <h1 className="text-[10px] md:text-[12px] hover:text-blue-400 text-black">
+                  History Perbaikan
                 </h1>
-              </div>
-              <div className="flex justify-end space-x-2">
-                <Button className="text-[12px] rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
-                  <Link onClick={handleChange} href="">
-                    History Perbaikan
-                  </Link>
-                </Button>
-                <Button className="text-[12px] rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
-                  <Link onClick={handleChange} href="">
-                    History Pemakaian
-                  </Link>
-                </Button>
-                <Button className="text-[12px] rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
-                  <Link onClick={handleChange} href="">
-                    Kembali
-                  </Link>
-                </Button>
-              </div>
+              </Link>
+              <Link onClick={handleChange} href="">
+                <h1 className="text-[10px] md:text-[12px] hover:text-blue-400 text-black">
+                  History Pemakaian
+                </h1>
+              </Link>
+              <Link onClick={handleChange} href="">
+                <h1 className="text-[10px] md:text-[12px] hover:text-blue-400 text-black">
+                  Kembali
+                </h1>
+              </Link>
             </div>
-            <div>
-              <h1 className="text-left mb-4 w-full text-sm text-gray-800">
+            <div className="px-4">
+              <h1 className="text-left mb-4 w-full text-[12px] text-gray-800">
                 Informasi Details
               </h1>
             </div>
-            <div className="flex gap-8">
-              <div>
-                <TabelDetailInventoryComp
-                  kodeAsset={inventoryData?.kodeAsset}
-                  nama={inventoryData?.nama}
-                  merk={inventoryData?.merk}
-                  masaManfaat={inventoryData?.masaManfaat}
-                  tanggalPembelian={inventoryData?.tanggalPembelian}
-                  harga={inventoryData?.harga}
-                  vendor={inventoryData?.vendor}
-                  deskripsi={inventoryData?.deskripsi}
-                  kategoriId={inventoryData.kategoriId?.nama}
-                  karyawanId={inventoryData.karyawanId?.nama}
-                  ruanganId={inventoryData.ruanganId?.nama}
-                  nilaiResedu={inventoryData?.nilaiResidu}
-                  tahun1={inventoryData?.tahun1}
-                  tahun2={inventoryData?.tahun2}
-                  tahun3={inventoryData?.tahun3}
-                  tahun4={inventoryData?.tahun4}
-                  depresiasi={inventoryData?.depresiasi}
-                  status={inventoryData?.status}
-                  pembeli={inventoryData?.pembeli}
-                />
-              </div>
-              <div className="w-[100px]">
-                <Image
-                  src={inventoryData?.gambar}
-                  alt={inventoryData?.nama}
-                  width={100}
-                  height={100}
-                  className="rounded-[5px] bg-gray-400"
-                ></Image>
-              </div>
+            <div>
+              <TabelDetailInventoryComp {...inventoryData.data} />
             </div>
           </div>
         </div>

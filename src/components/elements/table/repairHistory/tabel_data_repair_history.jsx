@@ -8,14 +8,14 @@ export default function TabelDataRepairHistory({ modal }) {
   const [repairDataHistory, setRepairData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [screenSize, setScreenSize] = useState("md");
-  const [pageSize, setPageSize] = useState(7);
+  const [pageSize, setPageSize] = useState(16);
   const componentRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   console.log(repairDataHistory);
   const screenSizes = {
-    "2xl": 10,
-    md: 7,
+    "2xl": 20,
+    md: 10,
   };
 
   const handleSearch = (e) => {
@@ -130,31 +130,31 @@ export default function TabelDataRepairHistory({ modal }) {
           }}
         >
           <div>
-            <table className="table caption-top w-full">
+            <table className="w-full">
               <thead className=" bg-slate-200">
-                <tr className="2xl:text-lg py-3">
-                  <th className="border border-gray-300 text-gray-800 text-center">
+                <tr className="2xl:text-lg py-3 border">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     No
                   </th>
-                  <th className="border border-gray-300 text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Kode Aset
                   </th>
-                  <th className="border border-gray-300 text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Tanggal Kerusakan
                   </th>
-                  <th className="border border-gray-300 text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Tanggal Perbaikan
                   </th>
-                  <th className="border border-gray-300 text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Biaya
                   </th>
-                  <th className="border border-gray-300 text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Tanggal Selesai Diperbaiki
                   </th>
-                  <th className="border border-gray-300 text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Deskripsi
                   </th>
-                  <th className="border border-gray-300 text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Action
                   </th>
                 </tr>
@@ -167,30 +167,24 @@ export default function TabelDataRepairHistory({ modal }) {
                       (
                         <tr
                           key={index}
-                          className="text-center border text-[12px] text-black border-gray-300"
+                          className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                         >
-                          <td className="border border-gray-300 py-1">
-                            {index + 1}
-                          </td>
-                          <td className="border border-gray-300 py-1">
+                          <td className="py-2 px-1">{index + 1}</td>
+                          <td className="py-2 px-1">
                             {repair.inventoryId.kodeAsset}
                           </td>
-                          <td className="border border-gray-300 py-1 px-1">
+                          <td className="py-2  px-1">
                             {repair.tanggalKerusakan}
                           </td>
-                          <td className="border border-gray-300 py-1 px-1">
+                          <td className="py-2 px-1">
                             {repair.tanggalPerbaikan}
                           </td>
-                          <td className="border border-gray-300 py-1 px-1">
-                            {repair.biaya}
-                          </td>
-                          <td className="border border-gray-300 py-1 px-1">
+                          <td className="py-2  px-1">{repair.biaya}</td>
+                          <td className="py-2  px-1">
                             {repair.tanggalSelesaiPerbaikan}
                           </td>
-                          <td className="border border-gray-300 py-1 px-1">
-                            {repair.deskripsi}
-                          </td>
-                          <td className="border border-gray-300">
+                          <td className="py-2  px-1">{repair.deskripsi}</td>
+                          <td className="py-2">
                             <div className="flex justify-center gap-2">
                               <div className="flex items-center justify-center">
                                 {/* update */}

@@ -1,6 +1,7 @@
 import MetaHead from "@/components/MetaHead/metahead";
-import Layout from "@/components/layout/layout";
-import Sidebar from "@/components/sidebar/sidebar";
+import TopCards from "@/components/chart/TopChart";
+import Headers from "@/components/header";
+import Section from "@/components/section/section";
 import SectionDashboard from "@/template/dashboard/dashboard";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -29,12 +30,7 @@ export default function Dashboard() {
   return (
     <>
       <MetaHead title="Dashboard" description="Welcome to Dashboard" />
-      <div className="flex w-screen h-screen max-w-[100wh] max-h-[100vh]">
-        <Sidebar />
-        <section className="flex-1 bg-slate-200">
-          <SectionDashboard />
-        </section>
-      </div>
+      <SectionDashboard />
     </>
   );
 }

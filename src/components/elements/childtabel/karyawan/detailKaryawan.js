@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { CgMoreO } from "react-icons/cg";
-import Button from "../../button/button";
 import TabelDetailKaryawanComp from "../../table/karyawan/tabel_detail_karyawan";
 export default function DetailKaryawan(employee) {
   const [modal, setModal] = useState(false);
@@ -59,26 +57,21 @@ export default function DetailKaryawan(employee) {
         className="modal-toggle"
       />
       <div className="modal">
-        <div className="modal-box max-w-[60rem] bg-white flex flex-col justify-center items-center">
-          <div className="bg-white w-full h-[530px] p-10">
+        <div className="modal-box max-w-[30rem] bg-white flex flex-col justify-center items-center">
+          <div className="bg-white w-full h-[470px] 2xl:h-[550px] p-2">
             <div className="grid grid-cols-2 text-left border-b border-gray-400 mb-5 pb-3">
-              <h1 className="font-bold text-sm text-black">
-                {employeeData.nama}
-              </h1>
-              <div className="text-right">
-                <Button className="text-sm rounded-[5px] shadow-lg px-4 py-1 border border-gray-200 hover:text-white hover:bg-black  ">
-                  <Link onClick={handleChange} href="">
-                    Back
-                  </Link>
-                </Button>
-              </div>
+              <Link onClick={handleChange} href="">
+                <h1 className="text-[10px] md:text-[12px] hover:text-blue-400 text-black">
+                  Kembali
+                </h1>
+              </Link>
             </div>
-            <div>
-              <h1 className="text-left mb-4 w-full text-sm text-gray-800">
+            <div className="px-4">
+              <h1 className="text-left mb-4 w-full text-[12px] text-gray-800">
                 Informasi Details
               </h1>
             </div>
-            <div className="flex">
+            <div>
               <TabelDetailKaryawanComp
                 id={employeeData.id}
                 nama={employeeData.nama}
@@ -88,16 +81,8 @@ export default function DetailKaryawan(employee) {
                 jabatan={employeeData.jabatan}
                 divisi={employeeData.divisi}
                 alamat={employeeData.alamat}
+                gambar={employeeData.gambar}
               />
-              <div className=" w-[100px]">
-                <Image
-                  src={employeeData.gambar}
-                  alt={employeeData.nama}
-                  width={100}
-                  height={100}
-                  className="rounded-[5px] bg-gray-400"
-                ></Image>
-              </div>
             </div>
           </div>
         </div>

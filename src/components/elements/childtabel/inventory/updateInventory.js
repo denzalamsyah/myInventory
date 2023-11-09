@@ -27,6 +27,8 @@ export default function UpdateInventory({
   KaryawanId,
   Pembeli,
 }) {
+  console.log(Id);
+  console.log(Nama);
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(Gambar);
@@ -201,7 +203,6 @@ export default function UpdateInventory({
                       htmlFor="imageInput"
                       className="cursor-pointer text-[12px]"
                     >
-                      <div>Drag & Drop or</div>
                       <div>Click to Choose Image</div>
                     </label>
                   </div>
@@ -215,7 +216,7 @@ export default function UpdateInventory({
                 ref={imageInputRef}
               />
             </div>
-            <div className="flex flex-row gap-[55px]">
+            <div className="grid lg:grid-cols-2 gap-3">
               <div>
                 <div className="mb-2 text-left">
                   <FormComp
@@ -293,9 +294,9 @@ export default function UpdateInventory({
                     className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
                     <option value="">Select Status</option>
-                    <option value="Normal">Normal</option>
-                    <option value="Repair">Repair</option>
-                    <option value="Rusak">Rusak</option>
+                    <option value="NORMAL">Normal</option>
+                    <option value="REPAIR_PROCESS">Repair</option>
+                    <option value="DAMAGE">Rusak</option>
                   </SelectInput>
                 </div>
                 <div className="mb-2 text-left">

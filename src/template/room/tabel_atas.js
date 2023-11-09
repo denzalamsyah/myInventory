@@ -1,107 +1,39 @@
+import { useEffect, useState } from "react";
 export default function TabelAtasRoom() {
+  const [dataRuangan, setDataRuangan] = useState(0);
+  const fetchData = async () => {
+    try {
+      const ruangan = await fetch(
+        "http://localhost:9000/api/ruangan/count-ruangan",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(ruangan);
+      if (ruangan.ok) {
+        const data = await ruangan.json();
+        setDataRuangan(data);
+      }
+    } catch {}
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
-    <div className="flex space-x-[100px]">
-      <div className="w-full">
-        <h1 className="text-[12px] 2xl:text-lg font-bold text-blue-700 mb-2">
-          Kategori
-        </h1>
-        <table>
-          <thead>
-            <tr>
-              <td className="text-[12px] 2xl:text-lg text-gray-800 font-bold">
-                14
-              </td>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
-            <tr>
-              <td className="text-[10px] 2xl:text-[14px] text-center">
-                7 hari terakhir
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="w-full">
-        <h1 className="text-[12px] 2xl:text-lg font-bold text-[#E19133] mb-2">
-          Total Kategori
-        </h1>
-        <table>
-          <thead>
-            <tr>
-              <td className="text-[12px] 2xl:text-lg text-gray-800 font-bold">
-                868
-              </td>
-              <td className="text-[12px] 2xl:text-lg px-4 text-gray-800 font-bold">
-                25000
-              </td>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
-            <tr>
-              <td className="text-[10px] 2xl:text-[14px] text-center">
-                7 hari terakhir
-              </td>
-              <td className="px-4 text-[10px] 2xl:text-[14px] text-center">
-                pendapatan
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="w-full">
-        <h1 className="text-[12px] 2xl:text-lg font-bold text-[#845EBC] mb-2">
-          Terlaris
-        </h1>
-        <table>
-          <thead>
-            <tr>
-              <td className="text-[12px] 2xl:text-lg text-gray-800 font-bold">
-                5
-              </td>
-              <td className="text-[12px] 2xl:text-lg px-4 text-gray-800 font-bold">
-                2500
-              </td>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
-            <tr>
-              <td className="text-[10px] 2xl:text-[14px] text-center">
-                7 hari terakhir
-              </td>
-              <td className="px-4 text-[10px] 2xl:text-[14px] text-center">
-                biaya
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="w-full">
-        <h1 className="text-[12px] 2xl:text-lg font-bold text-[#F36960] mb-2">
-          Stok Sedikit
-        </h1>
-        <table>
-          <thead>
-            <tr>
-              <td className="text-[12px] 2xl:text-lg text-gray-800 font-bold">
-                5
-              </td>
-              <td className="text-[12px] 2xl:text-lg px-4 text-gray-800 font-bold">
-                12
-              </td>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
-            <tr>
-              <td className="text-[10px] 2xl:text-[14px] text-center">
-                dipesan
-              </td>
-              <td className="px-4 text-[10px] 2xl:text-[14px] text-center">
-                habis
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <div className="grid lg:grid-cols-5 2xl:grid-cols-4 gap-1">
+      <div className="grid grid-cols-2 gap-1  shadow-md hover:bg-gradient-to-r hover:from-white hover:to-slate-300  bg-white  w-full border p-4 rounded-lg">
+        <div className="grid col-span-2">
+          <h1 className="text-[#154360] text-center mb-2 text-[12px] font-bold w-full">
+            Jumlah Ruangan
+          </h1>
+          <p className="text-gray-500 text-[12px] text-center font-bold">
+            {dataRuangan}
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ export default function TabelAtasKategori() {
   const [dataApk, setDataApk] = useState(0);
   const [dataAPL, setDataAPL] = useState(0);
   const [dataAK, setDataAK] = useState(0);
-  // useEffect(() => {
+
   //   const fetchData = async () => {
   //     try {
   //       const responseCategoryName = await fetch(

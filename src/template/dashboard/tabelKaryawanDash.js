@@ -1,12 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import DeleteKaryawan from "../../childtabel/karyawan/deleteKaryawan";
-import UpdateKaryawan from "../../childtabel/karyawan/updateKaryawan";
 import Image from "next/image";
-import DetailKaryawan from "../../childtabel/karyawan/detailKaryawan";
-import { BiSearch } from "react-icons/bi";
-import ReactToPrint from "react-to-print";
-import Button from "../../button/button";
-export default function TabelDataKaryawan({ modal }) {
+import Link from "next/link";
+export default function TabelDataKaryawanDash({ modal }) {
   const [employeeData, setEmployeeData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [screenSize, setScreenSize] = useState("md");
@@ -81,51 +76,6 @@ export default function TabelDataKaryawan({ modal }) {
 
   return (
     <div className="flex flex-col h-full bg-white rounded-md px-4 pt-6 shadow-lg">
-      <div className="flex items-center justify-between mb-6">
-        <div className="md:flex md:gap-2 md:space-y-0 space-y-2">
-          {modal}
-          <ReactToPrint
-            trigger={() => (
-              <Button
-                className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-                href="#"
-                type="submit"
-              >
-                Download All
-              </Button>
-            )}
-            content={() => componentRef.current} // Gunakan componentRef.current
-            documentTitle="Data"
-            pageStyle="print"
-          />
-        </div>
-        <form
-          className="hidden md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
-          role="search"
-          onSubmit={handleSearch}
-        >
-          <button className="mr-2">
-            <BiSearch className="w-4 h-4 2xl:w-6 2xl:h-6 text-gray-400" />
-          </button>
-          <input
-            className="text-[12px] 2xl:text-lg outline-none bg-white"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <select
-            value={searchParam}
-            onChange={(e) => setSearchParam(e.target.value)}
-            className="px-[16px] py-1 w-full bg-white text-[12px] text-gray-700 focus:none outline-none"
-          >
-            <option value="nama">Nama</option>
-            <option value="email">Email</option>
-            <option value="telepon">Telepon</option>
-          </select>
-        </form>
-      </div>
       <div
         ref={componentRef}
         className=" overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
@@ -140,34 +90,20 @@ export default function TabelDataKaryawan({ modal }) {
             <thead className=" bg-slate-200 border border-gray-300">
               <tr className="2xl:text-lg py-3">
                 <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  No Induk
+                  No
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Nama
-                </th>
+
                 <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                   Gambar
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Gender
-                </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Divisi
+                  No Induk
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                   Email
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Telepon
-                </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Jabatan
-                </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Alamat
-                </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Action
+                  Lainnya
                 </th>
               </tr>
             </thead>
@@ -178,8 +114,7 @@ export default function TabelDataKaryawan({ modal }) {
                     key={index}
                     className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                   >
-                    <td className="py-2 ">{employee.nomorInduk}</td>
-                    <td className="py-2 px-1 text-left">{employee.nama}</td>
+                    <td className="py-2 px-1">{index + 1}</td>
                     <td className=" py-2 px-1">
                       <div className="flex  justify-center items-center">
                         <Image
@@ -191,29 +126,12 @@ export default function TabelDataKaryawan({ modal }) {
                         />
                       </div>
                     </td>
-                    <td className="py-2">{employee.gender}</td>
-                    <td className="py-2">{employee.divisi}</td>
-                    <td className="text-left  py-2 px-1">{employee.email}</td>
-                    <td className="py-2">{employee.telepon}</td>
-                    <td className="py-2">{employee.jabatan}</td>
-                    <td className="py-2">{employee.alamat}</td>
+                    <td className="py-2 ">{employee.nomorInduk}</td>
+                    <td className="py-2 px-1">{employee.email}</td>
                     <td className="py-2">
-                      <div className="flex justify-center gap-2">
-                        <div className="flex items-center justify-center">
-                          <DetailKaryawan {...employee} />
-                        </div>
-                        <div className="flex items-center justify-center">
-                          {/* update */}
-                          <UpdateKaryawan {...employee} />
-                        </div>
-                        <div className="flex items-center justify-center">
-                          {/* delete */}
-                          <DeleteKaryawan
-                            id={employee.id}
-                            nama={employee.nama}
-                          />
-                        </div>
-                      </div>
+                      <Link href="/employee" className="text-blue-500">
+                        View More..
+                      </Link>
                     </td>
                   </tr>
                 ))

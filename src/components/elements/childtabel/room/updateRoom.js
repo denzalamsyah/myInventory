@@ -15,6 +15,8 @@ export default function UpdateRoom(room) {
   const [namaRuangan, setNamaRuangan] = useState(room.nama);
   const router = useRouter();
   const MySwal = withReactContent(Swal);
+  console.log(namaRuangan);
+  console.log(kodeRuangan);
   function handleChange() {
     setModal(!modal);
   }
@@ -36,6 +38,7 @@ export default function UpdateRoom(room) {
         }),
       }
     );
+    console.log(response);
     setLoading(false);
     if (response.ok) {
       setModal(false);

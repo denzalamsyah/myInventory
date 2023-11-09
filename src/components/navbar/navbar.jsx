@@ -3,7 +3,7 @@ import { BiSearch } from "react-icons/bi";
 import { IoNotifications } from "react-icons/io5";
 export default function Navbar() {
   return (
-    <nav className="flex gap-4 justify-end border-b-[2px] w-auto items-center pt-[23px] pb-[8px]">
+    <nav className="flex gap-4 justify-end border-b-[2px] w-auto items-center">
       <button>
         <IoNotifications
           className="text-gray-500 "

@@ -15,17 +15,15 @@ export default function Usage() {
   return (
     <>
       <MetaHead title="Usage" description="Welcome to Usage" />
-      <Layout>
-        <Sidebar />
-        <Section>
-          <ChildCard tittle="Pemakaian" className="overflow-y-auto">
-            <TabelAtasUsage />
-          </ChildCard>
-          <LargeCard modal={<TambahUsage />}>
-            <TabelDataUsage />
-          </LargeCard>
-        </Section>
-      </Layout>
+
+      <Section>
+        <ChildCard tittle="Pemakaian" className="overflow-y-auto">
+          <TabelAtasUsage />
+        </ChildCard>
+        <LargeCard modal={<TambahUsage />}>
+          <TabelDataUsage />
+        </LargeCard>
+      </Section>
     </>
   );
 }

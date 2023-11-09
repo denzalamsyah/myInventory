@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import TabelDetailInventoryComp from "../../table/inventory/tabel_detail_inventory";
 import { useRouter } from "next/router";
 import { HiClipboardList } from "react-icons/hi";
-export default function ReportPerbaikan({ Id }) {
+export default function ReportPemakaian({ Id }) {
   const [modal, setModal] = useState(false);
   const [inventoryData, setInventoryData] = useState([]);
   const router = useRouter();
@@ -44,12 +44,11 @@ export default function ReportPerbaikan({ Id }) {
 
   return (
     <>
-      <Link
-        href="" // teknik template
-        className="text-[#F5B041]"
-        onClick={handleChange}
-      >
+      <Link href="" className="text-[#2C3E50] relative" onClick={handleChange}>
         <HiClipboardList className="transition duration-150 ease-in-out" />
+        <span className="hidden absolute -left-1/2 -top-full bg-white text-black px-2 py-1 text-sm rounded-md opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out">
+          Details
+        </span>
       </Link>
       <input
         type="checkbox"

@@ -7,12 +7,12 @@ export default function TabelDataUsageHistory() {
   const [usageDataHistory, setUsageData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [screenSize, setScreenSize] = useState("md");
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(10);
   const componentRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
   const screenSizes = {
-    "2xl": 6,
-    md: 4,
+    "2xl": 20,
+    md: 10,
   };
 
   const handleSearch = (e) => {
@@ -126,60 +126,50 @@ export default function TabelDataUsageHistory() {
           }}
         >
           <div>
-            <table className="table caption-top w-full">
+            <table className="w-full">
               <thead className="bg-slate-200">
-                <tr className="2xl:text-lg py-3">
-                  <th className="border border-gray-300  text-gray-800 text-center">
+                <tr className="2xl:text-lg py-3 border">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     No
                   </th>
-                  <th className="border border-gray-300  text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Nama/Nomor Induk Lama
                   </th>
-                  <th className="border border-gray-300  text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Nama/Nomor Induk Baru
                   </th>
-                  <th className="border border-gray-300  text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Tanggal
                   </th>
-                  <th className="border border-gray-300  text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Ruangan Lama
                   </th>
-                  <th className="border border-gray-300  text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     Ruangan Baru
                   </th>
-                  <th className="border border-gray-300  text-gray-800 text-center">
+                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
                     kode Aset
                   </th>
                 </tr>
               </thead>
-              <tbody className="overflow-scroll">
+              <tbody className="">
                 {usageDataHistory.data && usageDataHistory.data.length > 0 ? (
                   usageDataHistory.data.map((usage, index) => (
                     <tr
                       key={index}
-                      className="text-center border text-[12px] text-black border-gray-300"
+                      className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                     >
-                      <td className="border border-gray-300 py-1">
-                        {index + 1}
-                      </td>
-                      <td className="border border-gray-300 py-1 px-1">
+                      <td className="py-2">{index + 1}</td>
+                      <td className="py-2 px-1">
                         {usage.karyawanNamaOld} - {usage.nomorIndukOld}
                       </td>
-                      <td className="border border-gray-300 py-1 px-1">
+                      <td className="py-2 px-1">
                         {usage.karyawanNamaNew} - {usage.nomorIndukNew}
                       </td>
-                      <td className="border border-gray-300 py-1 px-1">
-                        {usage.tanggalPemakaian}
-                      </td>
-                      <td className="border border-gray-300 py-1 px-1">
-                        {usage.ruanganOld}
-                      </td>
-                      <td className="border border-gray-300 py-1 px-1">
-                        {usage.ruanganNew}
-                      </td>
-                      <td className="border border-gray-300 py-1 px-1">
-                        {usage.inventoryId}
-                      </td>
+                      <td className="py-2 px-1">{usage.tanggalPemakaian}</td>
+                      <td className="py-2 px-1">{usage.ruanganOld}</td>
+                      <td className="py-2 px-1">{usage.ruanganNew}</td>
+                      <td className="py-2 px-1">{usage.inventoryId}</td>
                     </tr>
                   ))
                 ) : (

@@ -113,7 +113,6 @@ export default function UpdatePerbaikan(repair) {
                 label="Nama Inventory"
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
-                <option value={inventory.id}>{inventory.kodeAsset}</option>
                 {repairData.map(
                   (repair) => (
                     console.log(repair),
