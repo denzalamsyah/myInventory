@@ -202,20 +202,20 @@ export default function TabelAtasInventori() {
     <div className="grid lg:grid-cols-2 2xl:grid-cols-4 gap-1">
       <div className="grid grid-cols-2 gap-1  shadow-md hover:bg-gradient-to-r hover:from-white hover:to-slate-300  bg-white  w-full border p-4 rounded-lg">
         <div className="grid col-span-2">
-          <h1 className="text-[#154360] text-center mb-2 text-[12px]  font-bold w-full">
+          <h1 className="text-[#154360] text-center mb-2 text-[12px] 2xl:text-[16px]  font-bold w-full">
             Inventory Berdasarkan Kategori
           </h1>
 
           <div className="grid overflow-x-auto">
             <table>
-              <thead className="text-[12px] text-center text-gray-500 bg-slate-100">
+              <thead className="text-[12px] 2xl:text-[16px] text-center text-gray-500 bg-slate-100">
                 <tr>
                   <td className="px-2">AK</td>
                   <td className="px-2">APK</td>
                   <td className="px-2">APL</td>
                 </tr>
               </thead>
-              <tbody className="text-[12px] text-center text-gray-500">
+              <tbody className="text-[12px] 2xl:text-[16px] text-center text-gray-500">
                 <tr>
                   <td className="px-2">{dataAK}</td>
                   <td className="px-2">{dataApk}</td>
@@ -228,19 +228,19 @@ export default function TabelAtasInventori() {
       </div>
       <div className="grid grid-cols-2 gap-1 shadow-md hover:bg-gradient-to-r hover:from-white hover:to-slate-300  bg-white  w-full border p-4 rounded-lg">
         <div className="grid col-span-2">
-          <h1 className="text-[#154360] text-center mb-2 text-[12px]  font-bold w-full">
+          <h1 className="text-[#154360] text-center mb-2 text-[12px] 2xl:text-[16px]  font-bold w-full">
             Inventory Berdasarkan Status
           </h1>
           <div className="grid overflow-x-auto">
             <table>
-              <thead className="text-[12px] text-center text-gray-500 bg-slate-100">
+              <thead className="text-[12px] 2xl:text-[16px] text-center text-gray-500 bg-slate-100">
                 <tr>
                   <td className="px-2">Normal</td>
                   <td className="px-2">Repair</td>
                   <td className="px-2">Damage</td>
                 </tr>
               </thead>
-              <tbody className="text-[12px] text-center text-gray-500 ">
+              <tbody className="text-[12px] 2xl:text-[16px] text-center text-gray-500 ">
                 <tr>
                   <td className="px-2">{countNormal}</td>
                   <td className="px-2">{countRepair}</td>

@@ -9,7 +9,7 @@ export default function ReportPemakaian({ Id }) {
   const [modal, setModal] = useState(false);
   const [inventoryData, setInventoryData] = useState([]);
   const router = useRouter();
-  console.log(inventoryData.data);
+  console.log(inventoryData);
   console.log(Id);
   function handleChange() {
     setModal(!modal);
@@ -18,7 +18,7 @@ export default function ReportPemakaian({ Id }) {
   const fetchInventory = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/pemakaian/findAllId?id=${Id}`,
+        `http://localhost:9000/api/pemakaian/findAllId/${Id}`,
         {
           method: "GET",
           headers: {
@@ -58,19 +58,15 @@ export default function ReportPemakaian({ Id }) {
         className="modal-toggle"
       />
       <div className="modal">
-        <div className="modal-box max-w-[65rem] bg-white ">
-          <div className="bg-white w-full h-[530px] rounded-md p-3">
+        <div className="modal-box lg:max-w-[65rem] 2xl:max-w-[75rem] bg-white ">
+          <div className="bg-white w-full h-[530px] 2xl:h-[700px] rounded-md p-3">
             <div className="grid grid-cols-3 lg:grid-cols-6 text-left border-b py-2 border-gray-400 mb-3">
               <Link onClick={handleChange} href="">
-                <h1 className="text-[10px] md:text-[12px] hover:text-blue-400 text-black">
+                <h1 className="text-[10px] md:text-[12px] 2xl:text-[16px] hover:text-blue-400 text-black">
                   Kembali
                 </h1>
               </Link>
-            </div>
-            <div className="px-4">
-              <h1 className="text-left mb-4 w-full text-[12px] text-gray-800">
-                Informasi Details
-              </h1>
+              <p>History Pemakaian</p>
             </div>
             <div>
               <TabelDataUsageHistoryById {...inventoryData.data} />

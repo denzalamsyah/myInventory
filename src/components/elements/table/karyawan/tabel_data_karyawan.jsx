@@ -161,21 +161,21 @@ export default function TabelDataKaryawan({ modal }) {
           <div className="mb-2">{modal} </div>
           <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
             <Button
-              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              className="text-[12px] 2xl:text-[16px] px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
               href=""
               onClick={downloadPdf}
             >
               Download PDF
             </Button>
             <Button
-              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              className="text-[12px] 2xl:text-[16px] px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
               href=""
               onClick={downloadCSV}
             >
               Download CSV
             </Button>
             <Button
-              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              className="text-[12px] 2xl:text-[16px] px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
               href=""
               onClick={downloadExcel}
             >
@@ -183,9 +183,9 @@ export default function TabelDataKaryawan({ modal }) {
             </Button>
           </div>
         </div>
-        <div className="col-span-2">
+        <div className="col-span-3 lg:col-start-8">
           <form
-            className="hidden md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
+            className="md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
             role="search"
             onSubmit={handleSearch}
           >
@@ -193,7 +193,7 @@ export default function TabelDataKaryawan({ modal }) {
               <BiSearch className="w-4 h-4 2xl:w-6 2xl:h-6 text-gray-400" />
             </button>
             <input
-              className="text-[12px] 2xl:text-lg outline-none bg-white"
+              className="text-[12px] 2xl:text-[16px] outline-none bg-white"
               type="search"
               placeholder="Search"
               aria-label="Search"
@@ -203,7 +203,7 @@ export default function TabelDataKaryawan({ modal }) {
             <select
               value={searchParam}
               onChange={(e) => setSearchParam(e.target.value)}
-              className="px-[16px] py-1 w-full bg-white text-[12px] text-gray-700 focus:none outline-none"
+              className="px-[16px] py-1 w-full bg-white text-[12px] 2xl:text-[16px] text-gray-700 focus:none outline-none"
             >
               <option value="nama">Nama</option>
               <option value="email">Email</option>
@@ -225,35 +225,35 @@ export default function TabelDataKaryawan({ modal }) {
         <div>
           <table className="w-full">
             <thead className=" bg-slate-200 border border-gray-300">
-              <tr className="2xl:text-lg py-3">
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+              <tr className="2xl:text-[16px] py-3">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   No Induk
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Nama
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Gambar
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Gender
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Divisi
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Email
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Telepon
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Jabatan
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Alamat
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Action
                 </th>
               </tr>

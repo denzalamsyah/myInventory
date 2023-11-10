@@ -89,7 +89,7 @@ const Sidebar = ({ children }) => {
                 <Link
                   href={menu.link}
                   onClick={handleLogoutClick}
-                  className={`group flex items-center text-sm 2xl:text-xl gap-3.5 font-medium p-2 bg-[#585858] shadow-lg hover:bg-white hover:text-black rounded-md`}
+                  className={`group flex items-center text-sm 2xl:text-[16px] gap-3.5 font-medium p-2 bg-[#585858] shadow-lg hover:bg-white hover:text-black rounded-md`}
                 >
                   <Image
                     src={menu.icon}
@@ -117,7 +117,7 @@ const Sidebar = ({ children }) => {
                   href={menu.link}
                   className={` ${
                     menu.margin && "mt-5"
-                  } group flex items-center text-sm 2xl:text-xl gap-3.5 font-medium p-2 bg-[#585858] shadow-lg hover:bg-white hover:text-black rounded-md`}
+                  } group flex items-center text-sm 2xl:text-[16px] gap-3.5 font-medium p-2 bg-[#585858] shadow-lg hover:bg-white hover:text-black rounded-md`}
                 >
                   <Image
                     src={menu.icon}

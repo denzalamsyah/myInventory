@@ -155,104 +155,152 @@ const TopCards = () => {
       <div className="grid grid-cols-3  gap-2 hover:bg-gradient-to-r hover:from-slate-200 hover:to-sla-300 bg-gradient-to-r from-slate-300  to-slate-200 w-full border p-4 rounded-lg overflow-hidden ">
         <BiMaleFemale size={50} style={{ color: "#474747" }} />
         <div className="grid col-span-2">
-          <h1 className="text-black text-[10px] lg:text-[12px] 2xl:text-sm font-bold w-full">
+          <h1 className="text-black text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold w-full">
             Jumlah Karyawan
           </h1>
-          <div className="grid grid-cols-2">
+          <table>
+            <thead className="text-[12px] 2xl:text-[16px] text-center text-gray-700 bg-slate-300 py-2">
+              <tr>
+                <td className="px-2">Male</td>
+                <td className="px-2">Female</td>
+              </tr>
+            </thead>
+            <tbody className="text-[12px] 2xl:text-[16px] text-center text-gray-700 bg-slate-100">
+              <tr>
+                <td className="px-2">{maleCount}</td>
+                <td className="px-2">{femaleCount}</td>
+              </tr>
+            </tbody>
+          </table>
+          {/* <div className="grid grid-cols-2">
             <div>
-              <h2 className="text-[10px] lg:text-[12px] 2xl:text-sm text-black font-bold">
+              <h2 className="text-[10px] lg:text-[12px] 2xl:text-[16px] text-black font-bold">
                 Male
               </h2>
-              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-sm font-bold">
+              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold">
                 {maleCount}
               </p>
             </div>
             <div>
-              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-sm text-black font-bold">
+              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-[16px] text-black font-bold">
                 Female
               </h2>
-              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-sm font-bold">
+              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold">
                 {femaleCount}
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="grid grid-cols-3  gap-2 hover:bg-gradient-to-r hover:from-slate-200 hover:to-sla-300 bg-gradient-to-r from-slate-300  to-slate-200 w-full border p-4 rounded-lg overflow-hidden ">
         <RiArchiveDrawerFill size={50} style={{ color: "#474747" }} />
         <div className="grid col-span-2">
-          <h1 className="text-black text-[10px] lg:text-[12px] 2xl:text-sm lg:text-md font-bold w-full">
+          <h1 className="text-black text-[10px] lg:text-[12px] 2xl:text-[16px] lg:text-md font-bold w-full">
             Jumlah Aset dalam Ruangan
           </h1>
-          <div className="grid grid-cols-4">
+          <table>
+            <thead className="text-[12px] 2xl:text-[16px] text-center text-gray-700 bg-slate-300 py-2">
+              <tr>
+                <td className="px-2">R1</td>
+                <td className="px-2">R2</td>
+                <td className="px-2">R3</td>
+                <td className="px-2">R4</td>
+              </tr>
+            </thead>
+            <tbody className="text-[12px] 2xl:text-[16px] text-center text-gray-700 bg-slate-100">
+              <tr>
+                <td className="px-2"> {R1}</td>
+                <td className="px-2">{R2}</td>
+                <td className="px-2">{R3}</td>
+                <td className="px-2">{R4}</td>
+              </tr>
+            </tbody>
+          </table>
+          {/* <div className="grid grid-cols-4">
             <div>
-              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-sm text-black font-bold">
+              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-[16px] text-black font-bold">
                 R1
               </h2>
-              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-sm font-bold">
+              <p className="text-gray-700 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold">
                 {R1}
               </p>
             </div>
             <div>
-              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-sm text-black font-bold">
+              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-[16px] text-black font-bold">
                 R2
               </h2>
-              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-sm font-bold">
+              <p className="text-gray-700 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold">
                 {R2}
               </p>
             </div>
             <div>
-              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-sm text-black font-bold">
+              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-[16px] text-black font-bold">
                 R3
               </h2>
-              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-sm font-bold">
+              <p className="text-gray-700 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold">
                 {R3}
               </p>
             </div>
             <div>
-              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-sm text-black font-bold">
+              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-[16px] text-black font-bold">
                 R4
               </h2>
-              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-sm font-bold">
+              <p className="text-gray-700 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold">
                 {R4}
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="grid grid-cols-3  gap-2 hover:bg-gradient-to-r hover:from-slate-200 hover:to-sla-300 bg-gradient-to-r from-slate-300  to-slate-200 w-full border p-4 rounded-lg overflow-hidden ">
         <MdOutlineInventory size={50} style={{ color: "#474747" }} />
 
         <div className="grid col-span-2">
-          <h1 className="text-black text-[10px] lg:text-[12px] 2xl:text-sm lg:text-md font-bold w-full">
+          <h1 className="text-black text-[10px] lg:text-[12px] 2xl:text-[16px] lg:text-md font-bold w-full">
             Jumlah Inventory
           </h1>
-          <div className="grid grid-cols-3">
+          <table>
+            <thead className="text-[12px] 2xl:text-[16px] text-center text-gray-700 bg-slate-200 py-2">
+              <tr>
+                <td className="px-2">AK</td>
+                <td className="px-2">APK</td>
+                <td className="px-2">APL</td>
+              </tr>
+            </thead>
+            <tbody className="text-[12px] 2xl:text-[16px] text-center text-gray-700 bg-slate-100">
+              <tr>
+                <td className="px-2">{dataAK}</td>
+                <td className="px-2">{dataApk}</td>
+                <td className="px-2">{dataAPL}</td>
+              </tr>
+            </tbody>
+          </table>
+          {/* <div className="grid grid-cols-3">
             <div>
-              <h2 className="text-[10px] lg:text-[12px] 2xl:text-sm text-black font-bold">
+              <h2 className="text-[10px] lg:text-[12px] 2xl:text-[16px] text-black font-bold">
                 AK
               </h2>
-              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-sm font-bold">
+              <p className="text-gray-700 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold">
                 {dataAK}
               </p>
             </div>
             <div>
-              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-sm text-black font-bold">
+              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-[16px] text-black font-bold">
                 APK
               </h2>
-              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-sm font-bold">
+              <p className="text-gray-700 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold">
                 {dataApk}
               </p>
             </div>
             <div>
-              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-sm text-black font-bold">
+              <h2 className=" text-[10px] lg:text-[12px] 2xl:text-[16px] text-black font-bold">
                 APL
               </h2>
-              <p className="text-gray-500 text-[10px] lg:text-[12px] 2xl:text-sm font-bold">
+              <p className="text-gray-700 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold">
                 {dataAPL}
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* <div className=" bg-white flex justify-between w-full border p-4 rounded-lg">

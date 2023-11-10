@@ -76,7 +76,7 @@ export default function TambahKaryawan() {
   return (
     <div className="">
       <button
-        className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 hover:text-blue-700 border hover:bg-white border-blue-700 text-white bg-blue-700"
+        className="text-[12px] 2xl:text-[16px] px-4 rounded-[5px] p-1 hover:text-blue-700 border hover:bg-white border-blue-700 text-white bg-blue-700"
         type="submit"
         onClick={handleChange}
       >

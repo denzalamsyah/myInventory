@@ -286,7 +286,7 @@ const Chart = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 h-full gap-4 p-4 border rounded-lg shadow-md bg-white">
       <div className="lg:py-10">
-        <p className="text-[10px] md:text-[12px] lg:px-[12px] mb-4 text-black">
+        <p className="text-[10px] md:text-[12px] 2xl:text-[16px] lg:px-[12px] mb-4 text-black">
           Pilih Asset
         </p>
         <select
@@ -297,19 +297,19 @@ const Chart = () => {
         >
           <option
             value="Asset Kantor"
-            className="text-[10px] md:text-[12px] lg:px-[12px] mb-1 lg:mb-2"
+            className="text-[10px] md:text-[12px] 2xl:text-[16px] mb-1 lg:mb-2"
           >
             Asset Kantor
           </option>
           <option
             value="Asset Perangkat Lunak"
-            className="text-[10px] md:text-[12px] lg:px-[12px] mb-1 lg:mb-2"
+            className="text-[10px] md:text-[12px] 2xl:text-[16px] mb-1 lg:mb-2"
           >
             Asset Perangkat Lunak
           </option>
           <option
             value="Asset Perangkat Keras"
-            className="text-[10px] md:text-[12px] lg:px-[12px] mb-1 lg:mb-2"
+            className="text-[10px] md:text-[12px] 2xl:text-[16px] mb-1 lg:mb-2"
           >
             Asset Perangkat Keras
           </option>

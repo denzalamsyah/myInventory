@@ -61,16 +61,6 @@ export default function DetailInventory({ Id }) {
         <div className="modal-box max-w-[65rem] bg-white ">
           <div className="bg-white w-full h-[530px] rounded-md p-3">
             <div className="grid grid-cols-3 lg:grid-cols-6 text-left border-b py-2 border-gray-400 mb-3">
-              <Link href={`/employee/details/${Id}`}>
-                <h1 className="text-[10px] md:text-[12px] hover:text-blue-400 text-black">
-                  History Perbaikan
-                </h1>
-              </Link>
-              <Link onClick={handleChange} href="">
-                <h1 className="text-[10px] md:text-[12px] hover:text-blue-400 text-black">
-                  History Pemakaian
-                </h1>
-              </Link>
               <Link onClick={handleChange} href="">
                 <h1 className="text-[10px] md:text-[12px] hover:text-blue-400 text-black">
                   Kembali

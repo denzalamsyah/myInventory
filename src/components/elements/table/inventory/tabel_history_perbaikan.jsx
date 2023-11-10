@@ -3,7 +3,7 @@ import ReactToPrint from "react-to-print";
 import Button from "../../button/button";
 import { BiSearch } from "react-icons/bi";
 import { useRef } from "react";
-export default function TabelDataUsageHistoryById(inventoryData) {
+export default function TabelDataRepairHistoryById(inventoryData) {
   console.log(inventoryData);
 
   const downloadPdf = async () => {
@@ -194,27 +194,27 @@ export default function TabelDataUsageHistoryById(inventoryData) {
         <div>
           <table className="w-full">
             <thead className="bg-slate-200">
-              <tr className="2xl:text-lg py-3 border">
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+              <tr className="2xl:text-[16px] py-3 border">
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   No
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Nama/Nomor Induk Lama
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                  Kode Aset
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Nama/Nomor Induk Baru
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                  Tanggal Kerusakan
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Tanggal
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                  Tanggal Perbaikan
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Ruangan Lama
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                  Biaya
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  Ruangan Baru
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                  Tanggal Selesai Diperbaiki
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                  kode Aset
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                  Deskripsi
                 </th>
               </tr>
             </thead>
@@ -228,12 +228,14 @@ export default function TabelDataUsageHistoryById(inventoryData) {
                     className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                   >
                     <td className="py-2">{index + 1}</td>
-                    <td className="py-2 px-1">{data.nomorIndukOld}</td>
-                    <td className="py-2 px-1">{data.nomorIndukNew}</td>
-                    <td className="py-2 px-1">{data.tanggalPemakaian}</td>
-                    <td className="py-2 px-1">{data.ruanganOld}</td>
-                    <td className="py-2 px-1">{data.ruanganNew}</td>
-                    <td className="py-2 px-1">{data.inventoryId}</td>
+                    <td className="py-2 px-1">{data.inventoryId.kodeAsset}</td>
+                    <td className="py-2 px-1">{data.tanggalKerusakan}</td>
+                    <td className="py-2 px-1">{data.tanggalPerbaikan}</td>
+                    <td className="py-2 px-1">{data.biaya}</td>
+                    <td className="py-2 px-1">
+                      {data.tanggalSelesaiPerbaikan}
+                    </td>
+                    <td className="py-2 px-1">{data.deskripsi}</td>
                   </tr>
                 );
               })}
