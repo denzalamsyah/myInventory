@@ -1,27 +1,34 @@
 import React from "react";
-
 import LabelComp from "../label/label";
 import { useState } from "react";
 import InputComp from "../input/input";
 import { HiOutlineMail } from "react-icons/hi";
 import Link from "next/link";
 import Button from "../button/button";
+import { useRouter } from "next/router";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const VerifyPage = () => {
   const [email, setEmail] = useState("");
-
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const MySwal = withReactContent(Swal);
   const verify = async () => {
     try {
-      const res = await fetch(`http://localhost:9000/api/forgot-password`, {
-        method: "GET",
-        body: JSON.stringify({ email }),
-        headers: {
-          "content-type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `http://localhost:9000/api/forgot-password?email=${email}`,
+        {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
       if (res.ok) {
-        const json = await res.json();
-        console.log(json);
+        router.push("/auth/changepass");
+      } else {
+        MySwal.fire("User not found", "Klik tombol!", "warning");
       }
     } catch (error) {
       console.log(error);
@@ -51,7 +58,7 @@ const VerifyPage = () => {
         </div>
         <div>
           <Button
-            href="#"
+            onClick={verify}
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
           >

@@ -15,7 +15,9 @@ export default function RepairHistory() {
       />
 
       <Section tittle="Repair History">
-        <TabelDataRepairHistory modal={<TambahPerbaikan />} />
+        <div className="grid grid-cols-1 gap-4">
+          <TabelDataRepairHistory modal={<TambahPerbaikan />} />
+        </div>
       </Section>
     </>
   );

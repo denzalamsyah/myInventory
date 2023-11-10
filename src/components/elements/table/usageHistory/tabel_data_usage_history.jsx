@@ -78,26 +78,111 @@ export default function TabelDataUsageHistory() {
     fetchUsage(currentPage);
   }, [currentPage]);
 
+  const downloadPdf = async () => {
+    try {
+      // Lakukan permintaan GET ke API Route yang Anda buat.
+      const response = await fetch(
+        "http://localhost:9000/api/kategori/report/pdf",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+        a.click();
+      }
+    } catch (error) {
+      console.error("Error downloading PDF", error);
+    }
+  };
+  const downloadCSV = async () => {
+    try {
+      // Lakukan permintaan GET ke API Route yang Anda buat.
+      const response = await fetch(
+        "http://localhost:9000/api/kategori/report/csv",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+        a.click();
+      }
+    } catch (error) {
+      console.error("Error downloading CSV", error);
+    }
+  };
+  const downloadExcel = async () => {
+    try {
+      // Lakukan permintaan GET ke API Route yang Anda buat.
+      const response = await fetch(
+        "http://localhost:9000/api/kategori/report/excel",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+        a.click();
+      }
+    } catch (error) {
+      console.error("Error downloading Excel", error);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full bg-white rounded-md px-4 py-6 shadow-lg">
-      <div className="px-[5px]">
-        <div className="flex items-center justify-between mb-6">
-          <div className="md:flex md:gap-2 md:space-y-0 space-y-2">
-            <ReactToPrint
-              trigger={() => (
-                <Button
-                  className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-                  href="#"
-                  type="submit"
-                >
-                  Download All
-                </Button>
-              )}
-              content={() => componentRef.current}
-              documentTitle="Data"
-              pageStyle="print"
-            />
+      <div className="grid lg:grid-cols-5 grid-cols-1 gap-6 mb-6">
+        <div className="grid col-span-3">
+          <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
+            <Button
+              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              href=""
+              onClick={downloadPdf}
+            >
+              Download PDF
+            </Button>
+            <Button
+              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              href=""
+              onClick={downloadCSV}
+            >
+              Download CSV
+            </Button>
+            <Button
+              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              href=""
+              onClick={downloadExcel}
+            >
+              Download Excel
+            </Button>
           </div>
+        </div>
+        <div className="col-span-2">
           <form
             className="hidden md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
             role="search"
@@ -116,92 +201,93 @@ export default function TabelDataUsageHistory() {
             />
           </form>
         </div>
-        <div
-          ref={componentRef}
-          className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
-          style={{
-            height: "65vh",
-            width: "100%",
-            scrollSnapType: "x mandatory",
-          }}
-        >
-          <div>
-            <table className="w-full">
-              <thead className="bg-slate-200">
-                <tr className="2xl:text-lg py-3 border">
-                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                    No
-                  </th>
-                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                    Nama/Nomor Induk Lama
-                  </th>
-                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                    Nama/Nomor Induk Baru
-                  </th>
-                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                    Tanggal
-                  </th>
-                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                    Ruangan Lama
-                  </th>
-                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                    Ruangan Baru
-                  </th>
-                  <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
-                    kode Aset
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="">
-                {usageDataHistory.data && usageDataHistory.data.length > 0 ? (
-                  usageDataHistory.data.map((usage, index) => (
-                    <tr
-                      key={index}
-                      className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
-                    >
-                      <td className="py-2">{index + 1}</td>
-                      <td className="py-2 px-1">
-                        {usage.karyawanNamaOld} - {usage.nomorIndukOld}
-                      </td>
-                      <td className="py-2 px-1">
-                        {usage.karyawanNamaNew} - {usage.nomorIndukNew}
-                      </td>
-                      <td className="py-2 px-1">{usage.tanggalPemakaian}</td>
-                      <td className="py-2 px-1">{usage.ruanganOld}</td>
-                      <td className="py-2 px-1">{usage.ruanganNew}</td>
-                      <td className="py-2 px-1">{usage.inventoryId}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="12" className="text-center">
-                      Tidak ada data
+      </div>
+
+      <div
+        ref={componentRef}
+        className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
+        style={{
+          height: "65vh",
+          width: "100%",
+          scrollSnapType: "x mandatory",
+        }}
+      >
+        <div>
+          <table className="w-full">
+            <thead className="bg-slate-200">
+              <tr className="2xl:text-lg py-3 border">
+                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                  No
+                </th>
+                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                  Nama/Nomor Induk Lama
+                </th>
+                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                  Nama/Nomor Induk Baru
+                </th>
+                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                  Tanggal
+                </th>
+                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                  Ruangan Lama
+                </th>
+                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                  Ruangan Baru
+                </th>
+                <th className="px-2 py-3 text-[12px] 2xl:text-lg text-gray-800 text-center">
+                  kode Aset
+                </th>
+              </tr>
+            </thead>
+            <tbody className="">
+              {usageDataHistory.data && usageDataHistory.data.length > 0 ? (
+                usageDataHistory.data.map((usage, index) => (
+                  <tr
+                    key={index}
+                    className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
+                  >
+                    <td className="py-2">{index + 1}</td>
+                    <td className="py-2 px-1">
+                      {usage.karyawanNamaOld} - {usage.nomorIndukOld}
                     </td>
+                    <td className="py-2 px-1">
+                      {usage.karyawanNamaNew} - {usage.nomorIndukNew}
+                    </td>
+                    <td className="py-2 px-1">{usage.tanggalPemakaian}</td>
+                    <td className="py-2 px-1">{usage.ruanganOld}</td>
+                    <td className="py-2 px-1">{usage.ruanganNew}</td>
+                    <td className="py-2 px-1">{usage.inventoryId}</td>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="12" className="text-center">
+                    Tidak ada data
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
-        <div className="join bg-white">
-          <button
-            className="join-item bg-transparent hover:bg-blue-700 hover:text-white p-2"
-            onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage === 0}
-          >
-            «
-          </button>
-          <button className="join-item bg-transparent text-[12px] p-2">
-            Page {currentPage + 1}
-          </button>
-          <button
-            className="join-item bg-transparent hover:bg-blue-700 hover:text-white p-2"
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === usageDataHistory.totalPages}
-          >
-            »
-          </button>
-        </div>
+      </div>
+      <div className="join bg-white">
+        <button
+          className="join-item bg-transparent hover:bg-blue-700 hover:text-white p-2"
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 0}
+        >
+          «
+        </button>
+        <button className="join-item bg-transparent text-[12px] p-2">
+          Page {currentPage + 1}
+        </button>
+        <button
+          className="join-item bg-transparent hover:bg-blue-700 hover:text-white p-2"
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === usageDataHistory.totalPages}
+        >
+          »
+        </button>
       </div>
     </div>
   );

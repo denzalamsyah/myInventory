@@ -10,7 +10,9 @@ export default function UsageHistory() {
     <>
       <MetaHead title="Usage History" description="Welcome to Usage History" />
       <Section tittle="Usage History">
-        <TabelDataUsageHistory />
+        <div className="grid grid-cols-1 gap-4">
+          <TabelDataUsageHistory />
+        </div>
       </Section>
     </>
   );

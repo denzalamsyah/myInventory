@@ -105,7 +105,7 @@ const LoginPage = () => {
           </div>
           <div className="flex flex-col justify-center items-center mt-6">
             <p className="text-gray-500">Trouble Logging?</p>
-            <Link href="/auth/verify" className="text-blue-500 mt-3">
+            <Link href="/auth/changepass" className="text-blue-500 mt-3">
               Reset Password
             </Link>
           </div>

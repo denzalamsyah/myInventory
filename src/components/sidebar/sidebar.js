@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Logout from "./logout";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import Button from "../elements/button/button";
 
 const Sidebar = ({ children }) => {
   const menus = [
@@ -30,6 +32,8 @@ const Sidebar = ({ children }) => {
   ];
   const [open, setOpen] = useState(true);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -42,11 +46,18 @@ const Sidebar = ({ children }) => {
       },
     });
   }
+  const handleLogoutClick = () => {
+    setShowModal(true);
+  };
 
   function logout() {
     localStorage.removeItem("token");
     router.push("/");
+    setShowModal(false);
   }
+  const handleChange = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className="flex">
@@ -77,7 +88,7 @@ const Sidebar = ({ children }) => {
               {menu.name === "Logout" ? (
                 <Link
                   href={menu.link}
-                  onClick={logout}
+                  onClick={handleLogoutClick}
                   className={`group flex items-center text-sm 2xl:text-xl gap-3.5 font-medium p-2 bg-[#585858] shadow-lg hover:bg-white hover:text-black rounded-md`}
                 >
                   <Image
@@ -134,6 +145,31 @@ const Sidebar = ({ children }) => {
           ))}
         </div>
       </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-box bg-white flex flex-col justify-center items-center">
+            <Image alt="del icon" src="/img/del.png" width={75} height={75} />
+            <h1 className="font-bold text-lg text-black mb-3 mt-3">
+              Are you sure to Logout?
+            </h1>
+            <div className="modal-action flex mt-4">
+              <Button
+                className="bg-red-400 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-red-600 "
+                type="button"
+                onClick={logout}
+              >
+                Yes
+              </Button>
+              <Button
+                className="text-black rounded-[5px] text-sm shadow-lg mx-2 px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
+                onClick={handleChange}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
       <main
         className={`w-full duration-300 ${
           open ? "ml-16 md:ml-52 lg:ml-72" : "ml-16"

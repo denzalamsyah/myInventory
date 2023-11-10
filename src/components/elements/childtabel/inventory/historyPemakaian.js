@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import TabelDetailInventoryComp from "../../table/inventory/tabel_detail_inventory";
 import { useRouter } from "next/router";
 import { HiClipboardList } from "react-icons/hi";
+import TabelDataUsageHistoryById from "../../table/inventory/tabel_history_pemakaian";
 export default function ReportPemakaian({ Id }) {
   const [modal, setModal] = useState(false);
   const [inventoryData, setInventoryData] = useState([]);
   const router = useRouter();
-  console.log(inventoryData);
+  console.log(inventoryData.data);
   console.log(Id);
   function handleChange() {
     setModal(!modal);
@@ -17,7 +18,7 @@ export default function ReportPemakaian({ Id }) {
   const fetchInventory = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/inventory/${Id}`,
+        `http://localhost:9000/api/pemakaian/findAllId?id=${Id}`,
         {
           method: "GET",
           headers: {
@@ -71,7 +72,9 @@ export default function ReportPemakaian({ Id }) {
                 Informasi Details
               </h1>
             </div>
-            <div></div>
+            <div>
+              <TabelDataUsageHistoryById {...inventoryData.data} />
+            </div>
           </div>
         </div>
       </div>

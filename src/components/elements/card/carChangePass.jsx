@@ -4,10 +4,38 @@ import LabelComp from "../label/label";
 import { useState } from "react";
 import InputPassComp from "../input/inputPass";
 import Button from "../button/button";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { useRouter } from "next/router";
 const ChangePassPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const MySwal = withReactContent(Swal);
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const ChangePassword = async () => {
+    try {
+      const res = await fetch(`http://localhost:9000/api/set-password`, {
+        method: "PUT",
+        body: JSON.stringify({
+          password: password,
+          confirmPasword: confirmPassword,
+        }),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+      if (res.ok) {
+        MySwal.fire("Succes Change!", "Klik tombol!", "success").then(() => {
+          router.push("/login");
+        });
+      } else {
+        MySwal.fire("Confirm Password Not Match", "!", "error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md w-[400px]">
@@ -48,8 +76,7 @@ const ChangePassPage = () => {
         </div>
         <div>
           <Button
-            href="#"
-            type="submit"
+            onClick={ChangePassword}
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
           >
             Reset Password

@@ -8,7 +8,7 @@ import TabelDetailKaryawanComp from "../../table/karyawan/tabel_detail_karyawan"
 export default function DetailKaryawan(employee) {
   const [modal, setModal] = useState(false);
   const [employeeData, setEmployeeData] = useState([]);
-
+  console.log(employeeData.data);
   function handleChange() {
     setModal(!modal);
   }
@@ -72,17 +72,7 @@ export default function DetailKaryawan(employee) {
               </h1>
             </div>
             <div>
-              <TabelDetailKaryawanComp
-                id={employeeData.id}
-                nama={employeeData.nama}
-                gender={employeeData.gender}
-                email={employeeData.email}
-                telepon={employeeData.telepon}
-                jabatan={employeeData.jabatan}
-                divisi={employeeData.divisi}
-                alamat={employeeData.alamat}
-                gambar={employeeData.gambar}
-              />
+              <TabelDetailKaryawanComp {...employeeData.data} />
             </div>
           </div>
         </div>

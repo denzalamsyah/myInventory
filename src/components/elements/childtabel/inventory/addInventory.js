@@ -64,9 +64,9 @@ export default function TambahInventory() {
         },
         body: formData,
       });
-      setLoading(false);
 
       if (response.ok) {
+        setLoading(false);
         setModal(false);
         MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(
           () => {

@@ -20,7 +20,7 @@ ChartJS.register(
 
 export default function LineChart() {
   const [inventory, setInventory] = useState([]);
-  const [selectOption, setSelectOption] = useState([]);
+  const [selectOption, setSelectOption] = useState(["LA-Asus1"]);
   const fetchData = async () => {
     try {
       const resRepair = await fetch("http://localhost:9000/api/inventory/", {
@@ -117,7 +117,9 @@ export default function LineChart() {
   return (
     <div className="grid grid-cols-1  md:grid-cols-3 h-full gap-4 p-4 border rounded-lg shadow-md bg-white">
       <div className="lg:py-10">
-        <p className="text-[10px] lg:px-[12px] mb-4 text-black">Pilih Asset</p>
+        <p className="text-[10px] md:text-[12px] md: lg:px-[12px] mb-4 text-black">
+          Pilih Asset
+        </p>
         <select
           multiple
           onChange={handleAssetSelect}
@@ -126,7 +128,7 @@ export default function LineChart() {
         >
           {inventory.map((item) => (
             <option
-              className="text-[10px] lg:px-[12px] mb-1 text-black"
+              className="text-[10px]   md:text-[12px] lg:px-[12px] mb-1 lg:mb-2 text-black"
               key={item.id}
               value={item.kodeAsset}
             >

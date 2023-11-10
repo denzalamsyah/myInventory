@@ -86,28 +86,6 @@ export default function TabelDataKategori({ modal }) {
   useEffect(() => {
     fetchCategory(currentPage);
   }, [currentPage]);
-  // const categoriPdf = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:9000/api/kategori/report/pdf", {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: "Bearer " + localStorage.getItem("token"),
-  //       },
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to fetch data");
-  //     }
-  //     const data = await response.json();
-  //     setReportPdf(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // function downloadPDF() {
-  //   categoriPdf();
-  // }
 
   const downloadPdf = async () => {
     try {
@@ -187,56 +165,60 @@ export default function TabelDataKategori({ modal }) {
 
   return (
     <div className="flex flex-col h-full bg-white rounded-md px-4 pt-6 shadow-lg">
-      <div className="flex items-center justify-between mb-6">
-        <div className="md:flex md:gap-2 md:space-y-0 space-y-2">
-          {modal}
-          <Button
-            className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-            href=""
-            onClick={downloadPdf}
-          >
-            Download PDF
-          </Button>
-          <Button
-            className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-            href=""
-            onClick={downloadCSV}
-          >
-            Download CSV
-          </Button>
-          <Button
-            className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-            href=""
-            onClick={downloadExcel}
-          >
-            Download Excel
-          </Button>
+      <div className="grid lg:grid-cols-5 grid-cols-1 gap-6 mb-6">
+        <div className="grid col-span-3">
+          <div className="mb-2">{modal} </div>
+          <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
+            <Button
+              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              href=""
+              onClick={downloadPdf}
+            >
+              Download PDF
+            </Button>
+            <Button
+              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              href=""
+              onClick={downloadCSV}
+            >
+              Download CSV
+            </Button>
+            <Button
+              className="text-[12px] 2xl:text-lg px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
+              href=""
+              onClick={downloadExcel}
+            >
+              Download Excel
+            </Button>
+          </div>
         </div>
-        <form
-          className="hidden md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
-          role="search"
-          onSubmit={handleSearch}
-        >
-          <button className="mr-2">
-            <BiSearch className="w-4 h-4 2xl:w-6 2xl:h-6 text-gray-400" />
-          </button>
-          <input
-            className="text-[12px] 2xl:text-lg outline-none bg-white"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <select
-            value={searchParam}
-            onChange={(e) => setSearchParam(e.target.value)}
-            className="px-[16px] py-1 w-full bg-white text-[12px] text-gray-700 focus:none outline-none"
+        <div className="col-span-2">
+          <form
+            className="hidden md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
+            role="search"
+            onSubmit={handleSearch}
           >
-            <option value="nama">Nama</option>
-            <option value="kode">Kode Kategori</option>
-          </select>
-        </form>
+            <button className="mr-2">
+              <BiSearch className="w-4 h-4 2xl:w-6 2xl:h-6 text-gray-400" />
+            </button>
+            <input
+              className="text-[12px] 2xl:text-lg outline-none bg-white"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <select
+              value={searchParam}
+              onChange={(e) => setSearchParam(e.target.value)}
+              className="px-[16px] py-1 w-full bg-white text-[12px] text-gray-700 focus:none outline-none"
+            >
+              <option value="nama">Nama</option>
+              <option value="kode">Kode Kategori</option>
+            </select>
+          </form>
+        </div>
       </div>
       <div
         ref={componentRef}
