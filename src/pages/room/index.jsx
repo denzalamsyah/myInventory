@@ -13,8 +13,7 @@ export default function Room() {
   return (
     <>
       <MetaHead title="Room" description="Welcome to Room" />
-
-      <Section title="Room">
+      <Section tittle="Room">
         {/* <TabelAtasRoom /> */}
         <div className="grid grid-cols-1 gap-4">
           <TabelDataRoom modal={<TambahRoom />} />

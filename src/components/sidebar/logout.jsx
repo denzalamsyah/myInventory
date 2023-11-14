@@ -1,15 +1,18 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useEffect } from "react";
+import Button from "@/components/elements/button/button";
+import { FaTrash } from "react-icons/fa";
 import Link from "next/link";
-import { BiLogOutCircle } from "react-icons/bi";
-import Button from "../elements/button/button";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-export default function Logout() {
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+export default function Logout({ name, icon, h2, h22 }) {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const MySwal = withReactContent(Swal);
+  const [open, setOpen] = useState(true);
 
   function handleChange() {
     setModal(!modal);
@@ -26,6 +29,7 @@ export default function Logout() {
       },
     });
   }
+
   function logout() {
     setLoading(true);
     localStorage.removeItem("token");
@@ -33,9 +37,15 @@ export default function Logout() {
     setLoading(false);
   }
   return (
-    <div className="relative">
-      <Link href="" className="text-[#DA3E33F7]" onClick={handleChange}>
-        <BiLogOutCircle />
+    <div className="">
+      <Link
+        href=""
+        onClick={handleChange}
+        className={`group flex items-center text-sm 2xl:text-[16px] gap-3.5 font-medium p-2 bg-[#585858] shadow-lg hover:bg-white hover:text-black rounded-md`}
+      >
+        <Image src={icon} alt={name} width={25} height={25} />
+        <h2 className={h2}>{name}</h2>
+        <h2 className={h22}>{name}</h2>
       </Link>
       <input
         type="checkbox"
@@ -45,22 +55,23 @@ export default function Logout() {
       />
       <div className="modal">
         <div className="modal-box bg-white flex flex-col justify-center items-center">
-          <Image alt="del icon" src="/img/del.png" width={75} height={75} />
           <h1 className="font-bold text-lg text-black mb-3 mt-3">
-            Are you sure to logout?
+            Are you sure to logout!
           </h1>
           <div className="modal-action flex mt-4">
             {!loading ? (
               <Button
-                className="bg-red-400 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-red-600 "
+                className="bg-orange-400 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-orange-600 "
                 type="button"
-                onClick={() => logout()}
+                onClick={logout}
               >
                 Yes
               </Button>
             ) : (
-              <div className=" w-[10%] bg-red-400  p-2 rounded-md flex justify-center">
-                <span className="loading loading-spinner text-neutral"></span>
+              <div className=" w-[10%] bg-orange-400 px-4 p-2 rounded-md flex justify-center">
+                <span className="loading loading-spinner text-neutral">
+                  Yes
+                </span>
               </div>
             )}
             <Button

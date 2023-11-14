@@ -7,12 +7,14 @@ import { useState } from "react";
 import Image from "next/image";
 export default function DeleteUsage({ id, nama }) {
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   function handleChange() {
     setModal(!modal);
   }
   async function handleDelete(categoryId) {
+    setLoading(true);
     await fetch(`http://localhost:8080/category/${categoryId}`, {
       method: "DELETE",
     });

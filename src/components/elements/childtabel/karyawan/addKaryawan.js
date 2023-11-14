@@ -124,7 +124,7 @@ export default function TambahKaryawan() {
                       htmlFor="imageInput"
                       className="cursor-pointer text-[12px]"
                     >
-                      <div>Drag & Drop or</div>
+                      <div className="text-orange-500">*Gambar wajib diisi</div>
                       <div>Click to Choose Image</div>
                     </label>
                   </div>
@@ -239,8 +239,10 @@ export default function TambahKaryawan() {
                   Add
                 </Button>
               ) : (
-                <div className=" w-[10%] bg-green-500  p-2 rounded-md flex justify-center">
-                  <span className="loading loading-spinner text-neutral"></span>
+                <div className=" w-[10%] bg-green-500 px-4 p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral">
+                    Add
+                  </span>
                 </div>
               )}
               <Button

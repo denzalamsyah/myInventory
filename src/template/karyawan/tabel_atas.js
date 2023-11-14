@@ -52,6 +52,16 @@ export default function TabelAtasKaryawan() {
             },
           }
         );
+        const saResponse = await fetch(
+          "http://localhost:9000/api/karyawan/sa",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
         const maleResponse = await fetch(
           "http://localhost:9000/api/karyawan/male",
           {
@@ -90,6 +100,10 @@ export default function TabelAtasKaryawan() {
         if (dmResponse.ok) {
           const dmData = await dmResponse.json();
           setDmCount(dmData);
+        }
+        if (saResponse.ok) {
+          const saData = await saResponse.json();
+          setSistemAnlis(saData);
         }
         if (maleResponse.ok) {
           const maleData = await maleResponse.json();

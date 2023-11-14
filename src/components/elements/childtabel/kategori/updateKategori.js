@@ -14,11 +14,14 @@ export default function UpdateKategori(category) {
   const [namakategori, setNamaKategori] = useState(category.nama);
   const router = useRouter();
   const MySwal = withReactContent(Swal);
+  const [loading, setLoading] = useState(false);
+
   function handleChange() {
     setModal(!modal);
   }
 
   async function handleUpdate(e) {
+    setLoading(true);
     e.preventDefault();
     const response = await fetch(
       `http://localhost:9000/api/kategori/${category.id}`,
@@ -34,6 +37,7 @@ export default function UpdateKategori(category) {
         }),
       }
     );
+    setLoading(false);
     if (response.ok) {
       setModal(false);
       MySwal.fire("Updated!", "Klik tombol!", "success").then(() => {
@@ -83,12 +87,20 @@ export default function UpdateKategori(category) {
               </FormComp>
             </div>
             <div className=" modal-action flex mt-4">
-              <Button
-                className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                onClick={handleUpdate}
-              >
-                Update
-              </Button>
+              {!loading ? (
+                <Button
+                  className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
+                  onClick={handleUpdate}
+                >
+                  Update
+                </Button>
+              ) : (
+                <div className=" w-[10%] bg-green-500 px-4  p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral">
+                    Update
+                  </span>
+                </div>
+              )}
               <Button
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}

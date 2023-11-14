@@ -3,6 +3,9 @@ import ReactToPrint from "react-to-print";
 import Button from "../../button/button";
 import { BiSearch } from "react-icons/bi";
 import { useRef } from "react";
+import DownloadPdfPemakaian from "./downloadPdf";
+import DownloadExcelPemakaian from "./downloadExcel";
+import DownloadCSVPemakaian from "./downloadCSV";
 export default function TabelDataUsageHistory() {
   const [usageDataHistory, setUsageData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -78,127 +81,35 @@ export default function TabelDataUsageHistory() {
     fetchUsage(currentPage);
   }, [currentPage]);
 
-  const downloadPdf = async () => {
-    try {
-      // Lakukan permintaan GET ke API Route yang Anda buat.
-      const response = await fetch(
-        "http://localhost:9000/api/kategori/report/pdf",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
-        a.click();
-      }
-    } catch (error) {
-      console.error("Error downloading PDF", error);
-    }
-  };
-  const downloadCSV = async () => {
-    try {
-      // Lakukan permintaan GET ke API Route yang Anda buat.
-      const response = await fetch(
-        "http://localhost:9000/api/kategori/report/csv",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
-        a.click();
-      }
-    } catch (error) {
-      console.error("Error downloading CSV", error);
-    }
-  };
-  const downloadExcel = async () => {
-    try {
-      // Lakukan permintaan GET ke API Route yang Anda buat.
-      const response = await fetch(
-        "http://localhost:9000/api/kategori/report/excel",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
-        a.click();
-      }
-    } catch (error) {
-      console.error("Error downloading Excel", error);
-    }
-  };
-
   return (
     <div className="flex flex-col h-full bg-white rounded-md px-4 py-6 shadow-lg">
-      <div className="grid lg:grid-cols-5 grid-cols-1 gap-6 mb-6">
-        <div className="grid col-span-3">
+      <div className="grid lg:grid-cols-10 grid-cols-1 gap-6 mb-6">
+        <div className="grid lg:col-span-5">
           <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
-            <Button
-              className="text-[12px] 2xl:text-[16px] px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-              href=""
-              onClick={downloadPdf}
-            >
-              Download PDF
-            </Button>
-            <Button
-              className="text-[12px] 2xl:text-[16px] px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-              href=""
-              onClick={downloadCSV}
-            >
-              Download CSV
-            </Button>
-            <Button
-              className="text-[12px] 2xl:text-[16px] px-4 rounded-[5px] p-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white"
-              href=""
-              onClick={downloadExcel}
-            >
-              Download Excel
-            </Button>
+            <DownloadPdfPemakaian />
+            <DownloadCSVPemakaian />
+            <DownloadExcelPemakaian />
           </div>
         </div>
-        <div className="col-span-3 lg:col-start-8">
+        <div className="col-span-1 lg:col-span-5 lg:col-start-8">
           <form
             className=" md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
             role="search"
             onSubmit={handleSearch}
           >
-            <button className="mr-2">
-              <BiSearch className="w-4 h-4 2xl:w-6 2xl:h-6 text-gray-400" />
-            </button>
-            <input
-              className="text-[12px] 2xl:text-[16px] outline-none bg-white"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+            <div className="col-span-1 md:col-span-2 flex items-center">
+              <button className="mr-2">
+                <BiSearch className="w-4 h-4 2xl:w-6 2xl:h-6 text-gray-400" />
+              </button>
+              <input
+                className="text-[12px] 2xl:text-[16px] outline-none bg-white"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
           </form>
         </div>
       </div>

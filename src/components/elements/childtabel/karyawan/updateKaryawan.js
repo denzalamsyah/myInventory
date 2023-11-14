@@ -102,6 +102,7 @@ export default function UpdateKaryawan(employee) {
                       className="absolute top-0 text-[10px] right-0 text-black rounded-md p-1"
                       onClick={() => {
                         setImagePreview(null);
+                        console.log(selectedImage);
                         document.getElementById("imageInput").value = ""; // Clear the file input
                       }}
                     >
@@ -114,7 +115,7 @@ export default function UpdateKaryawan(employee) {
                       htmlFor="imageInput"
                       className="cursor-pointer text-[12px]"
                     >
-                      <div>Drag & Drop or</div>
+                      <div className="text-orange-500">*Gambar wajib diisi</div>
                       <div>Click to Choose Image</div>
                     </label>
                   </div>
@@ -234,8 +235,10 @@ export default function UpdateKaryawan(employee) {
                   Update
                 </Button>
               ) : (
-                <div className=" w-[10%] bg-green-500  p-2 rounded-md flex justify-center">
-                  <span className="loading loading-spinner text-neutral"></span>
+                <div className=" w-[10%] bg-green-500  px-4 p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral">
+                    Update
+                  </span>
                 </div>
               )}
               <Button

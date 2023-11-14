@@ -67,7 +67,7 @@ export default function DeleteInventory({ id, nama }) {
                 Yes
               </Button>
             ) : (
-              <div className=" w-full bg-red-400 px-4  p-2 rounded-md flex justify-center">
+              <div className=" w-full bg-red-400 px-4 p-2 rounded-md flex justify-center">
                 <span className="loading loading-spinner text-neutral">
                   Yes
                 </span>

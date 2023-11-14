@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 export default function DeletePerbaikan({ id, nama }) {
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const MySwal = withReactContent(Swal);
 
@@ -16,6 +17,7 @@ export default function DeletePerbaikan({ id, nama }) {
     setModal(!modal);
   }
   async function handleDelete(repairId) {
+    setLoading(true);
     const response = await fetch(
       `http://localhost:9000/api/perbaikan/${repairId}`,
       {
@@ -26,7 +28,7 @@ export default function DeletePerbaikan({ id, nama }) {
         },
       }
     );
-
+    setLoading(false);
     if (response.ok) {
       setModal(false);
       MySwal.fire("Berhasil menghapus data!", "Klik tombol!", "success").then(
@@ -56,13 +58,21 @@ export default function DeletePerbaikan({ id, nama }) {
             Are you sure to delete {nama}!
           </h1>
           <div className="modal-action flex mt-4">
-            <Button
-              className="bg-red-400 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-red-600 "
-              type="button"
-              onClick={() => handleDelete(id)}
-            >
-              Yes
-            </Button>
+            {!loading ? (
+              <Button
+                className="bg-red-400 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-red-600 "
+                type="button"
+                onClick={() => handleDelete(id)}
+              >
+                Yes
+              </Button>
+            ) : (
+              <div className=" w-[10%] bg-red-400 px-4 p-2 rounded-md flex justify-center">
+                <span className="loading loading-spinner text-neutral">
+                  Yes
+                </span>
+              </div>
+            )}
             <Button
               className=" text-black rounded-[5px] text-sm shadow-lg mx-2 px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
               onClick={handleChange}

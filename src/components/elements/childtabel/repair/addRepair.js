@@ -17,12 +17,15 @@ export default function TambahPerbaikan() {
   const [tanggalSelesaiPerbaikan, setTanggalSelesaiPerbaikan] = useState(null);
   const router = useRouter();
   const MySwal = withReactContent(Swal);
+  const [loading, setLoading] = useState(false);
+
   function handleChange() {
     setModal(!modal);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     const response = await fetch("http://localhost:9000/api/perbaikan", {
       method: "POST",
       headers: {
@@ -38,6 +41,7 @@ export default function TambahPerbaikan() {
         tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
       }),
     });
+    setLoading(false);
     if (response.ok) {
       setModal(false);
       MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(
@@ -165,12 +169,20 @@ export default function TambahPerbaikan() {
               </FormComp>
             </div>
             <div className=" modal-action flex mt-4">
-              <Button
-                className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
-                type="submit"
-              >
-                Add
-              </Button>
+              {!loading ? (
+                <Button
+                  className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
+                  type="submit"
+                >
+                  Add
+                </Button>
+              ) : (
+                <div className=" w-[10%] bg-green-500 px-4 p-2 rounded-md flex justify-center">
+                  <span className="loading loading-spinner text-neutral">
+                    Add
+                  </span>
+                </div>
+              )}
               <Button
                 className=" text-black rounded-[5px] text-sm shadow-lg px-4 py-1 border border-gray-200 hover:bg-gray-500 hover:text-white"
                 onClick={handleChange}

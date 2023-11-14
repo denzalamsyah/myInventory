@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-center items-center w-screen h-screen max-w-[100wh] max-h-[100vh]">
+    <div className="flex bg-white flex-col justify-center items-center w-screen h-screen max-w-[100wh] max-h-[100vh]">
       <h1 className="text-3xl font-bold underline text-red-500 mb-4">
         Welcome to WIT Admin
       </h1>

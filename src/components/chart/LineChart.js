@@ -217,8 +217,8 @@ const Chart = () => {
 
   const getRandomColors = (count) => {
     const availableColors = [
-      "#5D6D7E",
-      "#CCD1D1",
+      "#5499C7",
+      "#45B39D",
       "#ABB2B9",
       "#283747",
       "#616A6B",

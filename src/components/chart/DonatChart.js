@@ -72,8 +72,8 @@ export default function DonatChart() {
       {
         label: "Total",
         data: [countRepair, countNormal, countDamage],
-        backgroundColor: ["#CCD1D1 ", "#AEB6BF", "#5D6D7E"],
-        borderColor: ["#CCD1D1 ", "#AEB6BF", "#5D6D7E "],
+        backgroundColor: ["#5499C7", "#45B39D", "#5D6D7E"],
+        borderColor: ["#5499C7 ", "#45B39D", "#5D6D7E "],
         borderWidth: 1,
       },
     ],

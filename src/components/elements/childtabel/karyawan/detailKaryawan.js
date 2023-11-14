@@ -57,17 +57,17 @@ export default function DetailKaryawan(employee) {
         className="modal-toggle"
       />
       <div className="modal">
-        <div className="modal-box max-w-[30rem] bg-white flex flex-col justify-center items-center">
-          <div className="bg-white w-full h-[470px] 2xl:h-[550px] p-2">
+        <div className="modal-box max-w-[30rem] lg:max-w-[50rem] bg-white flex flex-col justify-center items-center">
+          <div className="bg-white w-full h-[470px] p-2">
             <div className="grid grid-cols-2 text-left border-b border-gray-400 mb-5 pb-3">
               <Link onClick={handleChange} href="">
-                <h1 className="text-[10px] md:text-[12px] hover:text-blue-400 text-black">
+                <h1 className="text-[10px] md:text-[12px] 2xl:text-[16px] hover:text-blue-400 text-black">
                   Kembali
                 </h1>
               </Link>
             </div>
-            <div className="px-4">
-              <h1 className="text-left mb-4 w-full text-[12px] text-gray-800">
+            <div className="">
+              <h1 className="text-left mb-4 w-full text-[10px] md:text-[12px] 2xl:text-[16px] text-gray-800">
                 Informasi Details
               </h1>
             </div>

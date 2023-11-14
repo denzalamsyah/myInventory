@@ -1,7 +1,7 @@
 export default function Headers({ tittle, onClick, className }) {
   return (
     <div className={className}>
-      <h2 className="text-[12px]">{tittle}</h2>
+      <h2 className="text-[10px] md:text-[12px] 2xl:text-[16px]">{tittle}</h2>
       <label className="swap swap-rotate">
         <input type="checkbox" onClick={onClick} />
         <svg

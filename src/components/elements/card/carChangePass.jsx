@@ -43,8 +43,8 @@ const ChangePassPage = () => {
         Sign to your account
       </h1>
       <p className="text-gray-400 mb-4">
-        In order to protect your account, try to include numbers, symbols, and
-        both uppercase and lowercase letters.
+        password must be at least 8 characters, try to include numbers, symbols
+        and upper and lower case letters.
       </p>
       <div>
         <div className="mb-6 relative">
@@ -71,7 +71,7 @@ const ChangePassPage = () => {
             id="confirmpassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="enter your Confirm password"
+            placeholder="enter your confirm password"
           />
         </div>
         <div>

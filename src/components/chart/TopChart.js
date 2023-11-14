@@ -155,7 +155,7 @@ const TopCards = () => {
       <div className="grid grid-cols-3  gap-2 hover:bg-gradient-to-r hover:from-slate-200 hover:to-sla-300 bg-gradient-to-r from-slate-300  to-slate-200 w-full border p-4 rounded-lg overflow-hidden ">
         <BiMaleFemale size={50} style={{ color: "#474747" }} />
         <div className="grid col-span-2">
-          <h1 className="text-black text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold w-full">
+          <h1 className="text-black mb-2 text-[10px] lg:text-[12px] 2xl:text-[16px] font-bold w-full">
             Jumlah Karyawan
           </h1>
           <table>
@@ -195,7 +195,7 @@ const TopCards = () => {
       <div className="grid grid-cols-3  gap-2 hover:bg-gradient-to-r hover:from-slate-200 hover:to-sla-300 bg-gradient-to-r from-slate-300  to-slate-200 w-full border p-4 rounded-lg overflow-hidden ">
         <RiArchiveDrawerFill size={50} style={{ color: "#474747" }} />
         <div className="grid col-span-2">
-          <h1 className="text-black text-[10px] lg:text-[12px] 2xl:text-[16px] lg:text-md font-bold w-full">
+          <h1 className="text-black mb-2 text-[10px] lg:text-[12px] 2xl:text-[16px] lg:text-md font-bold w-full">
             Jumlah Aset dalam Ruangan
           </h1>
           <table>
@@ -256,7 +256,7 @@ const TopCards = () => {
         <MdOutlineInventory size={50} style={{ color: "#474747" }} />
 
         <div className="grid col-span-2">
-          <h1 className="text-black text-[10px] lg:text-[12px] 2xl:text-[16px] lg:text-md font-bold w-full">
+          <h1 className="text-black mb-2 text-[10px] lg:text-[12px] 2xl:text-[16px] lg:text-md font-bold w-full">
             Jumlah Inventory
           </h1>
           <table>

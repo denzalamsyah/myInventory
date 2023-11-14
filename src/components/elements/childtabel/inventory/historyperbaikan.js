@@ -45,7 +45,7 @@ export default function ReportPerbaikan({ Id }) {
 
   return (
     <>
-      <Link href="" className="text-[#2C3E50] relative" onClick={handleChange}>
+      <Link href="" className="text-[#c8c43e] relative" onClick={handleChange}>
         <HiClipboardList className="transition duration-150 ease-in-out" />
         <span className="hidden absolute -left-1/2 -top-full bg-white text-black px-2 py-1 text-sm rounded-md opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out">
           Details
@@ -66,7 +66,7 @@ export default function ReportPerbaikan({ Id }) {
                   Kembali
                 </h1>
               </Link>
-              <p>History Pemakaian</p>
+              <p>History Perbaikan</p>
             </div>
             <div>
               <TabelDataRepairHistoryById {...inventoryData.data} />
