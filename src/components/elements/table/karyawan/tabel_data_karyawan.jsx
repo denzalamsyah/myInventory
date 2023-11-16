@@ -95,7 +95,7 @@ export default function TabelDataKaryawan({ modal }) {
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">
           <form
-            className="grid col-span-1 md:grid-cols-3 border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
+            className="grid col-span-1 md:grid-cols-3 border bg-white rounded-[5px] border-slate-300 py-1 px-3 items-center"
             role="search"
             onSubmit={handleSearch}
           >
@@ -177,25 +177,25 @@ export default function TabelDataKaryawan({ modal }) {
                     key={index}
                     className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                   >
-                    <td className="py-2 ">{employee.nomorInduk}</td>
-                    <td className="py-2 px-1 text-left">{employee.nama}</td>
+                    <td className="py-2 ">{employee?.nomorInduk}</td>
+                    <td className="py-2">{employee?.nama}</td>
                     <td className=" py-2 px-1">
                       <div className="flex  justify-center items-center">
                         <Image
-                          alt={employee.nama}
-                          src={employee.gambar}
+                          alt={employee?.nama}
+                          src={employee?.gambar}
                           width={25}
                           height={25}
                           className="rounded-md"
                         />
                       </div>
                     </td>
-                    <td className="py-2">{employee.gender}</td>
-                    <td className="py-2">{employee.divisi}</td>
-                    <td className="text-left  py-2 px-1">{employee.email}</td>
-                    <td className="py-2">{employee.telepon}</td>
-                    <td className="py-2">{employee.jabatan}</td>
-                    <td className="py-2">{employee.alamat}</td>
+                    <td className="py-2">{employee?.gender}</td>
+                    <td className="py-2">{employee?.divisi}</td>
+                    <td className="py-2">{employee?.email}</td>
+                    <td className="py-2">{employee?.telepon}</td>
+                    <td className="py-2">{employee?.jabatan}</td>
+                    <td className="py-2">{employee?.alamat}</td>
                     <td className="py-2">
                       <div className="flex justify-center gap-2">
                         <div className="flex items-center justify-center">
@@ -208,8 +208,8 @@ export default function TabelDataKaryawan({ modal }) {
                         <div className="flex items-center justify-center">
                           {/* delete */}
                           <DeleteKaryawan
-                            id={employee.id}
-                            nama={employee.nama}
+                            id={employee?.id}
+                            nama={employee?.nama}
                           />
                         </div>
                       </div>

@@ -308,6 +308,7 @@ export default function UpdateInventory({
                     label="Kode Ruangan"
                     className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
+                    <option value={0}>Pilih Ruangan</option>
                     {roomData.map(
                       (room) => (
                         console.log(room),
@@ -385,6 +386,7 @@ export default function UpdateInventory({
                     label="Nama Karyawan"
                     className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
+                    <option value="">Pilih Karyawan</option>
                     {karyawanData.map(
                       (karyawan) => (
                         console.log(karyawan),

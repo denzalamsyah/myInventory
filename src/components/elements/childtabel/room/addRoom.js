@@ -70,6 +70,7 @@ export default function TambahRoom() {
                 type="text"
                 onChange={(e) => setKodeRuangan(e.target.value)}
                 placeholder="Masukan kode Ruangan"
+                required
               >
                 Kode Ruangan
               </FormComp>
@@ -80,6 +81,7 @@ export default function TambahRoom() {
                 type="text"
                 onChange={(e) => setNamaRuangan(e.target.value)}
                 placeholder="Masukan nama Ruangan"
+                required
               >
                 Nama Ruangan
               </FormComp>

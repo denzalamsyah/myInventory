@@ -8,21 +8,26 @@ import { useState, useEffect } from "react";
 import { PiPencilSimpleLineFill } from "react-icons/pi";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import LabelComp from "../../label/label";
 
-export default function UpdatePerbaikan(repair) {
+export default function UpdatePerbaikan({
+  id,
+  inventoryId,
+  TanggalKerusakan,
+  Deskripsi,
+  TanggalPerbaikan,
+  Biaya,
+  TanggalSelesaiPerbaikan,
+}) {
   const [modal, setModal] = useState(false);
   const [repairData, setRepairData] = useState([]);
-  const [inventory, setInventory] = useState(repair.inventoryId);
-  const [tanggalKerusakan, setTanggalKerusakan] = useState(
-    repair.tanggalKerusakan
-  );
-  const [deskripsi, setDeskripsi] = useState(repair.deskripsi);
-  const [tanggalPerbaikan, setTanggalPerbaikan] = useState(
-    repair.tanggalPerbaikan
-  );
-  const [biaya, setBiaya] = useState(repair.biaya);
+  const [inventory, setInventory] = useState(inventoryId);
+  const [tanggalKerusakan, setTanggalKerusakan] = useState(TanggalKerusakan);
+  const [deskripsi, setDeskripsi] = useState(Deskripsi);
+  const [tanggalPerbaikan, setTanggalPerbaikan] = useState(TanggalPerbaikan);
+  const [biaya, setBiaya] = useState(Biaya);
   const [tanggalSelesaiPerbaikan, setTanggalSelesaiPerbaikan] = useState(
-    repair.tanggalSelesaiPerbaikan
+    TanggalSelesaiPerbaikan
   );
   const router = useRouter();
   const MySwal = withReactContent(Swal);
@@ -33,24 +38,21 @@ export default function UpdatePerbaikan(repair) {
 
   async function handleUpdate(e) {
     e.preventDefault();
-    const response = await fetch(
-      `http://localhost:9000/api/perbaikan/${repair.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          inventoryId: inventory,
-          tanggalKerusakan: tanggalKerusakan,
-          deskripsi: deskripsi,
-          tanggalPerbaikan: tanggalPerbaikan,
-          biaya: biaya,
-          tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
-        }),
-      }
-    );
+    const response = await fetch(`http://localhost:9000/api/perbaikan/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        inventoryId: inventory,
+        tanggalKerusakan: tanggalKerusakan,
+        deskripsi: deskripsi,
+        tanggalPerbaikan: tanggalPerbaikan,
+        biaya: biaya,
+        tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
+      }),
+    });
     console.log(response);
     if (response.ok) {
       setModal(false);
@@ -101,18 +103,18 @@ export default function UpdatePerbaikan(repair) {
       <div className="modal">
         <div className="modal-box bg-white">
           <h1 className="font-bold text-lg text-black mb-3">
-            Edit kategori {repair.inventoryId.kodeAsset}
+            Edit kategori {inventoryId.kodeAsset}
           </h1>
           <div>
             <div className="mb-2">
               <SelectInput
                 id="inventory"
-                name="number"
                 value={inventory}
                 onChange={(e) => setInventory(e.target.value)}
                 label="Nama Inventory"
                 className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
               >
+                <option value="">Pilih Inventory</option>
                 {repairData.map(
                   (repair) => (
                     console.log(repair),
@@ -130,8 +132,9 @@ export default function UpdatePerbaikan(repair) {
                 id="tanggalKerusakan"
                 type="date"
                 onChange={(e) => setTanggalKerusakan(e.target.value)}
-                placeholder={repair.tanggalKerusakan}
+                placeholder={TanggalKerusakan}
                 value={tanggalKerusakan}
+                required
               >
                 Tanggal Kerusakan
               </FormComp>
@@ -141,7 +144,7 @@ export default function UpdatePerbaikan(repair) {
                 id="deskripsi"
                 type="text"
                 onChange={(e) => setDeskripsi(e.target.value)}
-                placeholder={repair.deskripsi}
+                placeholder={Deskripsi}
                 value={deskripsi}
               >
                 Deskripsi
@@ -152,8 +155,9 @@ export default function UpdatePerbaikan(repair) {
                 id="tanggalPerbaikan"
                 type="date"
                 onChange={(e) => setTanggalPerbaikan(e.target.value)}
-                placeholder={repair.tanggalPerbaikan}
+                placeholder={TanggalPerbaikan}
                 value={tanggalPerbaikan}
+                required
               >
                 Tanggal Perbaikan
               </FormComp>
@@ -163,22 +167,29 @@ export default function UpdatePerbaikan(repair) {
                 id="biaya"
                 type="number"
                 onChange={(e) => setBiaya(e.target.value)}
-                placeholder={repair.biaya}
+                placeholder={Biaya}
                 value={biaya}
               >
                 Biaya
               </FormComp>
             </div>
             <div className="mb-2">
-              <FormComp
-                id="tanggaSelesaiPerbaikan"
-                type="date"
-                onChange={(e) => setTanggalSelesaiPerbaikan(e.target.value)}
-                placeholder={repair.tanggalSelesaiPerbaikan}
-                value={tanggalSelesaiPerbaikan}
-              >
-                Tanggal Selesai
-              </FormComp>
+              <div className="flex justify-center items-center">
+                <LabelComp
+                  htmlFor="noInduk"
+                  className="text-gray-600 w-48 text-sm"
+                >
+                  Tanggal Selesai Perbaikan
+                </LabelComp>
+                <input
+                  id="tanggaSelesaiPerbaikan"
+                  className="px-[20px] py-1 w-full text-sm text-gray-700 border rounded-md focus:none outline-none bg-white"
+                  type="date"
+                  onChange={(e) => setTanggalSelesaiPerbaikan(e.target.value)}
+                  placeholder={TanggalSelesaiPerbaikan}
+                  value={tanggalSelesaiPerbaikan}
+                />
+              </div>
             </div>
             <div className=" modal-action flex mt-4">
               <Button

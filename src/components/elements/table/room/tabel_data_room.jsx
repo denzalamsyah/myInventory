@@ -99,7 +99,7 @@ export default function TabelDataRoom({ modal }) {
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">
           <form
-            className="grid col-span-1 md:grid-cols-3 bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
+            className="grid col-span-1 md:grid-cols-3 bg-white rounded-[5px] border border-slate-300 py-1 px-3 items-center"
             role="search"
             onSubmit={handleSearch}
           >
@@ -163,15 +163,15 @@ export default function TabelDataRoom({ modal }) {
                     className="text-center border  text-[12px] 2xl:text-[16px] text-black border-gray-300"
                   >
                     <td className="py-2 px-1">{index + 1}</td>
-                    <td className="py-2 px-1">{room.kode}</td>
-                    <td className="py-2 px-1">{room.nama}</td>
+                    <td className="py-2 px-1">{room?.kode}</td>
+                    <td className="py-2 px-1">{room?.nama}</td>
                     <td className="py-2">
                       <div className="flex justify-center gap-2">
                         <div className="flex items-center justify-center">
                           <UpdateRoom {...room} />
                         </div>
                         <div className="flex items-center justify-center">
-                          <DeleteRoom id={room.id} nama={room.nama} />
+                          <DeleteRoom id={room?.id} nama={room?.nama} />
                         </div>
                       </div>
                     </td>

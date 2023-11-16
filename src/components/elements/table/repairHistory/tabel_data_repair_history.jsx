@@ -98,7 +98,7 @@ export default function TabelDataRepairHistory({ modal }) {
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">
           <form
-            className="grid col-span-1 md:grid-cols-3 border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
+            className="grid col-span-1 md:grid-cols-3 border bg-white rounded-[5px] border-slate-300 py-1 px-3 items-center"
             role="search"
             onSubmit={handleSearch}
           >
@@ -120,7 +120,7 @@ export default function TabelDataRepairHistory({ modal }) {
               onChange={(e) => setSearchParam(e.target.value)}
               className=" md:px-[16px] py-3 md:py-1 w-full bg-white text-[12px] 2xl:text-[16px] text-gray-700 focus:none outline-none"
             >
-              <option value="kodeAsset">Kode Asset</option>
+              <option value="kodeAsset">Kode</option>
             </select>
           </form>
         </div>
@@ -177,28 +177,40 @@ export default function TabelDataRepairHistory({ modal }) {
                       >
                         <td className="py-2 px-1">{index + 1}</td>
                         <td className="py-2 px-1">
-                          {repair.inventoryId.kodeAsset}
+                          {repair?.inventoryId?.kodeAsset}
                         </td>
                         <td className="py-2  px-1">
-                          {repair.tanggalKerusakan}
+                          {repair?.tanggalKerusakan}
                         </td>
-                        <td className="py-2 px-1">{repair.tanggalPerbaikan}</td>
-                        <td className="py-2  px-1">{repair.biaya}</td>
+                        <td className="py-2 px-1">
+                          {repair?.tanggalPerbaikan}
+                        </td>
+                        <td className="py-2  px-1">{repair?.biaya}</td>
                         <td className="py-2  px-1">
-                          {repair.tanggalSelesaiPerbaikan}
+                          {repair?.tanggalSelesaiPerbaikan}
                         </td>
-                        <td className="py-2  px-1">{repair.deskripsi}</td>
+                        <td className="py-2  px-1">{repair?.deskripsi}</td>
                         <td className="py-2">
                           <div className="flex justify-center gap-2">
                             <div className="flex items-center justify-center">
                               {/* update */}
-                              <UpdatePerbaikan {...repair} />
+                              <UpdatePerbaikan
+                                id={repair?.id}
+                                inventoryId={repair?.inventoryId}
+                                TanggalKerusakan={repair?.tanggalKerusakan}
+                                Deskripsi={repair?.deskripsi}
+                                TanggalPerbaikan={repair?.tanggalPerbaikan}
+                                Biaya={repair?.biaya}
+                                TanggalSelesaiPerbaikan={
+                                  repair?.tanggalSelesaiPerbaikan
+                                }
+                              />
                             </div>
                             <div className="flex items-center justify-center">
                               {/* delete */}
                               <DeletePerbaikan
-                                id={repair.id}
-                                nama={repair.inventoryId.kodeAsset}
+                                id={repair?.id}
+                                nama={repair?.inventoryId.kodeAsset}
                               />
                             </div>
                           </div>

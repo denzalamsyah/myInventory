@@ -144,6 +144,7 @@ export default function TambahKaryawan() {
                 type="text"
                 onChange={(e) => setNomorInduk(e.target.value)}
                 placeholder="Masukan no induk"
+                required
               >
                 No Induk
               </FormComp>
@@ -154,6 +155,7 @@ export default function TambahKaryawan() {
                 type="text"
                 onChange={(e) => setNama(e.target.value)}
                 placeholder="Masukan nama"
+                required
               >
                 Nama
               </FormComp>
@@ -177,6 +179,7 @@ export default function TambahKaryawan() {
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Masukan Email"
+                required
               >
                 Email
               </FormComp>
@@ -187,6 +190,7 @@ export default function TambahKaryawan() {
                 type="number"
                 onChange={(e) => setTelepon(e.target.value)}
                 placeholder="Masukan no telepon"
+                required
               >
                 Telepon
               </FormComp>
@@ -226,6 +230,7 @@ export default function TambahKaryawan() {
                 type="text"
                 onChange={(e) => setAlamat(e.target.value)}
                 placeholder="Masukan alamat"
+                required
               >
                 Alamat
               </FormComp>

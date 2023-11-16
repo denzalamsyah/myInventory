@@ -14,7 +14,7 @@ export default function DownloadPdfInventory() {
     try {
       // Lakukan permintaan GET ke API Route yang Anda buat.
       const response = await fetch(
-        "http://localhost:9000/api/invetory/report/pdf",
+        "http://localhost:9000/api/inventory/report/pdf",
         {
           method: "GET",
           headers: {
@@ -24,11 +24,12 @@ export default function DownloadPdfInventory() {
         }
       );
       if (response.ok) {
+        setModal(false);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+        a.download = "Report Inventory"; // Nama file yang akan digunakan saat menyimpan.
         a.click();
       }
     } catch (error) {

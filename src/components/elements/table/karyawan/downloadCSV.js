@@ -24,11 +24,12 @@ export default function DownloadCSVKaryawan() {
         }
       );
       if (response.ok) {
+        setModal(false);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+        a.download = "Report Karyawan"; // Nama file yang akan digunakan saat menyimpan.
         a.click();
       }
     } catch (error) {

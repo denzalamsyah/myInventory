@@ -6,81 +6,81 @@ import { useRef } from "react";
 export default function TabelDataRepairHistoryById(inventoryData) {
   console.log(inventoryData);
 
-  const downloadPdf = async () => {
-    try {
-      // Lakukan permintaan GET ke API Route yang Anda buat.
-      const response = await fetch(
-        "http://localhost:9000/api/perbaikan/report/pdf",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
-        a.click();
-      }
-    } catch (error) {
-      console.error("Error downloading PDF", error);
-    }
-  };
-  const downloadCSV = async () => {
-    try {
-      // Lakukan permintaan GET ke API Route yang Anda buat.
-      const response = await fetch(
-        "http://localhost:9000/api/perbaikan/report/csv",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
-        a.click();
-      }
-    } catch (error) {
-      console.error("Error downloading CSV", error);
-    }
-  };
-  const downloadExcel = async () => {
-    try {
-      // Lakukan permintaan GET ke API Route yang Anda buat.
-      const response = await fetch(
-        "http://localhost:9000/api/perbaikan/report/excel",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
-        a.click();
-      }
-    } catch (error) {
-      console.error("Error downloading Excel", error);
-    }
-  };
+  // const downloadPdf = async () => {
+  //   try {
+  //     // Lakukan permintaan GET ke API Route yang Anda buat.
+  //     const response = await fetch(
+  //       "http://localhost:9000/api/perbaikan/report/pdf",
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Bearer " + localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //     if (response.ok) {
+  //       const blob = await response.blob();
+  //       const url = window.URL.createObjectURL(blob);
+  //       const a = document.createElement("a");
+  //       a.href = url;
+  //       a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+  //       a.click();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error downloading PDF", error);
+  //   }
+  // };
+  // const downloadCSV = async () => {
+  //   try {
+  //     // Lakukan permintaan GET ke API Route yang Anda buat.
+  //     const response = await fetch(
+  //       "http://localhost:9000/api/perbaikan/report/csv",
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Bearer " + localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //     if (response.ok) {
+  //       const blob = await response.blob();
+  //       const url = window.URL.createObjectURL(blob);
+  //       const a = document.createElement("a");
+  //       a.href = url;
+  //       a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+  //       a.click();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error downloading CSV", error);
+  //   }
+  // };
+  // const downloadExcel = async () => {
+  //   try {
+  //     // Lakukan permintaan GET ke API Route yang Anda buat.
+  //     const response = await fetch(
+  //       "http://localhost:9000/api/perbaikan/report/excel",
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Bearer " + localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //     if (response.ok) {
+  //       const blob = await response.blob();
+  //       const url = window.URL.createObjectURL(blob);
+  //       const a = document.createElement("a");
+  //       a.href = url;
+  //       a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+  //       a.click();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error downloading Excel", error);
+  //   }
+  // };
   //   const [usageDataHistory, setUsageData] = useState([]);
   //   const [currentPage, setCurrentPage] = useState(0);
   //   const [screenSize, setScreenSize] = useState("md");
@@ -156,7 +156,7 @@ export default function TabelDataRepairHistoryById(inventoryData) {
   //   }, [currentPage]);
   return (
     <div className="flex flex-col h-full bg-white">
-      <div className="grid lg:grid-cols-5 grid-cols-1 gap-6 mb-6">
+      {/* <div className="grid lg:grid-cols-5 grid-cols-1 gap-6 mb-6">
         <div className="grid col-span-3">
           <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
             <Button
@@ -182,7 +182,7 @@ export default function TabelDataRepairHistoryById(inventoryData) {
             </Button>
           </div>
         </div>
-      </div>
+      </div> */}
       <div
         className="grid gap-3 snap-x overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"
         style={{
@@ -228,10 +228,10 @@ export default function TabelDataRepairHistoryById(inventoryData) {
                     className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                   >
                     <td className="py-2">{index + 1}</td>
-                    <td className="py-2 px-1">{data.inventoryId.kodeAsset}</td>
-                    <td className="py-2 px-1">{data.tanggalKerusakan}</td>
-                    <td className="py-2 px-1">{data.tanggalPerbaikan}</td>
-                    <td className="py-2 px-1">{data.biaya}</td>
+                    <td className="py-2 px-1">{data?.inventoryId.kodeAsset}</td>
+                    <td className="py-2 px-1">{data?.tanggalKerusakan}</td>
+                    <td className="py-2 px-1">{data?.tanggalPerbaikan}</td>
+                    <td className="py-2 px-1">{data?.biaya}</td>
                     <td className="py-2 px-1">
                       {data.tanggalSelesaiPerbaikan}
                     </td>

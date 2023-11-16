@@ -7,6 +7,7 @@ export default function FormComp({
   value,
   onChange,
   children,
+  required,
 }) {
   return (
     <div className="flex justify-center items-center">
@@ -20,7 +21,7 @@ export default function FormComp({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        required
+        required={required}
       />
     </div>
   );

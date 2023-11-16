@@ -69,6 +69,7 @@ export default function TambahKategori() {
                 type="text"
                 onChange={(e) => setKodeKategori(e.target.value)}
                 placeholder="Masukan kode kategori"
+                required
               >
                 Kode Kategori
               </FormComp>
@@ -79,6 +80,7 @@ export default function TambahKategori() {
                 type="text"
                 onChange={(e) => setNamaKategori(e.target.value)}
                 placeholder="Masukan nama kategori"
+                required
               >
                 Nama Kategori
               </FormComp>

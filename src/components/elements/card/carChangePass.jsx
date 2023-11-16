@@ -1,7 +1,7 @@
 import React from "react";
 import { PiLockKey } from "react-icons/pi";
 import LabelComp from "../label/label";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputPassComp from "../input/inputPass";
 import Button from "../button/button";
 import Swal from "sweetalert2";
@@ -13,25 +13,33 @@ const ChangePassPage = () => {
   const MySwal = withReactContent(Swal);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
   const ChangePassword = async () => {
+    setLoading(true);
     try {
-      const res = await fetch(`http://localhost:9000/api/set-password`, {
-        method: "PUT",
-        body: JSON.stringify({
-          password: password,
-          confirmPasword: confirmPassword,
-        }),
-        headers: {
-          "content-type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `http://localhost:9000/api/set-password?email=${router.query.email}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            password: password,
+            confirmPassword: confirmPassword,
+          }),
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
       if (res.ok) {
-        MySwal.fire("Succes Change!", "Klik tombol!", "success").then(() => {
-          router.push("/login");
-        });
+        MySwal.fire("Success Change!", "Click the button!", "success").then(
+          () => {
+            router.push("/login");
+          }
+        );
       } else {
-        MySwal.fire("Confirm Password Not Match", "!", "error");
+        MySwal.fire("Confirm Password Not Match!", "error");
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -57,6 +65,7 @@ const ChangePassPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="enter your password"
+            required
           />
         </div>
         <div className="mb-6 relative">
@@ -72,15 +81,22 @@ const ChangePassPage = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="enter your confirm password"
+            required
           />
         </div>
         <div>
-          <Button
-            onClick={ChangePassword}
-            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-          >
-            Reset Password
-          </Button>
+          {!loading ? (
+            <Button
+              onClick={ChangePassword}
+              className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+            >
+              Reset Password
+            </Button>
+          ) : (
+            <div className="w-full bg-blue-500  p-2 rounded-md flex justify-center">
+              <span className="loading loading-spinner text-neutral"></span>
+            </div>
+          )}
         </div>
       </div>
     </div>

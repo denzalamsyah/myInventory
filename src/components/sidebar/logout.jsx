@@ -1,40 +1,36 @@
 "use client";
 import Button from "@/components/elements/button/button";
-import { FaTrash } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+
 export default function Logout({ name, icon, h2, h22 }) {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const MySwal = withReactContent(Swal);
-  const [open, setOpen] = useState(true);
 
   function handleChange() {
     setModal(!modal);
   }
-  useEffect(() => {
-    fetchProfile();
-  }, []);
-  async function fetchProfile() {
-    const res = await fetch("http://localhost:9000/api/kategori", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    });
-  }
+  // useEffect(() => {
+  //   fetchProfile();
+  // }, []);
+  // async function fetchProfile() {
+  //   const res = await fetch("http://localhost:9000/api/kategori", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: "Bearer " + localStorage.getItem("token"),
+  //     },
+  //   });
+  // }
 
   function logout() {
     setLoading(true);
     localStorage.removeItem("token");
-    router.push("/");
     setLoading(false);
+    router.push("/");
   }
   return (
     <div className="">
@@ -68,7 +64,7 @@ export default function Logout({ name, icon, h2, h22 }) {
                 Yes
               </Button>
             ) : (
-              <div className=" w-[10%] bg-orange-400 px-4 p-2 rounded-md flex justify-center">
+              <div className=" w-[50%] bg-orange-400 px-4 p-2 rounded-md flex justify-center">
                 <span className="loading loading-spinner text-neutral">
                   Yes
                 </span>

@@ -30,6 +30,8 @@ export default function TambahInventory() {
   const [karyawanData, setKaryawanData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [pembeli, setPembeli] = useState("");
+
+  console.log(categoryData);
   const onImageUpload = (e) => {
     const file = e.target.files[0];
     setSelectedImage(file);
@@ -53,8 +55,8 @@ export default function TambahInventory() {
     formData.append("vendor", vendor);
     formData.append("deskripsi", deskripsi);
     formData.append("kategoriId", idKategori);
-    formData.append("karyawanId", karyawanId);
-    formData.append("ruanganId", idRuangan);
+    // formData.append("karyawanId", karyawanId);
+    // formData.append("ruanganId", idRuangan);
     formData.append("pembeli", pembeli);
     try {
       const response = await fetch("http://localhost:9000/api/inventory", {
@@ -213,6 +215,7 @@ export default function TambahInventory() {
                     type="text"
                     onChange={(e) => setNama(e.target.value)}
                     placeholder="Masukan nama"
+                    required
                   >
                     Nama
                   </FormComp>
@@ -223,6 +226,7 @@ export default function TambahInventory() {
                     type="text"
                     onChange={(e) => setKodeAset(e.target.value)}
                     placeholder="Masukan Kode Aset"
+                    required
                   >
                     Kode Aset
                   </FormComp>
@@ -233,6 +237,7 @@ export default function TambahInventory() {
                     type="text"
                     onChange={(e) => setMerk(e.target.value)}
                     placeholder="Masukan merk"
+                    required
                   >
                     Merk
                   </FormComp>
@@ -243,6 +248,7 @@ export default function TambahInventory() {
                     type="date"
                     onChange={(e) => setTanggalPembelian(e.target.value)}
                     placeholder="Masukan tanggal"
+                    required
                   >
                     Tanggal Pembelian
                   </FormComp>
@@ -253,11 +259,12 @@ export default function TambahInventory() {
                     type="number"
                     onChange={(e) => setHarga(e.target.value)}
                     placeholder="Masukan harga"
+                    required
                   >
                     Harga
                   </FormComp>
                 </div>
-                <div className="mb-2">
+                {/* <div className="mb-2">
                   <SelectInput
                     id="KaryawanId"
                     type="number"
@@ -277,13 +284,14 @@ export default function TambahInventory() {
                       )
                     )}
                   </SelectInput>
-                </div>
+                </div> */}
                 <div className="mb-2">
                   <FormComp
                     id="deskripsi"
                     type="text"
                     onChange={(e) => setDeskripsi(e.target.value)}
                     placeholder="Masukkan deskripsi"
+                    required
                   >
                     Deskripsi
                   </FormComp>
@@ -296,6 +304,7 @@ export default function TambahInventory() {
                     type="text"
                     onChange={(e) => setVendor(e.target.value)}
                     placeholder="Masukan vendor"
+                    required
                   >
                     Vendor
                   </FormComp>
@@ -306,6 +315,7 @@ export default function TambahInventory() {
                     type="text"
                     onChange={(e) => setPembeli(e.target.value)}
                     placeholder="Masukan nama pembeli"
+                    required
                   >
                     Pembeli
                   </FormComp>
@@ -316,6 +326,7 @@ export default function TambahInventory() {
                     type="number"
                     onChange={(e) => setMasaManfaat(e.target.value)}
                     placeholder="Masukan masa manfaat"
+                    required
                   >
                     Masa Manfaat
                   </FormComp>
@@ -341,7 +352,7 @@ export default function TambahInventory() {
                     )}
                   </SelectInput>
                 </div>
-                <div className="mb-2">
+                {/* <div className="mb-2">
                   <SelectInput
                     id="idRuangan"
                     name="number"
@@ -361,7 +372,7 @@ export default function TambahInventory() {
                       )
                     )}
                   </SelectInput>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className=" modal-action flex mt-4">

@@ -13,6 +13,7 @@ export default function TabelDataUsageHistory() {
   const [pageSize, setPageSize] = useState(10);
   const componentRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
+  console.log(usageDataHistory);
   const screenSizes = {
     "2xl": 20,
     md: 10,
@@ -93,7 +94,7 @@ export default function TabelDataUsageHistory() {
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">
           <form
-            className=" md:flex border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
+            className=" md:flex border bg-white rounded-[5px] border-slate-300 py-1 px-3 items-center"
             role="search"
             onSubmit={handleSearch}
           >
@@ -134,7 +135,7 @@ export default function TabelDataUsageHistory() {
                   Nama/Nomor Induk Lama
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Nama/Nomor Induk Baru
+                  Nomor Induk/Nama
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Tanggal
@@ -159,15 +160,17 @@ export default function TabelDataUsageHistory() {
                   >
                     <td className="py-2">{index + 1}</td>
                     <td className="py-2 px-1">
-                      {usage.karyawanNamaOld} - {usage.nomorIndukOld}
+                      {usage.karyawanNamaOld}
+                      {usage?.nomorIndukOld}
                     </td>
                     <td className="py-2 px-1">
-                      {usage.karyawanNamaNew} - {usage.nomorIndukNew}
+                      {usage.karyawanNamaNew}
+                      {usage?.nomorIndukNew}
                     </td>
-                    <td className="py-2 px-1">{usage.tanggalPemakaian}</td>
-                    <td className="py-2 px-1">{usage.ruanganOld}</td>
-                    <td className="py-2 px-1">{usage.ruanganNew}</td>
-                    <td className="py-2 px-1">{usage.inventoryId}</td>
+                    <td className="py-2 px-1">{usage?.tanggalPemakaian}</td>
+                    <td className="py-2 px-1">{usage?.ruanganOld}</td>
+                    <td className="py-2 px-1">{usage?.ruanganNew}</td>
+                    <td className="py-2 px-1">{usage?.inventoryId}</td>
                   </tr>
                 ))
               ) : (

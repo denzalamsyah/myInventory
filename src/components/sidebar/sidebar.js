@@ -29,9 +29,12 @@ const Sidebar = ({ children }) => {
     { name: "Logout", link: "/", icon: "/img/logout.png" },
   ];
   const [open, setOpen] = useState(true);
+  const [activePage, setActivePage] = useState("");
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    const cureentPath = router.pathname;
+    setActivePage(cureentPath);
+  }, [router.pathname]);
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -52,8 +55,14 @@ const Sidebar = ({ children }) => {
           open ? "w-52 lg:w-72" : "w-16"
         } duration-300 text-white px-4 border-r-2 border-gray-500`}
       >
-        <div className="py-5 2xl:py-10 flex justify-center gap-2 border-b border-white">
-          <Link href="/dashboard">
+        <div
+          className={`${
+            open
+              ? "grid grid-cols-4 items-center gap-8"
+              : "grid grid-cols-1 items-center"
+          } py-5 2xl:py-10  justify-center border-b border-white`}
+        >
+          <Link href="/dashboard" className="col-span-3 flex justify-end">
             <Image
               src="/img/logoWIT.png"
               alt="logo WIT"
@@ -88,7 +97,11 @@ const Sidebar = ({ children }) => {
                   href={menu.link}
                   className={` ${
                     menu.margin && "mt-5"
-                  } group flex items-center text-sm 2xl:text-[16px] gap-3.5 font-medium p-2 bg-[#585858] shadow-lg hover:bg-white hover:text-black rounded-md`}
+                  } group flex items-center text-sm 2xl:text-[16px] gap-3.5 font-medium p-2  ${
+                    activePage === menu.link
+                      ? "bg-white text-black"
+                      : "bg-[#585858] text-white hover:bg-white hover:text-black"
+                  } bg-[#585858] shadow-lg hover:bg-white hover:text-black rounded-md`}
                 >
                   <Image
                     src={menu.icon}

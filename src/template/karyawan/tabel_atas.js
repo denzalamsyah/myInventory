@@ -122,8 +122,8 @@ export default function TabelAtasKaryawan() {
   }, []);
 
   return (
-    <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-1">
-      <div className="grid grid-cols-2 gap-1  shadow-md hover:bg-gradient-to-r hover:from-white hover:to-slate-300  bg-white  w-full border p-4 rounded-lg">
+    <div className="grid md:grid-cols-2 2xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-1  shadow-md hover:bg-gradient-to-r hover:from-white hover:to-slate-300  bg-white  w-full border p-4 rounded-md">
         <div className="grid col-span-2">
           <h1 className="text-[#154360] text-center mb-2 text-[12px] 2xl:text-[16px]  font-bold w-full">
             Divisi
@@ -152,7 +152,7 @@ export default function TabelAtasKaryawan() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-1 shadow-md hover:bg-gradient-to-r hover:from-white hover:to-slate-300  bg-white  w-full border p-4 rounded-lg">
+      <div className="grid grid-cols-2 gap-1 shadow-md hover:bg-gradient-to-r hover:from-white hover:to-slate-300  bg-white  w-full border p-4 rounded-md">
         <div className="grid col-span-2">
           <h1 className="text-[#154360] text-center mb-2 text-[12px] 2xl:text-[16px]  font-bold w-full">
             Jenis Kelamin

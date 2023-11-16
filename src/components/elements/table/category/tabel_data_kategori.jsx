@@ -105,7 +105,7 @@ export default function TabelDataKategori({ modal }) {
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">
           <form
-            className="grid col-span-1 md:grid-cols-3 border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
+            className="grid col-span-1 md:grid-cols-3 border bg-white rounded-[5px] border-slate-300 py-1 px-3 items-center"
             role="search"
             onSubmit={handleSearch}
           >
@@ -162,29 +162,34 @@ export default function TabelDataKategori({ modal }) {
             </thead>
             <tbody className="">
               {categoryData.data && categoryData.data.length > 0 ? (
-                categoryData.data.map((category, index) => (
-                  <tr
-                    key={index}
-                    className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
-                  >
-                    <td className="py-2 px-1">{index + 1}</td>
-                    <td className="py-2 px-1">{category.kode}</td>
-                    <td className="py-2 px-1">{category.nama}</td>
-                    <td className="py-2">
-                      <div className="flex justify-center gap-2">
-                        <div className="flex items-center justify-center">
-                          <UpdateKategori {...category} />
-                        </div>
-                        <div className="flex items-center justify-center">
-                          <DeleteKategori
-                            id={category.id}
-                            nama={category.nama}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                categoryData.data.map(
+                  (category, index) => (
+                    console.log(category?.id),
+                    (
+                      <tr
+                        key={index}
+                        className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
+                      >
+                        <td className="py-2 px-1">{index + 1}</td>
+                        <td className="py-2 px-1">{category?.kode}</td>
+                        <td className="py-2 px-1">{category?.nama}</td>
+                        <td className="py-2">
+                          <div className="flex justify-center gap-2">
+                            <div className="flex items-center justify-center">
+                              <UpdateKategori {...category} />
+                            </div>
+                            <div className="flex items-center justify-center">
+                              <DeleteKategori
+                                id={category?.id}
+                                nama={category?.nama}
+                              />
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  )
+                )
               ) : (
                 <tr>
                   <td colSpan="12" className="text-center">

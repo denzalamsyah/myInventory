@@ -4,7 +4,7 @@ export default function Section({ children, tittle }) {
   const [mode, setMode] = useState(false);
   return (
     <main
-      className={`${!mode ? "bg-gray-100" : "bg-[#797975]"} min-h-screen p-4`}
+      className={`${!mode ? "bg-gray-100" : "bg-[#474747]"} min-h-screen p-4`}
     >
       <Headers
         tittle={tittle}

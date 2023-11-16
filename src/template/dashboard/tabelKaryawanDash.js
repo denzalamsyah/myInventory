@@ -75,7 +75,7 @@ export default function TabelDataKaryawanDash({ modal }) {
   }, [currentPage]);
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-md px-4 pt-6 shadow-lg">
+    <div className="flex flex-col h-full bg-white rounded-lg px-4 pt-6 shadow-lg">
       <div
         ref={componentRef}
         className=" overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-red scrollbar-track-gray-200 scrollbar-thumb-hover:#b30000"

@@ -98,7 +98,7 @@ export default function TabelDataInventory({ modal }) {
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">
           <form
-            className="grid col-span-1 md:grid-cols-3 border bg-white rounded-[5px] shadow-md py-1 px-3 items-center"
+            className="grid col-span-1 md:grid-cols-3 border bg-white rounded-[5px] border-slate-300 py-1 px-3 items-center"
             role="search"
             onSubmit={handleSearch}
           >
@@ -178,45 +178,45 @@ export default function TabelDataInventory({ modal }) {
                         key={index}
                         className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                       >
-                        <td className="py-2">{inventory.kodeAsset}</td>
+                        <td className="py-2">{inventory?.kodeAsset}</td>
                         <td className="py-2 px-2 text-left">
-                          {inventory.nama}
+                          {inventory?.nama}
                         </td>
                         <td className="py-2 px-2 text-left">
-                          {inventory.vendor}
+                          {inventory?.vendor}
                         </td>
                         <td className=" py-2 px-2">
                           <div className="flex  justify-center items-center">
                             <Image
-                              alt={inventory.nama}
-                              src={inventory.gambar}
+                              alt={inventory?.nama}
+                              src={inventory?.gambar}
                               width={50}
                               height={50}
                               className="rounded-sm"
                             />
                           </div>
                         </td>
-                        <td className="py-2 px-2">{inventory.merk}</td>
-                        <td className="py-2 px-2">{inventory.status}</td>
+                        <td className="py-2 px-2">{inventory?.merk}</td>
+                        <td className="py-2 px-2">{inventory?.status}</td>
                         <td className="text-left py-2 px-2">
-                          Rp. {inventory.harga}
+                          Rp. {inventory?.harga}
                         </td>
                         <td className="py-2 px-2">
                           <div className="flex justify-center gap-2">
                             <div className="flex items-center justify-center">
-                              <ReportPerbaikan Id={inventory.id} />
+                              <ReportPerbaikan Id={inventory?.id} />
                               {/* <Link href={`/inventory/details/${inventory.id}`}>
                               <CgMoreO className="transition duration-150 ease-in-out" />
                             </Link> */}
                             </div>
                             <div className="flex items-center justify-center">
-                              <ReportPemakaian Id={inventory.id} />
+                              <ReportPemakaian Id={inventory?.id} />
                               {/* <Link href={`/inventory/details/${inventory.id}`}>
                               <CgMoreO className="transition duration-150 ease-in-out" />
                             </Link> */}
                             </div>
                             <div className="flex items-center justify-center">
-                              <DetailInventory Id={inventory.id} />
+                              <DetailInventory Id={inventory?.id} />
                               {/* <Link href={`/inventory/details/${inventory.id}`}>
                               <CgMoreO className="transition duration-150 ease-in-out" />
                             </Link> */}
@@ -224,28 +224,28 @@ export default function TabelDataInventory({ modal }) {
                             <div className="flex items-center justify-center">
                               {/* update */}
                               <UpdateInventory
-                                Id={inventory.id}
-                                Nama={inventory.nama}
-                                Gambar={inventory.gambar}
-                                KodeAsset={inventory.kodeAsset}
-                                Merk={inventory.merk}
-                                Vendor={inventory.vendor}
-                                TanggalPembelian={inventory.tanggalPembelian}
-                                Harga={inventory.harga}
-                                Status={inventory.status}
-                                Deskripsi={inventory.deskripsi}
-                                MasaManfaat={inventory.masaManfaat}
-                                RuanganId={inventory.ruanganId}
-                                KategoriId={inventory.kategoriId}
-                                KaryawanId={inventory.karyawanId}
-                                Pembeli={inventory.pembeli}
+                                Id={inventory?.id}
+                                Nama={inventory?.nama}
+                                Gambar={inventory?.gambar}
+                                KodeAsset={inventory?.kodeAsset}
+                                Merk={inventory?.merk}
+                                Vendor={inventory?.vendor}
+                                TanggalPembelian={inventory?.tanggalPembelian}
+                                Harga={inventory?.harga}
+                                Status={inventory?.status}
+                                Deskripsi={inventory?.deskripsi}
+                                MasaManfaat={inventory?.masaManfaat}
+                                RuanganId={inventory?.ruanganId}
+                                KategoriId={inventory?.kategoriId}
+                                KaryawanId={inventory?.karyawanId}
+                                Pembeli={inventory?.pembeli}
                               />
                             </div>
                             <div className="flex items-center justify-center">
                               {/* delete */}
                               <DeleteInventory
-                                id={inventory.id}
-                                nama={inventory.nama}
+                                id={inventory?.id}
+                                nama={inventory?.nama}
                               />
                             </div>
                           </div>

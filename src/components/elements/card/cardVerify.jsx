@@ -15,6 +15,7 @@ const VerifyPage = () => {
   const [loading, setLoading] = useState(false);
   const MySwal = withReactContent(Swal);
   const verify = async () => {
+    setLoading(true);
     try {
       const res = await fetch(
         `http://localhost:9000/api/forgot-password?email=${email}`,
@@ -26,10 +27,11 @@ const VerifyPage = () => {
         }
       );
       if (res.ok) {
-        router.push("/auth/changepass");
+        MySwal.fire("User found", "Cek link di email", "succes");
       } else {
         MySwal.fire("User not found", "Klik tombol!", "warning");
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -57,13 +59,19 @@ const VerifyPage = () => {
           />
         </div>
         <div>
-          <Button
-            onClick={verify}
-            type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-          >
-            Send link{" "}
-          </Button>
+          {!loading ? (
+            <Button
+              onClick={verify}
+              type="submit"
+              className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+            >
+              Send link{" "}
+            </Button>
+          ) : (
+            <div className="w-full bg-blue-500  p-2 rounded-md flex justify-center">
+              <span className="loading loading-spinner text-neutral"></span>
+            </div>
+          )}
         </div>
         <div className="flex flex-col justify-center items-center mt-6">
           <p className="text-gray-500">Remember your password?</p>

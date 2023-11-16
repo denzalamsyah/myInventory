@@ -24,11 +24,12 @@ export default function DownloadExcelPerbaikan() {
         }
       );
       if (response.ok) {
+        setModal(false);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+        a.download = "Report Perbaikan"; // Nama file yang akan digunakan saat menyimpan.
         a.click();
       }
     } catch (error) {
@@ -58,7 +59,7 @@ export default function DownloadExcelPerbaikan() {
           <div className="modal-action flex mt-4">
             {!loading ? (
               <Button
-                className="bg-green-400 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-red-600 "
+                className="bg-green-400 rounded-[5px] mx-2 text-white text-sm px-4 py-1 hover:bg-green-600 "
                 type="button"
                 onClick={downloadExcel}
               >

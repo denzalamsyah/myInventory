@@ -124,6 +124,7 @@ export default function TambahPerbaikan() {
                 type="date"
                 onChange={(e) => setTanggalKerusakan(e.target.value)}
                 placeholder="Masukan tanggal kerusakan"
+                required
               >
                 Tanggal Kerusakan
               </FormComp>
@@ -134,6 +135,7 @@ export default function TambahPerbaikan() {
                 type="text"
                 onChange={(e) => setDeskripsi(e.target.value)}
                 placeholder="Masukan deskripsi"
+                required
               >
                 Deskripsi
               </FormComp>
@@ -144,6 +146,7 @@ export default function TambahPerbaikan() {
                 type="date"
                 onChange={(e) => setTanggalPerbaikan(e.target.value)}
                 placeholder="Masukan tanggal perbaikan"
+                required
               >
                 Tanggal Perbaikan
               </FormComp>
@@ -154,6 +157,7 @@ export default function TambahPerbaikan() {
                 type="number"
                 onChange={(e) => setBiaya(e.target.value)}
                 placeholder="Masukan biaya"
+                required
               >
                 Biaya
               </FormComp>
@@ -164,6 +168,7 @@ export default function TambahPerbaikan() {
                 type="date"
                 onChange={(e) => setTanggalSelesaiPerbaikan(e.target.value)}
                 placeholder="Masukan tanggal selesai"
+                required
               >
                 Tanggal Selesai
               </FormComp>

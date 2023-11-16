@@ -67,6 +67,7 @@ export default function TambahUsage() {
                 type="number"
                 onChange={(e) => setIdPemakaian(e.target.value)}
                 placeholder="Masukan id pemakaian"
+                required
               >
                 Kode Aset
               </FormComp>
@@ -77,6 +78,7 @@ export default function TambahUsage() {
                 type="text"
                 onChange={(e) => setKodeAset(e.target.value)}
                 placeholder="Masukan kode aset"
+                required
               >
                 Kode Aset
               </FormComp>
@@ -87,6 +89,7 @@ export default function TambahUsage() {
                 type="number"
                 onChange={(e) => setNoInduk(e.target.value)}
                 placeholder="Masukan nomor induk"
+                required
               >
                 Nomor Induk
               </FormComp>
@@ -97,6 +100,7 @@ export default function TambahUsage() {
                 type="number"
                 onChange={(e) => setIdRuangan(e.target.value)}
                 placeholder="Masukan id ruangan"
+                required
               >
                 ID Ruangan
               </FormComp>

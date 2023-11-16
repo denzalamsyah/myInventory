@@ -93,7 +93,9 @@ export default function UpdateRoom(room) {
                 <Button
                   className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"
                   onClick={handleUpdate}
-                ></Button>
+                >
+                  Update
+                </Button>
               ) : (
                 <div className=" w-[10%] bg-green-500  p-2 rounded-md flex justify-center">
                   <span className="loading loading-spinner text-neutral">

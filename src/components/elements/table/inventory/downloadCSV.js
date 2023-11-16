@@ -29,7 +29,7 @@ export default function DownloadCSVInventory() {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "Report categori"; // Nama file yang akan digunakan saat menyimpan.
+        a.download = "Report Inventory"; // Nama file yang akan digunakan saat menyimpan.
         a.click();
       }
     } catch (error) {
