@@ -103,7 +103,7 @@ export default function UpdatePerbaikan({
       <div className="modal">
         <div className="modal-box bg-white">
           <h1 className="font-bold text-lg text-black mb-3">
-            Edit kategori {inventoryId.kodeAsset}
+            Perbaiki {inventoryId.kodeAsset}
           </h1>
           <div>
             <div className="mb-2">
@@ -176,7 +176,7 @@ export default function UpdatePerbaikan({
             <div className="mb-2">
               <div className="flex justify-center items-center">
                 <LabelComp
-                  htmlFor="noInduk"
+                  htmlFor="tanggalSelesai"
                   className="text-gray-600 w-48 text-sm"
                 >
                   Tanggal Selesai Perbaikan

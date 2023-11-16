@@ -283,7 +283,7 @@ const TopCards = () => {
           <table>
             <thead className="text-[12px] 2xl:text-[16px] text-center text-gray-700 bg-slate-200 py-2">
               <tr>
-                <td className="px-2">Unavaible</td>
+                <td className="px-2">Used</td>
                 <td className="px-2">Avaible</td>
               </tr>
             </thead>

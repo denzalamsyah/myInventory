@@ -67,7 +67,7 @@ export default function DonatChart() {
     fetchData();
   }, []);
   const data = {
-    labels: ["Repair", "Normal", "Damage"],
+    labels: ["Perbaikan", "Normal", "Bermasalah"],
     datasets: [
       {
         label: "Total",

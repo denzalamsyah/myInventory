@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import LabelComp from "../../label/label";
 export default function TambahPerbaikan() {
   const [modal, setModal] = useState(false);
   const [repairData, setRepairData] = useState([]);
@@ -87,7 +88,7 @@ export default function TambahPerbaikan() {
         type="submit"
         onClick={handleChange}
       >
-        Add Data Perbaikan
+        Add kerusakan
       </Button>
       <input
         type="checkbox"
@@ -98,7 +99,7 @@ export default function TambahPerbaikan() {
       <div className="modal">
         <div className="modal-box bg-white">
           <h1 className="font-bold text-lg text-black mb-3">
-            Tambah Data Perbaikan
+            Tambah Kerusakan
           </h1>
           <form onSubmit={handleSubmit} method="POST">
             <div className="mb-2">
@@ -163,15 +164,21 @@ export default function TambahPerbaikan() {
               </FormComp>
             </div>
             <div className="mb-2">
-              <FormComp
-                id="tanggaSelesaiPerbaikan"
-                type="date"
-                onChange={(e) => setTanggalSelesaiPerbaikan(e.target.value)}
-                placeholder="Masukan tanggal selesai"
-                required
-              >
-                Tanggal Selesai
-              </FormComp>
+              <div className="flex justify-center items-center">
+                <LabelComp
+                  htmlFor="tanggalSelesai"
+                  className="text-gray-600 w-48 text-sm"
+                >
+                  Tanggal Selesai
+                </LabelComp>
+                <input
+                  id="tanggaSelesaiPerbaikan"
+                  className="px-[20px] py-1 w-full text-sm text-gray-700 border rounded-md focus:none outline-none bg-white"
+                  type="date"
+                  onChange={(e) => setTanggalSelesaiPerbaikan(e.target.value)}
+                  placeholder="Masukan tanggal selesai"
+                />
+              </div>
             </div>
             <div className=" modal-action flex mt-4">
               {!loading ? (
