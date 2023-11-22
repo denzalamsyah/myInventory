@@ -10,7 +10,9 @@ export default function DownloadPdfPemakaian() {
     setModal(!modal);
   }
 
-  const downloadPdf = async () => {
+  const downloadPdf = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     try {
       // Lakukan permintaan GET ke API Route yang Anda buat.
       const response = await fetch(
@@ -24,6 +26,7 @@ export default function DownloadPdfPemakaian() {
         }
       );
       if (response.ok) {
+        setLoading(false);
         setModal(false);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);

@@ -49,8 +49,15 @@ export default function UpdateKategori(category) {
   }
   return (
     <div className="">
-      <Link className="text-[#10A760]" href="" onClick={handleChange}>
-        <PiPencilSimpleLineFill />
+      <Link
+        href=""
+        onClick={handleChange}
+        className="text-[#10A760] relative group"
+      >
+        <PiPencilSimpleLineFill className="transition duration-150 ease-in-out" />
+        <span className="hidden absolute -left-1/4 -top-full bg-[#10A760] text-white px-2 py-1 text-[12px] rounded-[3px] opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out z-10">
+          Update
+        </span>
       </Link>
       <input
         type="checkbox"
@@ -95,7 +102,7 @@ export default function UpdateKategori(category) {
                   Update
                 </Button>
               ) : (
-                <div className=" w-[10%] bg-green-500 px-4  p-2 rounded-md flex justify-center">
+                <div className=" w-[15%] bg-green-500 px-4  p-2 rounded-md flex justify-center">
                   <span className="loading loading-spinner text-neutral">
                     Update
                   </span>

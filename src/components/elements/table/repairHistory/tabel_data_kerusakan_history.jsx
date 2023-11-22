@@ -5,16 +5,18 @@ import DeletePerbaikan from "../../childtabel/repair/deleteRepair";
 import DownloadCSVPerbaikan from "./downloadCSV";
 import DownloadExcelPerbaikan from "./downloadExcel";
 import DownloadPdfPerbaikan from "./downloadPdf";
-export default function TabelDataRepairHistory({ modal }) {
-  const [repairDataHistory, setRepairData] = useState([]);
+import UpdateKerusakan from "../../childtabel/repair/updateKerusakan";
+import DownloadPdfKerusakan from "./downloadPdfKerusakan";
+export default function TabelDataKerusakanHistory({ modal }) {
+  const [kerusakanDataHistory, setKerusakanData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [screenSize, setScreenSize] = useState("md");
   const [pageSize, setPageSize] = useState(16);
   const componentRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchParam, setSearchParam] = useState("nama");
+  const [searchParam, setSearchParam] = useState("deskripsi");
 
-  console.log(repairDataHistory);
+  console.log(kerusakanDataHistory);
   const screenSizes = {
     "2xl": 20,
     md: 10,
@@ -22,10 +24,10 @@ export default function TabelDataRepairHistory({ modal }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchRepair(currentPage, searchQuery, searchParam);
+    fetchKerusakan(currentPage, searchQuery, searchParam);
   };
   useEffect(() => {
-    fetchRepair(currentPage, searchQuery, searchParam);
+    fetchKerusakan(currentPage, searchQuery, searchParam);
   }, [currentPage, searchQuery, searchParam]);
 
   useEffect(() => {
@@ -53,11 +55,11 @@ export default function TabelDataRepairHistory({ modal }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const fetchRepair = async (page, query = "", param) => {
+  const fetchKerusakan = async (page, query = "", param) => {
     try {
       const url = query
-        ? `http://localhost:9000/api/perbaikan/search?${param}=${query}`
-        : `http://localhost:9000/api/perbaikan?page=${page}&size=${pageSize}`;
+        ? `http://localhost:9000/api/kerusakan/search?${param}=${query}`
+        : `http://localhost:9000/api/kerusakan?page=${page}&size=${pageSize}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -66,21 +68,19 @@ export default function TabelDataRepairHistory({ modal }) {
         },
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
+      if (response.ok) {
+        const data = await response.json();
+        setKerusakanData(data.data);
+      } else {
+        console.log("data kosong");
       }
-
-      console.log(response);
-
-      const data = await response.json();
-      setRepairData(data.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchRepair(currentPage);
+    fetchKerusakan(currentPage);
   }, [currentPage]);
 
   return (
@@ -89,7 +89,7 @@ export default function TabelDataRepairHistory({ modal }) {
         <div className="grid lg:col-span-5">
           <div className="mb-2">{modal} </div>
           <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
-            <DownloadPdfPerbaikan />
+            <DownloadPdfKerusakan />
             {/* <DownloadCSVPerbaikan /> */}
             {/* <DownloadExcelPerbaikan /> */}
           </div>
@@ -118,8 +118,8 @@ export default function TabelDataRepairHistory({ modal }) {
               onChange={(e) => setSearchParam(e.target.value)}
               className=" md:px-[16px] py-3 md:py-1 w-full bg-white text-[12px] 2xl:text-[16px] text-gray-700 focus:none outline-none"
             >
-              <option value="kodeAsset">Kode</option>
-              <option value="biaya">Biaya</option>
+              <option value="deskripsi">Deskripsi</option>
+              {/* <option value="tanggalRusak">Tanggal</option> */}
             </select>
           </form>
         </div>
@@ -137,7 +137,7 @@ export default function TabelDataRepairHistory({ modal }) {
         <div>
           <table className="w-full">
             <thead className=" bg-slate-200">
-              <tr className="2xl:text-[16px] py-3 border">
+              <tr className="2xl:text-[16px] py-3 border border-gray-300">
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   No
                 </th>
@@ -145,67 +145,73 @@ export default function TabelDataRepairHistory({ modal }) {
                   Kode Aset
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Tanggal Perbaikan
+                  Tanggal Kerusakan
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Biaya
+                  Deskripsi
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Tanggal Selesai Diperbaiki
+                  Posisi Terakhir
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Yang Memperbaiki
-                </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Tempat Perbaikan
+                  Action
                 </th>
               </tr>
             </thead>
             <tbody className="">
-              {repairDataHistory && repairDataHistory.length > 0 ? (
-                repairDataHistory.map(
-                  (repair, index) => (
-                    console.log(repair),
+              {kerusakanDataHistory && kerusakanDataHistory.length > 0 ? (
+                kerusakanDataHistory.map(
+                  (kerusakan, index) => (
+                    console.log(kerusakan),
                     (
                       <tr
                         key={index}
                         className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                       >
-                        <td className="py-2 px-1">{index + 1}</td>
-                        <td className="py-2 px-1">
-                          {repair?.inventoryId?.kodeAsset || "-"}
+                        <td className="py-2 px-2">{index + 1}</td>
+                        <td className="py-2 px-2">
+                          {kerusakan?.inventoryId?.kodeAsset}
                         </td>
-                        <td className="py-2 px-1">
-                          {repair?.tanggalPerbaikan || "-"}
+                        <td className="py-2  px-2">
+                          {kerusakan?.tanggalKerusakan}
                         </td>
-                        <td className="py-2  px-1">
-                          Rp. {repair?.biaya || "-"}
+                        <td className="py-2  px-2">{kerusakan?.deskripsi}</td>
+                        <td className="py-2  px-2">
+                          {kerusakan?.posisiTerakhir}
                         </td>
-                        <td className="py-2  px-1">
-                          {repair?.tanggalSelesaiPerbaikan || "-"}
-                        </td>
-                        <td className="py-2  px-1">{repair?.nama || "-"}</td>
-                        <td className="py-2  px-1">{repair?.tempat || "-"}</td>
-                        {/* <td className="py-2">
+                        <td className="py-2 px-2">
                           <div className="flex justify-center gap-2">
                             <div className="flex items-center justify-center">
-                        
-                              <UpdatePerbaikan
-                                id={repair?.id}
-                                inventoryId={repair?.inventoryId}
-                                TanggalKerusakan={repair?.tanggalKerusakan}
-                                Deskripsi={repair?.deskripsi}
+                              <UpdateKerusakan
+                                id={kerusakan?.id}
+                                inventoryId={kerusakan?.inventoryId}
+                                TanggalKerusakan={kerusakan?.tanggalKerusakan}
+                                Deskripsi={kerusakan?.deskripsi}
+                                TanggalPerbaikan={kerusakan?.tanggalPerbaikan}
                               />
                             </div>
                             <div className="flex items-center justify-center">
-                         
+                              <UpdatePerbaikan
+                                id={kerusakan?.id}
+                                inventoryId={kerusakan?.inventoryId}
+                                TanggalKerusakan={kerusakan?.tanggalKerusakan}
+                                Deskripsi={kerusakan?.deskripsi}
+                                TanggalPerbaikan={kerusakan?.tanggalPerbaikan}
+                                Biaya={kerusakan?.biaya}
+                                TanggalSelesaiPerbaikan={
+                                  kerusakan?.tanggalSelesaiPerbaikan
+                                }
+                              />
+                            </div>
+                            <div className="flex items-center justify-center">
+                              {/* delete */}
                               <DeletePerbaikan
-                                id={repair?.id}
-                                nama={repair?.inventoryId.kodeAsset}
+                                id={kerusakan?.id}
+                                nama={kerusakan?.inventoryId.kodeAsset}
                               />
                             </div>
                           </div>
-                        </td> */}
+                        </td>
                       </tr>
                     )
                   )
@@ -235,7 +241,7 @@ export default function TabelDataRepairHistory({ modal }) {
         <button
           className="join-item bg-transparent hover:bg-blue-700 hover:text-white p-2"
           onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === repairDataHistory.totalPages}
+          disabled={currentPage === kerusakanDataHistory.totalPages}
         >
           »
         </button>

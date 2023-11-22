@@ -13,7 +13,7 @@ export default function Inventory() {
     <>
       <MetaHead title="Inventory" description="Welcome to Inventory" />
       <Section tittle="Inventory">
-        <TabelAtasInventori />
+        {/* <TabelAtasInventori /> */}
         <div className="py-4 grid grid-cols-1 gap-4">
           <TabelDataInventory modal={<TambahInventory />} />
         </div>

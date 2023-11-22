@@ -27,22 +27,20 @@ export default function UpdateInventory({
   KaryawanId,
   Pembeli,
 }) {
-  console.log(Id);
-  console.log(Nama);
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(Gambar);
+  const [selectedImages, setSelectedImages] = useState(Gambar);
   const [nama, setNama] = useState(Nama);
   const [kodeAset, setKodeAset] = useState(KodeAsset);
   const [merk, setMerk] = useState(Merk);
   const [vendor, setVendor] = useState(Vendor);
   const [tanggalPembelian, setTanggalPembelian] = useState(TanggalPembelian);
   const [harga, setHarga] = useState(Harga);
-  const [status, setStatus] = useState(Status);
+  // const [status, setStatus] = useState(Status);
   const [deskripsi, setDeskripsi] = useState(Deskripsi);
   const [masaManfaat, setMasaManfaat] = useState(MasaManfaat);
-  const [imagePreview, setImagePreview] = useState(null);
-  const imageInputRef = useRef(null);
+  const [imagePreviews, setImagePreviews] = useState(Gambar);
+  const imageInputRefs = useRef(null);
   const MySwal = withReactContent(Swal);
   const router = useRouter();
   const [idRuangan, setIdRuangan] = useState(RuanganId);
@@ -57,8 +55,8 @@ export default function UpdateInventory({
   console.log(idRuangan);
   const onImageUpload = (e) => {
     const file = e.target.files[0];
-    setSelectedImage(file);
-    setImagePreview(URL.createObjectURL(file));
+    setSelectedImages(file);
+    setImagePreviews(URL.createObjectURL(file));
   };
   function handleChange() {
     setModal(!modal);
@@ -68,7 +66,7 @@ export default function UpdateInventory({
     e.preventDefault();
     setLoading(true);
     const formData = new FormData();
-    formData.append("gambar", selectedImage);
+    formData.append("gambar", selectedImages);
     formData.append("kodeAsset", kodeAset);
     formData.append("nama", nama);
     formData.append("merk", merk);
@@ -79,7 +77,7 @@ export default function UpdateInventory({
     formData.append("deskripsi", deskripsi);
     formData.append("kategoriId", idKategori);
     formData.append("karyawanId", karyawanId);
-    formData.append("status", status);
+    // formData.append("status", status);
     formData.append("ruanganId", idRuangan);
     formData.append("pembeli", pembeli);
 
@@ -162,8 +160,15 @@ export default function UpdateInventory({
   }, []);
   return (
     <div className="">
-      <Link href="" onClick={handleChange} className="text-[#10A760]">
-        <PiPencilSimpleLineFill />
+      <Link
+        href=""
+        onClick={handleChange}
+        className="text-[#10A760] relative group"
+      >
+        <PiPencilSimpleLineFill className="transition duration-150 ease-in-out" />
+        <span className="hidden absolute -left-1/4 -top-full bg-[#10A760] text-white px-2 py-1 text-[12px] rounded-[3px] opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out z-10">
+          Update
+        </span>
       </Link>
       <input
         type="checkbox"
@@ -179,10 +184,10 @@ export default function UpdateInventory({
           <div>
             <div className="mb-4 flex justify-center w-28 h-24 bg-slate-200 rounded-md border-dashed border-2 border-gray-400">
               <div className="relative w-full h-full">
-                {selectedImage ? (
+                {imagePreviews ? (
                   <div>
                     <Image
-                      src={selectedImage}
+                      src={imagePreviews}
                       alt="preview"
                       layout="fill"
                       objectFit="cover"
@@ -190,8 +195,8 @@ export default function UpdateInventory({
                     <button
                       className="absolute top-0 text-[10px] right-0 text-black rounded-md p-1"
                       onClick={() => {
-                        setImagePreview(null);
-                        document.getElementById("imageInput").value = ""; // Clear the file input
+                        setImagePreviews(null);
+                        document.getElementById("imagesInput").value = ""; // Clear the file input
                       }}
                     >
                       X
@@ -200,9 +205,10 @@ export default function UpdateInventory({
                 ) : (
                   <div className="flex justify-center items-center w-full h-full text-center text-gray-600">
                     <label
-                      htmlFor="imageInput"
+                      htmlFor="imagesInput"
                       className="cursor-pointer text-[12px]"
                     >
+                      <div className="text-orange-500">*Gambar wajib diisi</div>
                       <div>Click to Choose Image</div>
                     </label>
                   </div>
@@ -210,10 +216,10 @@ export default function UpdateInventory({
               </div>
               <input
                 type="file"
-                id="imageInput"
+                id="imagesInput"
                 className="hidden"
                 onChange={(e) => onImageUpload(e)}
-                ref={imageInputRef}
+                ref={imageInputRefs}
               />
             </div>
             <div className="grid lg:grid-cols-2 gap-3">
@@ -284,7 +290,7 @@ export default function UpdateInventory({
                     Harga
                   </FormComp>
                 </div>
-                <div className="mb-2 text-left">
+                {/* <div className="mb-2 text-left">
                   <SelectInput
                     id="status"
                     name="status"
@@ -298,7 +304,7 @@ export default function UpdateInventory({
                     <option value="REPAIR_PROCESS">Repair</option>
                     <option value="DAMAGE">Rusak</option>
                   </SelectInput>
-                </div>
+                </div> */}
                 <div className="mb-2 text-left">
                   <SelectInput
                     id="idRuangan"
@@ -366,6 +372,7 @@ export default function UpdateInventory({
                     label="Kode Kategori"
                     className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
                   >
+                    <option value="">Pilih Kategori</option>
                     {categoryData.map(
                       (category) => (
                         console.log(category),

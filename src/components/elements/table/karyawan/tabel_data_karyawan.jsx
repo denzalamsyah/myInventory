@@ -9,6 +9,8 @@ import Button from "../../button/button";
 import DownloadPdfKaryawan from "./downloadPdf";
 import DownloadCSVKaryawan from "./downloadCSV";
 import DownloadExcelKaryawan from "./downloadExcel";
+import ReportPemakaianKaryawan from "../../childtabel/karyawan/historyPemakaian";
+import ExportCSVKaryawan from "../../childtabel/karyawan/exportCSV";
 export default function TabelDataKaryawan({ modal }) {
   const [employeeData, setEmployeeData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -88,9 +90,10 @@ export default function TabelDataKaryawan({ modal }) {
         <div className="grid lg:col-span-5">
           <div className="mb-2">{modal} </div>
           <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
-            <DownloadPdfKaryawan />
-            <DownloadCSVKaryawan />
-            <DownloadExcelKaryawan />
+            {/* <DownloadPdfKaryawan />
+            <DownloadCSVKaryawan /> */}
+            {/* <DownloadExcelKaryawan /> */}
+            <ExportCSVKaryawan />
           </div>
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">
@@ -147,12 +150,12 @@ export default function TabelDataKaryawan({ modal }) {
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Gambar
                 </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                {/* <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Gender
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Divisi
-                </th>
+                </th> */}
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Email
                 </th>
@@ -172,50 +175,62 @@ export default function TabelDataKaryawan({ modal }) {
             </thead>
             <tbody className="">
               {employeeData.data && employeeData.data.length > 0 ? (
-                employeeData.data.map((employee, index) => (
-                  <tr
-                    key={index}
-                    className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
-                  >
-                    <td className="py-2 ">{employee?.nomorInduk}</td>
-                    <td className="py-2">{employee?.nama}</td>
-                    <td className=" py-2 px-1">
-                      <div className="flex  justify-center items-center">
-                        <Image
-                          alt={employee?.nama}
-                          src={employee?.gambar}
-                          width={25}
-                          height={25}
-                          className="rounded-md"
-                        />
-                      </div>
-                    </td>
-                    <td className="py-2">{employee?.gender}</td>
-                    <td className="py-2">{employee?.divisi}</td>
-                    <td className="py-2">{employee?.email}</td>
-                    <td className="py-2">{employee?.telepon}</td>
-                    <td className="py-2">{employee?.jabatan}</td>
-                    <td className="py-2">{employee?.alamat}</td>
-                    <td className="py-2">
-                      <div className="flex justify-center gap-2">
-                        <div className="flex items-center justify-center">
-                          <DetailKaryawan {...employee} />
-                        </div>
-                        <div className="flex items-center justify-center">
-                          {/* update */}
-                          <UpdateKaryawan {...employee} />
-                        </div>
-                        <div className="flex items-center justify-center">
-                          {/* delete */}
-                          <DeleteKaryawan
-                            id={employee?.id}
-                            nama={employee?.nama}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                employeeData.data.map(
+                  (employee, index) => (
+                    console.log(employee.id),
+                    (
+                      <tr
+                        key={index}
+                        className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
+                      >
+                        <td className="py-2 px-2 ">{employee?.nomorInduk}</td>
+                        <td className="py-2 px-2">{employee?.nama}</td>
+                        <td className=" py-2 px-2 px-1">
+                          <div className="flex  justify-center items-center">
+                            <Image
+                              alt={employee?.nama}
+                              src={employee?.gambar}
+                              width={25}
+                              height={25}
+                              className="rounded-md"
+                            />
+                          </div>
+                        </td>
+                        {/* <td className="py-2 px-2">{employee?.gender}</td>
+                        <td className="py-2 px-2">{employee?.divisi}</td> */}
+                        <td className="py-2 px-2">{employee?.email}</td>
+                        <td className="py-2 px-2">{employee?.telepon}</td>
+                        <td className="py-2 px-2">{employee?.jabatan}</td>
+                        <td className="py-2 px-2">{employee?.alamat}</td>
+                        <td className="py-2 px-2">
+                          <div className="flex justify-center gap-2">
+                            <div className="flex items-center justify-center">
+                              {/* delete */}
+                              <ReportPemakaianKaryawan
+                                id={employee?.id}
+                                nama={employee?.nama}
+                              />
+                            </div>
+                            <div className="flex items-center justify-center">
+                              <DetailKaryawan {...employee} />
+                            </div>
+                            <div className="flex items-center justify-center">
+                              {/* update */}
+                              <UpdateKaryawan {...employee} />
+                            </div>
+                            <div className="flex items-center justify-center">
+                              {/* delete */}
+                              <DeleteKaryawan
+                                id={employee?.id}
+                                nama={employee?.nama}
+                              />
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  )
+                )
               ) : (
                 <tr>
                   <td colSpan="12" className="text-center">

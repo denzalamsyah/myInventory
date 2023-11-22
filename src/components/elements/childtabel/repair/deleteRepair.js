@@ -42,8 +42,15 @@ export default function DeletePerbaikan({ id, nama }) {
   }
   return (
     <div className="">
-      <Link href="#" className="text-[#DA3E33F7]" onClick={handleChange}>
-        <FaTrash />
+      <Link
+        href=""
+        className="text-[#DA3E33F7] relative group"
+        onClick={handleChange}
+      >
+        <FaTrash className="transition duration-150 ease-in-out" />
+        <span className="hidden absolute -left-1/4 -top-full bg-[#DA3E33F7] text-white px-2 py-1 text-[12px] rounded-[3px] opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out z-10">
+          Delete
+        </span>
       </Link>
       <input
         type="checkbox"

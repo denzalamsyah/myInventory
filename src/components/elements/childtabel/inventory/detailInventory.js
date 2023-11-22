@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { CgMoreO } from "react-icons/cg";
+import { MdMore } from "react-icons/md";
 import TabelDetailInventoryComp from "../../table/inventory/tabel_detail_inventory";
 import { useRouter } from "next/router";
+import Button from "../../button/button";
 export default function DetailInventory({ Id }) {
   const [modal, setModal] = useState(false);
   const [inventoryData, setInventoryData] = useState([]);
@@ -43,13 +44,16 @@ export default function DetailInventory({ Id }) {
   }, []);
 
   return (
-    <>
+    <div className="">
       <Link
-        href="" // teknik template
-        className="text-[#1570EF]"
+        href=""
+        className="text-[#1570EF] relative group"
         onClick={handleChange}
       >
-        <CgMoreO className="transition duration-150 ease-in-out" />
+        <MdMore className="transition duration-150 ease-in-out" />
+        <span className="hidden absolute -left-1/4 -top-full bg-[#1570EF] text-white px-2 py-1 text-[12px] rounded-[3px] opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out z-10">
+          Details
+        </span>
       </Link>
       <input
         type="checkbox"
@@ -78,6 +82,6 @@ export default function DetailInventory({ Id }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

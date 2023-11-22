@@ -88,11 +88,11 @@ export default function TabelDataUsageHistory() {
         <div className="grid lg:col-span-5">
           <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
             <DownloadPdfPemakaian />
-            <DownloadCSVPemakaian />
-            <DownloadExcelPemakaian />
+            {/* <DownloadCSVPemakaian /> */}
+            {/* <DownloadExcelPemakaian /> */}
           </div>
         </div>
-        <div className="col-span-1 lg:col-span-5 lg:col-start-8">
+        {/* <div className="col-span-1 lg:col-span-5 lg:col-start-8">
           <form
             className=" md:flex border bg-white rounded-[5px] border-slate-300 py-1 px-3 items-center"
             role="search"
@@ -112,7 +112,7 @@ export default function TabelDataUsageHistory() {
               />
             </div>
           </form>
-        </div>
+        </div> */}
       </div>
 
       <div

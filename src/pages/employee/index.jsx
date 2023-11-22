@@ -33,7 +33,7 @@ export default function Employee() {
     <>
       <MetaHead title="Employee" description="Welcome to Employee" />
       <Section tittle="Employee">
-        <TabelAtasKaryawan />
+        {/* <TabelAtasKaryawan /> */}
         <div className="grid grid-cols-1 gap-4 py-4">
           <TabelDataKaryawan modal={<TambahKaryawan />} />
         </div>

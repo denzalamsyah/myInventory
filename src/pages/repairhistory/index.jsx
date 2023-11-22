@@ -1,10 +1,8 @@
 import MetaHead from "@/components/MetaHead/metahead";
-import TambahPerbaikan from "@/components/elements/childtabel/repair/addRepair";
+import TambahKerusakan from "@/components/elements/childtabel/repair/addKerusakan";
+import TabelDataKerusakanHistory from "@/components/elements/table/repairHistory/tabel_data_kerusakan_history";
 import TabelDataRepairHistory from "@/components/elements/table/repairHistory/tabel_data_repair_history";
-import Headers from "@/components/header";
-import Layout from "@/components/layout/layout";
 import Section from "@/components/section/section";
-import Sidebar from "@/components/sidebar/sidebar";
 
 export default function RepairHistory() {
   return (
@@ -16,7 +14,8 @@ export default function RepairHistory() {
 
       <Section tittle="Repair History">
         <div className="grid grid-cols-1 gap-4">
-          <TabelDataRepairHistory modal={<TambahPerbaikan />} />
+          <TabelDataKerusakanHistory modal={<TambahKerusakan />} />
+          <TabelDataRepairHistory />
         </div>
       </Section>
     </>

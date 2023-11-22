@@ -4,20 +4,20 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { MdMore } from "react-icons/md";
-
 import TabelDetailKaryawanComp from "../../table/karyawan/tabel_detail_karyawan";
-export default function DetailKaryawan(employee) {
+import TabelDetailRoomComp from "../../table/room/tabel_detail_room";
+export default function DetailRoom(room) {
   const [modal, setModal] = useState(false);
-  const [employeeData, setEmployeeData] = useState([]);
-  console.log(employeeData.data);
+  const [roomData, setRoomData] = useState([]);
+  console.log(roomData.data);
   function handleChange() {
     setModal(!modal);
   }
 
-  const fetchEmployee = async () => {
+  const fetchRoom = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/karyawan/${employee.id}`,
+        `http://localhost:9000/api/ruangan/${room.id}`,
         {
           method: "GET",
           headers: {
@@ -32,20 +32,20 @@ export default function DetailKaryawan(employee) {
         throw new Error("Failed to fetch data");
       }
       const data = await response.json();
-      setEmployeeData(data);
+      setRoomData(data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchEmployee();
+    fetchRoom();
   }, []);
 
   return (
     <>
       <Link
-        href="" // teknik template
+        href=""
         className="text-[#1570EF] relative group"
         onClick={handleChange}
       >
@@ -62,7 +62,7 @@ export default function DetailKaryawan(employee) {
       />
       <div className="modal">
         <div className="modal-box max-w-[30rem] lg:max-w-[50rem] bg-white flex flex-col justify-center items-center">
-          <div className="bg-white w-full h-[470px] p-2">
+          <div className="bg-white w-full h-[300px] p-2">
             <div className="grid grid-cols-2 text-left border-b border-gray-400 mb-5 pb-3">
               <Link onClick={handleChange} href="">
                 <h1 className="text-[10px] md:text-[12px] 2xl:text-[16px] hover:text-blue-400 text-black">
@@ -76,7 +76,7 @@ export default function DetailKaryawan(employee) {
               </h1>
             </div>
             <div>
-              <TabelDetailKaryawanComp {...employeeData.data} />
+              <TabelDetailRoomComp {...roomData.data} />
             </div>
           </div>
         </div>

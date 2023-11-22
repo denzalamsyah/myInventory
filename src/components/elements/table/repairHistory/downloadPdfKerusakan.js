@@ -2,7 +2,7 @@
 import Button from "@/components/elements/button/button";
 import { useState } from "react";
 
-export default function DownloadPdfPerbaikan() {
+export default function DownloadPdfKeruskan() {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +16,7 @@ export default function DownloadPdfPerbaikan() {
     try {
       // Lakukan permintaan GET ke API Route yang Anda buat.
       const response = await fetch(
-        "http://localhost:9000/api/perbaikan/report/pdf",
+        "http://localhost:9000/api/kerusakan/report/pdf",
         {
           method: "GET",
           headers: {
@@ -32,7 +32,7 @@ export default function DownloadPdfPerbaikan() {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "Report Perbaikan"; // Nama file yang akan digunakan saat menyimpan.
+        a.download = "Report Kerusakan"; // Nama file yang akan digunakan saat menyimpan.
         a.click();
       }
     } catch (error) {

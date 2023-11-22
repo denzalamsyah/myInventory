@@ -1,7 +1,6 @@
 "use client";
 import Button from "@/components/elements/button/button";
 import FormComp from "@/components/form/form";
-import SelectInput from "@/components/form/select";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -10,28 +9,13 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import LabelComp from "../../label/label";
 
-export default function UpdatePerbaikan({
-  id,
-  inventoryId,
-  TanggalKerusakan,
-  Deskripsi,
-  TanggalPerbaikan,
-  Biaya,
-  TanggalSelesaiPerbaikan,
-}) {
+export default function UpdatePerbaikan({ id }) {
   const [modal, setModal] = useState(false);
-  const [repairData, setRepairData] = useState([]);
-  const [inventory, setInventory] = useState(inventoryId);
-  const [tanggalKerusakan, setTanggalKerusakan] = useState(TanggalKerusakan);
-  const [deskripsi, setDeskripsi] = useState(Deskripsi);
-  const [tanggalPerbaikan, setTanggalPerbaikan] = useState(TanggalPerbaikan);
-  const [biaya, setBiaya] = useState(Biaya);
-  const [tanggalSelesaiPerbaikan, setTanggalSelesaiPerbaikan] = useState(
-    TanggalSelesaiPerbaikan
-  );
+  const [biaya, setBiaya] = useState(0);
+
+  const [tanggalSelesaiPerbaikan, setTanggalSelesaiPerbaikan] = useState(null);
   const router = useRouter();
   const MySwal = withReactContent(Swal);
-  console.log(inventory);
   function handleChange() {
     setModal(!modal);
   }
@@ -45,10 +29,6 @@ export default function UpdatePerbaikan({
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        inventoryId: inventory,
-        tanggalKerusakan: tanggalKerusakan,
-        deskripsi: deskripsi,
-        tanggalPerbaikan: tanggalPerbaikan,
         biaya: biaya,
         tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
       }),
@@ -56,43 +36,25 @@ export default function UpdatePerbaikan({
     console.log(response);
     if (response.ok) {
       setModal(false);
-      MySwal.fire("Updated!", "Klik tombol!", "success").then(() => {
+      MySwal.fire("Selesai diperbaiki", "Klik tombol!", "success").then(() => {
         router.refresh();
       });
     } else {
-      MySwal.fire("Update Gagal", "Klik tombol!", "error");
+      MySwal.fire("Gagal dioerbaiki", "Klik tombol!", "error");
     }
   }
 
-  const fetchRepair = async () => {
-    try {
-      const response = await fetch("http://localhost:9000/api/inventory", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      console.log(response);
-
-      const data = await response.json();
-      setRepairData(data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    fetchRepair();
-  }, []);
   return (
     <div className="">
-      <Link className="text-[#10A760]" href="" onClick={handleChange}>
-        <PiPencilSimpleLineFill />
+      <Link
+        href=""
+        onClick={handleChange}
+        className="text-blue-500 relative group"
+      >
+        <PiPencilSimpleLineFill className="transition duration-150 ease-in-out" />
+        <span className="hidden absolute -left-1/4 -top-full bg-blue-500 text-white px-2 py-1 text-[12px] rounded-[3px] opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out z-10">
+          Selesai
+        </span>
       </Link>
       <input
         type="checkbox"
@@ -102,72 +64,14 @@ export default function UpdatePerbaikan({
       />
       <div className="modal">
         <div className="modal-box bg-white">
-          <h1 className="font-bold text-lg text-black mb-3">
-            Perbaiki {inventoryId.kodeAsset}
-          </h1>
+          <h1 className="font-bold text-[16px] text-black mb-3">Perbaiki</h1>
           <div>
-            <div className="mb-2">
-              <SelectInput
-                id="inventory"
-                value={inventory}
-                onChange={(e) => setInventory(e.target.value)}
-                label="Nama Inventory"
-                className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
-              >
-                <option value="">Pilih Inventory</option>
-                {repairData.map(
-                  (repair) => (
-                    console.log(repair),
-                    (
-                      <option key={repair.id} value={repair.id}>
-                        {repair.kodeAsset}
-                      </option>
-                    )
-                  )
-                )}
-              </SelectInput>
-            </div>
-            <div className="mb-2">
-              <FormComp
-                id="tanggalKerusakan"
-                type="date"
-                onChange={(e) => setTanggalKerusakan(e.target.value)}
-                placeholder={TanggalKerusakan}
-                value={tanggalKerusakan}
-                required
-              >
-                Tanggal Kerusakan
-              </FormComp>
-            </div>
-            <div className="mb-2">
-              <FormComp
-                id="deskripsi"
-                type="text"
-                onChange={(e) => setDeskripsi(e.target.value)}
-                placeholder={Deskripsi}
-                value={deskripsi}
-              >
-                Deskripsi
-              </FormComp>
-            </div>
-            <div className="mb-2">
-              <FormComp
-                id="tanggalPerbaikan"
-                type="date"
-                onChange={(e) => setTanggalPerbaikan(e.target.value)}
-                placeholder={TanggalPerbaikan}
-                value={tanggalPerbaikan}
-                required
-              >
-                Tanggal Perbaikan
-              </FormComp>
-            </div>
             <div className="mb-2">
               <FormComp
                 id="biaya"
                 type="number"
                 onChange={(e) => setBiaya(e.target.value)}
-                placeholder={Biaya}
+                // placeholder={Biaya}
                 value={biaya}
               >
                 Biaya
@@ -186,11 +90,12 @@ export default function UpdatePerbaikan({
                   className="px-[20px] py-1 w-full text-sm text-gray-700 border rounded-md focus:none outline-none bg-white"
                   type="date"
                   onChange={(e) => setTanggalSelesaiPerbaikan(e.target.value)}
-                  placeholder={TanggalSelesaiPerbaikan}
+                  // placeholder={TanggalSelesaiPerbaikan}
                   value={tanggalSelesaiPerbaikan}
                 />
               </div>
             </div>
+
             <div className=" modal-action flex mt-4">
               <Button
                 className="bg-blue-600 rounded-[5px] mx-6 text-white text-sm px-4 py-1 hover:bg-green-700"

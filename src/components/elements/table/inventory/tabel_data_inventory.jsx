@@ -2,15 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import UpdateInventory from "../../childtabel/inventory/updateInventory";
 import DeleteInventory from "../../childtabel/inventory/deleteInventory";
 import Image from "next/image";
-import ReactToPrint from "react-to-print";
-import Button from "../../button/button";
+
 import { BiSearch } from "react-icons/bi";
 import DetailInventory from "../../childtabel/inventory/detailInventory";
 import ReportPerbaikan from "../../childtabel/inventory/historyperbaikan";
-import ReportPemakaian from "../../childtabel/inventory/historyPemakaian";
 import DownloadCSVInventory from "./downloadCSV";
 import DownloadExcelInventory from "./downloadExcel";
 import DownloadPdfInventory from "./downloadPdf";
+import ExportCSVInventory from "../../childtabel/inventory/exportCSV";
 
 export default function TabelDataInventory({ modal }) {
   const [inventoryData, setInventoryData] = useState([]);
@@ -29,7 +28,6 @@ export default function TabelDataInventory({ modal }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
-
     fetchInventory(currentPage, searchQuery, searchParam);
   };
 
@@ -91,9 +89,10 @@ export default function TabelDataInventory({ modal }) {
         <div className="grid lg:col-span-5">
           <div className="mb-2">{modal} </div>
           <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
-            <DownloadPdfInventory />
-            <DownloadCSVInventory />
-            <DownloadExcelInventory />
+            {/* <DownloadPdfInventory />
+            <DownloadCSVInventory /> */}
+            {/* <DownloadExcelInventory /> */}
+            <ExportCSVInventory />
           </div>
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">
@@ -178,51 +177,52 @@ export default function TabelDataInventory({ modal }) {
                         key={index}
                         className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                       >
-                        <td className="py-2">{inventory?.kodeAsset}</td>
-                        <td className="py-2 px-2 text-left">
-                          {inventory?.nama}
+                        <td className="py-2 px-2">
+                          {inventory?.kodeAsset || "-"}
                         </td>
-                        <td className="py-2 px-2 text-left">
-                          {inventory?.vendor}
+                        <td className="py-2 px-2">{inventory?.nama || "-"}</td>
+                        <td className="py-2 px-2">
+                          {inventory?.vendor || "-"}
                         </td>
                         <td className=" py-2 px-2">
                           <div className="flex  justify-center items-center">
-                            <Image
-                              alt={inventory?.nama}
-                              src={inventory?.gambar}
-                              width={50}
-                              height={50}
-                              className="rounded-sm"
-                            />
+                            <td className=" py-2 px-2">
+                              <div className="flex justify-center items-center">
+                                {inventory?.gambar ? (
+                                  <Image
+                                    alt={inventory?.nama}
+                                    src={
+                                      inventory?.gambar.startsWith("/")
+                                        ? inventory?.gambar
+                                        : `/${inventory?.gambar}`
+                                    }
+                                    width={50}
+                                    height={50}
+                                    className="rounded-sm"
+                                  />
+                                ) : (
+                                  <span>Tidak Ada Gambar</span>
+                                )}
+                              </div>
+                            </td>
                           </div>
                         </td>
-                        <td className="py-2 px-2">{inventory?.merk}</td>
-                        <td className="py-2 px-2">{inventory?.status}</td>
-                        <td className="text-left py-2 px-2">
-                          Rp. {inventory?.harga}
+                        <td className="py-2 px-2">{inventory?.merk || "-"}</td>
+                        <td className="py-2 px-2">
+                          {inventory?.status || "-"}
+                        </td>
+                        <td className="py-2 px-2">
+                          Rp. {inventory?.harga || "-"}
                         </td>
                         <td className="py-2 px-2">
                           <div className="flex justify-center gap-2">
                             <div className="flex items-center justify-center">
-                              <ReportPerbaikan Id={inventory?.id} />
-                              {/* <Link href={`/inventory/details/${inventory.id}`}>
-                              <CgMoreO className="transition duration-150 ease-in-out" />
-                            </Link> */}
+                              <ReportPerbaikan Id={inventory?.id || "-"} />
                             </div>
                             <div className="flex items-center justify-center">
-                              <ReportPemakaian Id={inventory?.id} />
-                              {/* <Link href={`/inventory/details/${inventory.id}`}>
-                              <CgMoreO className="transition duration-150 ease-in-out" />
-                            </Link> */}
+                              <DetailInventory Id={inventory?.id || "-"} />
                             </div>
                             <div className="flex items-center justify-center">
-                              <DetailInventory Id={inventory?.id} />
-                              {/* <Link href={`/inventory/details/${inventory.id}`}>
-                              <CgMoreO className="transition duration-150 ease-in-out" />
-                            </Link> */}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              {/* update */}
                               <UpdateInventory
                                 Id={inventory?.id}
                                 Nama={inventory?.nama}
@@ -242,10 +242,9 @@ export default function TabelDataInventory({ modal }) {
                               />
                             </div>
                             <div className="flex items-center justify-center">
-                              {/* delete */}
                               <DeleteInventory
-                                id={inventory?.id}
-                                nama={inventory?.nama}
+                                id={inventory?.id || "-"}
+                                nama={inventory?.nama || "-"}
                               />
                             </div>
                           </div>

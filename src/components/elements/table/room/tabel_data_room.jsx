@@ -8,6 +8,8 @@ import DeleteRoom from "../../childtabel/room/deleteRoom";
 import DownloadPdfRuangan from "./downloadPdf";
 import DownloadCSVRuangan from "./downloadCSV";
 import DownloadExcelRuangan from "./downloadExcel";
+import Image from "next/image";
+import DetailRoom from "../../childtabel/room/detailRoom";
 
 export default function TabelDataRoom({ modal }) {
   const [roomData, setRoomData] = useState([]);
@@ -17,7 +19,7 @@ export default function TabelDataRoom({ modal }) {
   const [screenSize, setScreenSize] = useState("md");
   const [pageSize, setPageSize] = useState(10);
   const [searchParam, setSearchParam] = useState("nama");
-
+  console.log(roomData);
   const screenSizes = {
     "2xl": 15,
     md: 10,
@@ -92,9 +94,9 @@ export default function TabelDataRoom({ modal }) {
         <div className="grid lg:col-span-5">
           <div className="mb-2">{modal} </div>
           <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
-            <DownloadPdfRuangan />
-            <DownloadCSVRuangan />
-            <DownloadExcelRuangan />
+            {/* <DownloadPdfRuangan />
+            <DownloadCSVRuangan /> */}
+            {/* <DownloadExcelRuangan /> */}
           </div>
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">
@@ -142,13 +144,22 @@ export default function TabelDataRoom({ modal }) {
             <thead className=" bg-slate-200 border border-gray-300">
               <tr className="text-[12px] 2xl:text-[16px] py-3">
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  ID Ruangan
+                  No Ruangan
+                </th>
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                  Gambar
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Kode Ruangan
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Nama Ruangan
+                </th>
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                  Nama Lantai
+                </th>
+                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
+                  Lokasi Ruangan
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
                   Action
@@ -162,11 +173,27 @@ export default function TabelDataRoom({ modal }) {
                     key={index}
                     className="text-center border  text-[12px] 2xl:text-[16px] text-black border-gray-300"
                   >
-                    <td className="py-2 px-1">{index + 1}</td>
-                    <td className="py-2 px-1">{room?.kode}</td>
-                    <td className="py-2 px-1">{room?.nama}</td>
-                    <td className="py-2">
+                    <td className="py-2 px-2">{index + 1}</td>
+                    <td className=" py-2 px-2">
+                      <div className="flex  justify-center items-center">
+                        <Image
+                          alt={room?.kode}
+                          src={room?.gambar}
+                          width={50}
+                          height={50}
+                          className="rounded-sm"
+                        />
+                      </div>
+                    </td>
+                    <td className="py-2 px-2">{room?.kode}</td>
+                    <td className="py-2 px-2">{room?.nama}</td>
+                    <td className="py-2 px-2">{room?.lantai}</td>
+                    <td className="py-2 px-2">{room?.lokasi}</td>
+                    <td className="py-2 px-2">
                       <div className="flex justify-center gap-2">
+                        <div className="flex items-center justify-center">
+                          <DetailRoom {...room} />
+                        </div>
                         <div className="flex items-center justify-center">
                           <UpdateRoom {...room} />
                         </div>

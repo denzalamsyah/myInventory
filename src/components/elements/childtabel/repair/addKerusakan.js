@@ -6,16 +6,18 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import LabelComp from "../../label/label";
-export default function TambahPerbaikan() {
+// import LabelComp from "../../label/label";
+export default function TambahKerusakan() {
   const [modal, setModal] = useState(false);
   const [repairData, setRepairData] = useState([]);
   const [inventory, setInventory] = useState(0);
+  const [karyawanData, setKaryawanData] = useState([]);
+  // const [karyawanId, setKaryawanId] = useState(0);
   const [tanggalKerusakan, setTanggalKerusakan] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
-  const [tanggalPerbaikan, setTanggalPerbaikan] = useState(null);
-  const [biaya, setBiaya] = useState(0);
-  const [tanggalSelesaiPerbaikan, setTanggalSelesaiPerbaikan] = useState(null);
+  // const [tanggalPerbaikan, setTanggalPerbaikan] = useState(null);
+  // const [biaya, setBiaya] = useState(0);
+  // const [tanggalSelesaiPerbaikan, setTanggalSelesaiPerbaikan] = useState(null);
   const router = useRouter();
   const MySwal = withReactContent(Swal);
   const [loading, setLoading] = useState(false);
@@ -27,7 +29,7 @@ export default function TambahPerbaikan() {
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch("http://localhost:9000/api/perbaikan", {
+    const response = await fetch("http://localhost:9000/api/kerusakan", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,9 +39,10 @@ export default function TambahPerbaikan() {
         inventoryId: inventory,
         tanggalKerusakan: tanggalKerusakan,
         deskripsi: deskripsi,
-        tanggalPerbaikan: tanggalPerbaikan,
-        biaya: biaya,
-        tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
+        // karyawanId: karyawanId,
+        // tanggalPerbaikan: tanggalPerbaikan,
+        // biaya: biaya,
+        // tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
       }),
     });
     setLoading(false);
@@ -98,7 +101,7 @@ export default function TambahPerbaikan() {
       />
       <div className="modal">
         <div className="modal-box bg-white">
-          <h1 className="font-bold text-lg text-black mb-3">
+          <h1 className="font-bold text-[16px] text-black mb-3">
             Tambah Kerusakan
           </h1>
           <form onSubmit={handleSubmit} method="POST">
@@ -141,7 +144,24 @@ export default function TambahPerbaikan() {
                 Deskripsi
               </FormComp>
             </div>
-            <div className="mb-2">
+            {/* <div className="mb-2">
+              <SelectInput
+                id="karyawan"
+                name="number"
+                onChange={(e) => setKaryawanId(e.target.value)}
+                label="Pemakai Terakhir"
+                className="px-[16px] py-1 w-full bg-white text-sm text-gray-700 border rounded-md focus:none outline-none"
+              >
+                <option value="">Pilih Pemakai</option>
+                {repairData.map(
+                  (repair) => (
+                    console.log(repair),
+                    (<option value={repair.id}>{repair.kodeAsset}</option>)
+                  )
+                )}
+              </SelectInput>
+            </div> */}
+            {/* <div className="mb-2">
               <FormComp
                 id="tanggalPerbaikan"
                 type="date"
@@ -179,7 +199,7 @@ export default function TambahPerbaikan() {
                   placeholder="Masukan tanggal selesai"
                 />
               </div>
-            </div>
+            </div> */}
             <div className=" modal-action flex mt-4">
               {!loading ? (
                 <Button

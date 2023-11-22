@@ -6,11 +6,11 @@ import { BiSearch } from "react-icons/bi";
 import Button from "../../button/button";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import DownloadPdf from "./downloadPdf";
-import DownloadCSV from "./downloadCSV";
-import DownloadExcelCategory from "./downloadExcel";
+
 import DownloadCSVCategory from "./downloadCSV";
 import DownloadPdfCategory from "./downloadPdf";
+import ExportCSVKategori from "../../childtabel/kategori/exportCSV";
+import DownloadExcelCategory from "./downloadExcel";
 
 export default function TabelDataKategori({ modal }) {
   const [categoryData, setCategoryData] = useState([]);
@@ -26,7 +26,7 @@ export default function TabelDataKategori({ modal }) {
   const MySwal = withReactContent(Swal);
 
   console.log(reportPdf);
-
+  console.log(categoryData);
   const screenSizes = {
     "2xl": 20,
     md: 7,
@@ -98,9 +98,10 @@ export default function TabelDataKategori({ modal }) {
         <div className="grid lg:col-span-5">
           <div className="mb-2">{modal} </div>
           <div className=" grid grid-col-1 md:grid-cols-3 gap-2">
-            <DownloadPdfCategory />
-            <DownloadCSVCategory />
-            <DownloadExcelCategory />
+            {/* <DownloadPdfCategory /> */}
+            {/* <DownloadCSVCategory /> */}
+            {/* <DownloadExcelCategory /> */}
+            {/* <ExportCSVKategori /> */}
           </div>
         </div>
         <div className="col-span-1 lg:col-span-5 lg:col-start-8">

@@ -15,8 +15,8 @@ export default function TabelDetailKaryawanComp(employeeData) {
         <table className="table">
           <tbody className="text-left text-[10px] md:text-[12px] 2xl:text-[16px]">
             <tr className=" flex flex-row border-none bg-slate-200">
-              <th className="text-gray-600 w-32">ID Karyawan</th>
-              <td className="w-[250px]">: {employeeData?.id}</td>
+              <th className="text-gray-600 w-32">Nomor Induk</th>
+              <td className="w-[250px]">: {employeeData?.nomorInduk}</td>
             </tr>
             <tr className="flex flex-row border-none bg-slate-100">
               <th className="text-gray-600 w-32">Nama</th>

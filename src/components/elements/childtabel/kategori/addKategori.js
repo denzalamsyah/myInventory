@@ -95,7 +95,7 @@ export default function TambahKategori() {
                   Add
                 </Button>
               ) : (
-                <div className=" w-[10%] bg-green-500 px-4 p-2 rounded-md flex justify-center">
+                <div className=" w-[15%] bg-green-500 px-4 p-2 rounded-md flex justify-center">
                   <span className="loading loading-spinner text-neutral">
                     Add
                   </span>

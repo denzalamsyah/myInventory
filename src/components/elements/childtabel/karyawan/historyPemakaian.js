@@ -5,12 +5,13 @@ import TabelDetailInventoryComp from "../../table/inventory/tabel_detail_invento
 import { useRouter } from "next/router";
 import { HiClipboardList } from "react-icons/hi";
 import TabelDataUsageHistoryById from "../../table/inventory/tabel_history_pemakaian";
-export default function ReportPemakaian({ Id }) {
+import TabelDataPemakaianInventoryById from "../../table/karyawan/tabel_history_pemakaian";
+export default function ReportPemakaianKaryawan({ id }) {
   const [modal, setModal] = useState(false);
   const [inventoryData, setInventoryData] = useState([]);
   const router = useRouter();
   console.log(inventoryData);
-  console.log(Id);
+  console.log(id);
   function handleChange() {
     setModal(!modal);
   }
@@ -18,7 +19,7 @@ export default function ReportPemakaian({ Id }) {
   const fetchInventory = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/pemakaian/findAllId/${Id}`,
+        `http://localhost:9000/api/pemakaian/find/${id}`,
         {
           method: "GET",
           headers: {
@@ -45,10 +46,14 @@ export default function ReportPemakaian({ Id }) {
 
   return (
     <>
-      <Link href="" className="text-[#2C3E50] relative" onClick={handleChange}>
+      <Link
+        href=""
+        className="text-[#2C3E50] relative group"
+        onClick={handleChange}
+      >
         <HiClipboardList className="transition duration-150 ease-in-out" />
-        <span className="hidden absolute -left-1/2 -top-full bg-white text-black px-2 py-1 text-sm rounded-md opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out">
-          Details
+        <span className="hidden absolute -left-1/4 -top-full bg-gray-600 text-white px-2 py-1 text-[12px] rounded-[3px] opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out z-10">
+          History
         </span>
       </Link>
       <input
@@ -66,10 +71,10 @@ export default function ReportPemakaian({ Id }) {
                   Kembali
                 </h1>
               </Link>
-              <p>History Pemakaian</p>
+              <p>History Pemakaian Inventory</p>
             </div>
             <div>
-              <TabelDataUsageHistoryById {...inventoryData.data} />
+              <TabelDataPemakaianInventoryById {...inventoryData.data} />
             </div>
           </div>
         </div>

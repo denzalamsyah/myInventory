@@ -196,7 +196,7 @@ export default function TambahKaryawan() {
               </FormComp>
             </div>
             <div className="mb-2">
-              <SelectInput
+              {/* <SelectInput
                 id="jabatan"
                 name="jabatan"
                 onChange={(e) => setJabatan(e.target.value)}
@@ -206,10 +206,19 @@ export default function TambahKaryawan() {
                 <option value="Staff">Pilih salah satu</option>
                 <option value="Manager">Manager</option>
                 <option value="CRM">CRM</option>
-              </SelectInput>
+              </SelectInput> */}
+              <FormComp
+                id="jabatan"
+                type="text"
+                onChange={(e) => setJabatan(e.target.value)}
+                placeholder="Masukan jabatan"
+                required
+              >
+                Jabatan
+              </FormComp>
             </div>
             <div className="mb-2">
-              <SelectInput
+              {/* <SelectInput
                 id="divisi"
                 name="divisi"
                 onChange={(e) => setDivisi(e.target.value)}
@@ -222,7 +231,16 @@ export default function TambahKaryawan() {
                 <option value="BackEnd">BackEnd</option>
                 <option value="UI/UX">UI/UX</option>
                 <option value="Sistem Analis">System Analyst</option>
-              </SelectInput>
+              </SelectInput> */}
+              <FormComp
+                id="divisi"
+                type="text"
+                onChange={(e) => setDivisi(e.target.value)}
+                placeholder="Masukan divisi"
+                required
+              >
+                Divisi
+              </FormComp>
             </div>
             <div className="mb-2">
               <FormComp

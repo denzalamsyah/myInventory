@@ -228,12 +228,14 @@ export default function TabelDataUsageHistoryById(inventoryData) {
                     className="text-center border text-[12px] 2xl:text-[16px] text-black border-gray-300"
                   >
                     <td className="py-2">{index + 1}</td>
-                    <td className="py-2 px-1">{data?.nomorIndukOld}</td>
-                    <td className="py-2 px-1">{data?.nomorIndukNew}</td>
-                    <td className="py-2 px-1">{data?.tanggalPemakaian}</td>
-                    <td className="py-2 px-1">{data?.ruanganOld}</td>
-                    <td className="py-2 px-1">{data?.ruanganNew}</td>
-                    <td className="py-2 px-1">{data?.inventoryId}</td>
+                    <td className="py-2 px-1">{data?.nomorIndukOld || "-"}</td>
+                    <td className="py-2 px-1">{data?.nomorIndukNew || "-"}</td>
+                    <td className="py-2 px-1">
+                      {data?.tanggalPemakaian || "-"}
+                    </td>
+                    <td className="py-2 px-1">{data?.ruanganOld || "-"}</td>
+                    <td className="py-2 px-1">{data?.ruanganNew || "-"}</td>
+                    <td className="py-2 px-1">{data?.inventoryId || "-"}</td>
                   </tr>
                 );
               })}

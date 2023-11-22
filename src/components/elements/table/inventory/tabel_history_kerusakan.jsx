@@ -1,10 +1,5 @@
-import { useState, useEffect } from "react";
-import ReactToPrint from "react-to-print";
-import Button from "../../button/button";
-import { BiSearch } from "react-icons/bi";
-import { useRef } from "react";
-export default function TabelDataRepairHistoryById(inventoryData) {
-  console.log(inventoryData);
+export default function TabelDataKerusakanHistoryById(kerusakanData) {
+  console.log(kerusakanData);
 
   return (
     <div className="flex flex-col h-full bg-white">
@@ -27,26 +22,20 @@ export default function TabelDataRepairHistoryById(inventoryData) {
                   Kode Aset
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Tanggal Perbaikan
+                  Tanggal Kerusakan
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Biaya
+                  Deskripsi
                 </th>
                 <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Tanggal Selesai Diperbaiki
-                </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Yang Memperbaiki
-                </th>
-                <th className="px-2 py-3 text-[12px] 2xl:text-[16px] text-gray-800 text-center">
-                  Tempat Perbaikan
+                  Posisi Terakhir
                 </th>
               </tr>
             </thead>
             <tbody className="">
-              {Object.keys(inventoryData).map((key, index) => {
-                const data = inventoryData[key];
-                console.log(data?.inventoryId.kodeAsset);
+              {Object.keys(kerusakanData).map((key, index) => {
+                const data = kerusakanData[key];
+                console.log(data);
                 return (
                   <tr
                     key={key}
@@ -57,14 +46,10 @@ export default function TabelDataRepairHistoryById(inventoryData) {
                       {data?.inventoryId.kodeAsset || "-"}
                     </td>
                     <td className="py-2 px-1">
-                      {data?.tanggalPerbaikan || "-"}
+                      {data?.tanggalKerusakan || "-"}
                     </td>
-                    <td className="py-2 px-1">Rp. {data?.biaya || "-"}</td>
-                    <td className="py-2 px-1">
-                      {data.tanggalSelesaiPerbaikan || "-"}
-                    </td>
-                    <td className="py-2 px-1">{data?.nama || "-"}</td>
-                    <td className="py-2 px-1">{data.tempat || "-"}</td>
+                    <td className="py-2 px-1">{data?.deskripsi || "-"}</td>
+                    <td className="py-2 px-1">{data?.posisiTerakhir || "-"}</td>
                   </tr>
                 );
               })}

@@ -13,7 +13,7 @@ export default function TambahInventory() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [karyawanId, setKaryawanId] = useState(0);
   const [nama, setNama] = useState("");
-  const [kodeAset, setKodeAset] = useState("");
+  // const [kodeAset, setKodeAset] = useState("");
   const [merk, setMerk] = useState("");
   const [vendor, setVendor] = useState("");
   const [tanggalPembelian, setTanggalPembelian] = useState(null);
@@ -32,6 +32,7 @@ export default function TambahInventory() {
   const [pembeli, setPembeli] = useState("");
 
   console.log(categoryData);
+  console.log(idKategori);
   const onImageUpload = (e) => {
     const file = e.target.files[0];
     setSelectedImage(file);
@@ -46,7 +47,7 @@ export default function TambahInventory() {
     setLoading(true);
     const formData = new FormData();
     formData.append("gambar", selectedImage);
-    formData.append("kodeAsset", kodeAset);
+    // formData.append("kodeAsset", kodeAset);
     formData.append("nama", nama);
     formData.append("merk", merk);
     formData.append("masaManfaat", masaManfaat);
@@ -193,7 +194,7 @@ export default function TambahInventory() {
                       htmlFor="imageInput"
                       className="cursor-pointer text-[12px]"
                     >
-                      <div>Drag & Drop or</div>
+                      <div className="text-orange-500">*Gambar wajib diisi</div>
                       <div>Click to Choose Image</div>
                     </label>
                   </div>
@@ -220,7 +221,7 @@ export default function TambahInventory() {
                     Nama
                   </FormComp>
                 </div>
-                <div className="mb-2">
+                {/* <div className="mb-2">
                   <FormComp
                     id="kodeAsset"
                     type="text"
@@ -230,7 +231,7 @@ export default function TambahInventory() {
                   >
                     Kode Aset
                   </FormComp>
-                </div>
+                </div> */}
                 <div className="mb-2">
                   <FormComp
                     id="merk"
