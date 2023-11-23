@@ -121,8 +121,8 @@ export default function TabelDataInventory({ modal }) {
             >
               <option value="nama">Nama</option>
               <option value="merk">Merk</option>
-              <option value="status">Status</option>
-              <option value="vendor">Vendor</option>
+              {/* <option value="status">Status</option> */}
+              {/* <option value="vendor">Vendor</option> */}
               <option value="kodeAsset">Kode Asset</option>
             </select>
           </form>
