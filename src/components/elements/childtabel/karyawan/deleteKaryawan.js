@@ -19,7 +19,7 @@ export default function DeleteKaryawan({ id, nama }) {
   async function handleDelete(employeeId) {
     setLoading(true);
     const response = await fetch(
-      `http://localhost:9000/api/karyawan/${employeeId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/${employeeId}`,
       {
         method: "DELETE",
         headers: {
@@ -28,6 +28,7 @@ export default function DeleteKaryawan({ id, nama }) {
         },
       }
     );
+    console.log(response);
     setLoading(false);
     if (response.ok) {
       setModal(false);

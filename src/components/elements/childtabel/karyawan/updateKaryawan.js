@@ -50,7 +50,7 @@ export default function UpdateKaryawan(employee) {
     formData.append("gambar", selectedImages);
 
     const response = await fetch(
-      `http://localhost:9000/api/karyawan/${employee.id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/${employee.id}`,
       {
         method: "PUT",
         headers: {

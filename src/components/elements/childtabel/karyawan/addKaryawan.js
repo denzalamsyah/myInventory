@@ -50,14 +50,18 @@ export default function TambahKaryawan() {
     formData.append("gambar", selectedImage);
 
     try {
-      const response = await fetch("http://localhost:9000/api/karyawan", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          body: formData,
+        }
+      );
       setLoading(false);
+      console.log(response);
       if (response.ok) {
         setModal(false);
         MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(

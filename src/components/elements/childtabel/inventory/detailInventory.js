@@ -18,7 +18,7 @@ export default function DetailInventory({ Id }) {
   const fetchInventory = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/inventory/${Id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/${Id}`,
         {
           method: "GET",
           headers: {

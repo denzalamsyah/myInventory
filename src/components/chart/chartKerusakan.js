@@ -30,7 +30,7 @@ export default function KerusakanChart() {
     try {
       const year = startDate.getFullYear();
       const resRepair = await fetch(
-        `http://localhost:9000/api/kerusakan/bar-chart?tahun=${year}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/kerusakan/bar-chart?tahun=${year}`,
         {
           method: "GET",
           headers: {

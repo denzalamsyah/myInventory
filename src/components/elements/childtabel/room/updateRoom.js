@@ -44,7 +44,7 @@ export default function UpdateRoom(room) {
     formData.append("gambar", selectedImages);
 
     const response = await fetch(
-      `http://localhost:9000/api/ruangan/${room.id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/ruangan/${room.id}`,
       {
         method: "PUT",
         headers: {

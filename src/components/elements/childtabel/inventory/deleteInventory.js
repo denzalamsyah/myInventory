@@ -19,7 +19,7 @@ export default function DeleteInventory({ id, nama }) {
   async function handleDelete(inventoryId) {
     setLoading(true);
     const response = await fetch(
-      `http://localhost:9000/api/inventory/${inventoryId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/${inventoryId}`,
       {
         method: "DELETE",
         headers: {

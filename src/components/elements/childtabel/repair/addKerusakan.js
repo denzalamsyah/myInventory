@@ -13,7 +13,7 @@ export default function TambahKerusakan() {
   const [inventory, setInventory] = useState(0);
   const [karyawanData, setKaryawanData] = useState([]);
   // const [karyawanId, setKaryawanId] = useState(0);
-  const [tanggalKerusakan, setTanggalKerusakan] = useState(null);
+  const [tanggalKerusakan, setTanggalKerusakan] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   // const [tanggalPerbaikan, setTanggalPerbaikan] = useState(null);
   // const [biaya, setBiaya] = useState(0);
@@ -22,6 +22,13 @@ export default function TambahKerusakan() {
   const MySwal = withReactContent(Swal);
   const [loading, setLoading] = useState(false);
 
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const day = now.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
   function handleChange() {
     setModal(!modal);
   }
@@ -29,22 +36,25 @@ export default function TambahKerusakan() {
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch("http://localhost:9000/api/kerusakan", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        inventoryId: inventory,
-        tanggalKerusakan: tanggalKerusakan,
-        deskripsi: deskripsi,
-        // karyawanId: karyawanId,
-        // tanggalPerbaikan: tanggalPerbaikan,
-        // biaya: biaya,
-        // tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/kerusakan`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          inventoryId: inventory,
+          tanggalKerusakan: tanggalKerusakan,
+          deskripsi: deskripsi,
+          // karyawanId: karyawanId,
+          // tanggalPerbaikan: tanggalPerbaikan,
+          // biaya: biaya,
+          // tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
+        }),
+      }
+    );
     setLoading(false);
     if (response.ok) {
       setModal(false);
@@ -60,13 +70,16 @@ export default function TambahKerusakan() {
 
   const fetchRepair = async () => {
     try {
-      const response = await fetch("http://localhost:9000/api/inventory", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -82,6 +95,7 @@ export default function TambahKerusakan() {
   };
   useEffect(() => {
     fetchRepair();
+    setTanggalKerusakan(getCurrentDate());
   }, []);
 
   return (
@@ -126,6 +140,7 @@ export default function TambahKerusakan() {
               <FormComp
                 id="tanggalKerusakan"
                 type="date"
+                value={tanggalKerusakan}
                 onChange={(e) => setTanggalKerusakan(e.target.value)}
                 placeholder="Masukan tanggal kerusakan"
                 required

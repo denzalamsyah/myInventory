@@ -13,7 +13,7 @@ export default function TabelAtasKaryawan() {
     const fetchData = async () => {
       try {
         const backendResponse = await fetch(
-          "http://localhost:9000/api/karyawan/be",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/be`,
           {
             method: "GET",
             headers: {
@@ -22,8 +22,9 @@ export default function TabelAtasKaryawan() {
             },
           }
         );
+
         const frontendResponse = await fetch(
-          "http://localhost:9000/api/karyawan/fe",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/fe`,
           {
             method: "GET",
             headers: {
@@ -33,7 +34,7 @@ export default function TabelAtasKaryawan() {
           }
         );
         const uiuxResponse = await fetch(
-          "http://localhost:9000/api/karyawan/ui",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/ui`,
           {
             method: "GET",
             headers: {
@@ -43,7 +44,7 @@ export default function TabelAtasKaryawan() {
           }
         );
         const dmResponse = await fetch(
-          "http://localhost:9000/api/karyawan/dm",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/dm`,
           {
             method: "GET",
             headers: {
@@ -53,7 +54,7 @@ export default function TabelAtasKaryawan() {
           }
         );
         const saResponse = await fetch(
-          "http://localhost:9000/api/karyawan/sa",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/sa`,
           {
             method: "GET",
             headers: {
@@ -63,7 +64,7 @@ export default function TabelAtasKaryawan() {
           }
         );
         const maleResponse = await fetch(
-          "http://localhost:9000/api/karyawan/male",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/male`,
           {
             method: "GET",
             headers: {
@@ -72,8 +73,9 @@ export default function TabelAtasKaryawan() {
             },
           }
         );
+        console.log(maleResponse);
         const femaleResponse = await fetch(
-          "http://localhost:9000/api/karyawan/female",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/female`,
           {
             method: "GET",
             headers: {

@@ -24,7 +24,7 @@ export default function UpdateKategori(category) {
     setLoading(true);
     e.preventDefault();
     const response = await fetch(
-      `http://localhost:9000/api/kategori/${category.id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/kategori/${category.id}`,
       {
         method: "PUT",
         headers: {

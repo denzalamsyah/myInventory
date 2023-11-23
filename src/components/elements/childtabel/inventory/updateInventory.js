@@ -81,13 +81,16 @@ export default function UpdateInventory({
     formData.append("ruanganId", idRuangan);
     formData.append("pembeli", pembeli);
 
-    const response = await fetch(`http://localhost:9000/api/inventory/${Id}`, {
-      method: "PUT",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: formData,
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/${Id}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: formData,
+      }
+    );
     setLoading(false);
     if (response.ok) {
       setModal(false);
@@ -101,13 +104,16 @@ export default function UpdateInventory({
 
   const fetchSelect = async () => {
     try {
-      const response = await fetch("http://localhost:9000/api/ruangan", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/ruangan`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
 
       if (response.ok) {
         console.log(response);
@@ -118,13 +124,16 @@ export default function UpdateInventory({
         throw new Error("Failed to fetch data");
       }
 
-      const resKaryawan = await fetch("http://localhost:9000/api/karyawan", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const resKaryawan = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
 
       if (resKaryawan.ok) {
         console.log(resKaryawan);
@@ -135,13 +144,16 @@ export default function UpdateInventory({
         throw new Error("Failed to fetch data");
       }
 
-      const resKategori = await fetch("http://localhost:9000/api/kategori", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const resKategori = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/kategori`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
 
       if (resKategori.ok) {
         console.log(resKategori);

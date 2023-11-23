@@ -14,7 +14,7 @@ export default function DownloadCSVCategory() {
     try {
       // Lakukan permintaan GET ke API Route yang Anda buat.
       const response = await fetch(
-        "http://localhost:9000/api/kategori/report/csv",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/kategori/report/csv`,
         {
           method: "GET",
           headers: {

@@ -4,7 +4,7 @@ export default function TabelAtasRoom() {
   const fetchData = async () => {
     try {
       const ruangan = await fetch(
-        "http://localhost:9000/api/ruangan/count-ruangan",
+        `process.env.NEXT_PUBLIC_API_URL}/api/ruangan/count-ruangan`,
         {
           method: "GET",
           headers: {

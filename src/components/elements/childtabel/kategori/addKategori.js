@@ -19,17 +19,20 @@ export default function TambahKategori() {
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch("http://localhost:9000/api/kategori", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        nama: namakategori,
-        kode: kodeKategori,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/kategori`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          nama: namakategori,
+          kode: kodeKategori,
+        }),
+      }
+    );
     setLoading(false);
     if (response.ok) {
       setModal(false);

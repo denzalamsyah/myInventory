@@ -58,8 +58,8 @@ export default function TabelDataKerusakanHistory({ modal }) {
   const fetchKerusakan = async (page, query = "", param) => {
     try {
       const url = query
-        ? `http://localhost:9000/api/kerusakan/search?${param}=${query}`
-        : `http://localhost:9000/api/kerusakan?page=${page}&size=${pageSize}`;
+        ? `${process.env.NEXT_PUBLIC_API_URL}/api/kerusakan/search?${param}=${query}`
+        : `${process.env.NEXT_PUBLIC_API_URL}/api/kerusakan?page=${page}&size=${pageSize}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {

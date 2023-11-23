@@ -33,20 +33,23 @@ export default function TabelAtasKategori() {
 
   const fetchKategori = async () => {
     try {
-      const response = await fetch("http://localhost:9000/api/kategori", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/kategori`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
       console.log(response);
       if (response.ok) {
         const data = await response.json();
         setNamaKategori(data.data);
       }
       const countcategory = await fetch(
-        "http://localhost:9000/api/kategori/count",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/kategori/count`,
         {
           method: "GET",
           headers: {
@@ -62,7 +65,7 @@ export default function TabelAtasKategori() {
       }
 
       const resAPK = await fetch(
-        "http://localhost:9000/api/inventory/count-apk",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-apk`,
         {
           method: "GET",
           headers: {
@@ -77,7 +80,7 @@ export default function TabelAtasKategori() {
       }
 
       const resAPL = await fetch(
-        "http://localhost:9000/api/inventory/count-apl",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-apl`,
         {
           method: "GET",
           headers: {
@@ -91,7 +94,7 @@ export default function TabelAtasKategori() {
         setDataAPL(data);
       }
       const resAK = await fetch(
-        "http://localhost:9000/api/inventory/count-ak",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-ak`,
         {
           method: "GET",
           headers: {

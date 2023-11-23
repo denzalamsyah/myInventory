@@ -57,7 +57,7 @@ export default function ExportCSVInventory() {
 
     try {
       const response = await fetch(
-        "http://localhost:9000/api/inventory/upload",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/upload`,
         {
           method: "POST",
           headers: {
@@ -69,7 +69,7 @@ export default function ExportCSVInventory() {
       );
 
       setLoading(false);
-
+      console.log(response);
       if (response.ok) {
         setModal(false);
         MySwal.fire("Berhasil menambahkan!", "Klik tombol!", "success").then(

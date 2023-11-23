@@ -13,10 +13,11 @@ export default function TabelAtasInventori() {
   const [countRepair, setCountRepair] = useState(0);
   const [countNormal, setCountNormal] = useState(0);
   const [countDamage, setCountDamage] = useState(0);
+  console.log(maleCount);
   const fetchData = async () => {
     try {
       const maleResponse = await fetch(
-        "http://localhost:9000/api/karyawan/male",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/male`,
         {
           method: "GET",
           headers: {
@@ -25,12 +26,13 @@ export default function TabelAtasInventori() {
           },
         }
       );
+      console.log(maleResponse);
       if (maleResponse.ok) {
         const maleData = await maleResponse.json();
         setMaleCount(maleData);
       }
       const femaleResponse = await fetch(
-        "http://localhost:9000/api/karyawan/female",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/female`,
         {
           method: "GET",
           headers: {
@@ -46,7 +48,7 @@ export default function TabelAtasInventori() {
       }
 
       const resAPK = await fetch(
-        "http://localhost:9000/api/inventory/count-apk",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-apk`,
         {
           method: "GET",
           headers: {
@@ -62,7 +64,7 @@ export default function TabelAtasInventori() {
       }
 
       const resAPL = await fetch(
-        "http://localhost:9000/api/inventory/count-apl",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-apl`,
         {
           method: "GET",
           headers: {
@@ -78,7 +80,7 @@ export default function TabelAtasInventori() {
       }
 
       const resAK = await fetch(
-        "http://localhost:9000/api/inventory/count-ak",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-ak`,
         {
           method: "GET",
           headers: {
@@ -94,7 +96,7 @@ export default function TabelAtasInventori() {
       }
 
       const resRepair = await fetch(
-        "http://localhost:9000/api/inventory/count-repair",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-repair`,
         {
           method: "GET",
           headers: {
@@ -110,7 +112,7 @@ export default function TabelAtasInventori() {
       }
 
       const resNormal = await fetch(
-        "http://localhost:9000/api/inventory/count-normal",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-normal`,
         {
           method: "GET",
           headers: {
@@ -126,7 +128,7 @@ export default function TabelAtasInventori() {
       }
 
       const resDamage = await fetch(
-        "http://localhost:9000/api/inventory/count-damage",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-damage`,
         {
           method: "GET",
           headers: {
@@ -141,51 +143,63 @@ export default function TabelAtasInventori() {
         setCountDamage(data);
       }
 
-      const r1 = await fetch("http://localhost:9000/api/inventory/count-r1", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const r1 = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-r1`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
       console.log(r1);
       if (r1.ok) {
         const data = await r1.json();
         setR1(data);
       }
-      const r2 = await fetch("http://localhost:9000/api/inventory/count-r2", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const r2 = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-r2`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
       console.log(r2);
       if (r2.ok) {
         const data = await r2.json();
         setR2(data);
       }
 
-      const r3 = await fetch("http://localhost:9000/api/inventory/count-r3", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const r3 = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-r3`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
       console.log(r3);
       if (r3.ok) {
         const data = await r3.json();
         setR3(data);
       }
 
-      const r4 = await fetch("http://localhost:9000/api/inventory/count-r4", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const r4 = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-r4`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
       console.log(r4);
       if (r4.ok) {
         const data = await r4.json();

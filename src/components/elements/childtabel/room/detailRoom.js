@@ -17,7 +17,7 @@ export default function DetailRoom(room) {
   const fetchRoom = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/ruangan/${room.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/ruangan/${room.id}`,
         {
           method: "GET",
           headers: {

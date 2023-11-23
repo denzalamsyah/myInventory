@@ -9,7 +9,7 @@ export default function LargeCard({ children, modal }) {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:9000/api/karyawan/search?nama=${searchQuery}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/search?nama=${searchQuery}`,
         {
           method: "GET",
           headers: {

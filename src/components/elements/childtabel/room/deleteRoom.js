@@ -19,7 +19,7 @@ export default function DeleteRoom({ id, nama }) {
   async function handleDelete(rommId) {
     setLoading(true);
     const response = await fetch(
-      `http://localhost:9000/api/ruangan/${rommId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/ruangan/${rommId}`,
       {
         method: "DELETE",
         headers: {

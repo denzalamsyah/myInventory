@@ -19,7 +19,7 @@ export default function DeletePerbaikan({ id, nama }) {
   async function handleDelete(repairId) {
     setLoading(true);
     const response = await fetch(
-      `http://localhost:9000/api/perbaikan/${repairId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/perbaikan/${repairId}`,
       {
         method: "DELETE",
         headers: {

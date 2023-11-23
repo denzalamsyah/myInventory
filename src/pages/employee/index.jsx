@@ -17,7 +17,7 @@ export default function Employee() {
     fetchProfile();
   }, []);
   async function fetchProfile() {
-    const res = await fetch("http://localhost:9000/api/karyawan", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/karyawan`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),

@@ -17,7 +17,7 @@ export default function DetailKaryawan(employee) {
   const fetchEmployee = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/karyawan/${employee.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/${employee.id}`,
         {
           method: "GET",
           headers: {
@@ -27,7 +27,6 @@ export default function DetailKaryawan(employee) {
         }
       );
       console.log("response", response);
-
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }

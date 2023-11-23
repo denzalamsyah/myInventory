@@ -18,6 +18,7 @@ export default function SignIn() {
     password: "",
   });
 
+  // const apiUrl = ;
   function handleChange(e) {
     const copy = { ...state };
     copy[e.target.name] = e.target.value;
@@ -25,13 +26,17 @@ export default function SignIn() {
   }
   async function handleSubmit() {
     setLoading(true);
-    const res = await fetch(`http://localhost:9000/api/login`, {
-      method: "POST",
-      body: JSON.stringify(state),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/login
+    `,
+      {
+        method: "POST",
+        body: JSON.stringify(state),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     setLoading(false);
     if (res.ok) {
       const json = await res.json();

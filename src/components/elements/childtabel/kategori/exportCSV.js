@@ -35,7 +35,7 @@ export default function ExportCSVKategori() {
 
     try {
       const response = await fetch(
-        "http://localhost:9000/api/kategori/upload",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/kategori/upload`,
         {
           method: "POST",
           headers: {

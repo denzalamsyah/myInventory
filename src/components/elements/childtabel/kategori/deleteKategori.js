@@ -19,7 +19,7 @@ export default function DeleteKategori({ id, nama }) {
   async function handleDelete(categoryId) {
     setLoading(true);
     const response = await fetch(
-      `http://localhost:9000/api/kategori/${categoryId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/kategori/${categoryId}`,
       {
         method: "DELETE",
         headers: {

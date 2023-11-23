@@ -13,26 +13,36 @@ export default function UpdatePerbaikan({ id }) {
   const [modal, setModal] = useState(false);
   const [biaya, setBiaya] = useState(0);
 
-  const [tanggalSelesaiPerbaikan, setTanggalSelesaiPerbaikan] = useState(null);
+  const [tanggalSelesaiPerbaikan, setTanggalSelesaiPerbaikan] = useState("");
   const router = useRouter();
   const MySwal = withReactContent(Swal);
   function handleChange() {
     setModal(!modal);
   }
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const day = now.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   async function handleUpdate(e) {
     e.preventDefault();
-    const response = await fetch(`http://localhost:9000/api/perbaikan/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        biaya: biaya,
-        tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/perbaikan/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          biaya: biaya,
+          tanggalSelesaiPerbaikan: tanggalSelesaiPerbaikan,
+        }),
+      }
+    );
     console.log(response);
     if (response.ok) {
       setModal(false);
@@ -44,6 +54,9 @@ export default function UpdatePerbaikan({ id }) {
     }
   }
 
+  useEffect(() => {
+    setTanggalSelesaiPerbaikan(getCurrentDate());
+  }, []);
   return (
     <div className="">
       <Link

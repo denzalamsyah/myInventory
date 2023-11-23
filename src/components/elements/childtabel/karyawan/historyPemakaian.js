@@ -19,7 +19,7 @@ export default function ReportPemakaianKaryawan({ id }) {
   const fetchInventory = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/pemakaian/find/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/pemakaian/find/${id}`,
         {
           method: "GET",
           headers: {

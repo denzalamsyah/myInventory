@@ -57,8 +57,8 @@ export default function TabelDataInventory({ modal }) {
     try {
       // setIsLoading(true);
       const url = query
-        ? `http://localhost:9000/api/inventory/search?${param}=${query}`
-        : `http://localhost:9000/api/inventory?page=${page}&size=${pageSize}`;
+        ? `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/search?${param}=${query}`
+        : `${process.env.NEXT_PUBLIC_API_URL}/api/inventory?page=${page}&size=${pageSize}`;
 
       const response = await fetch(url, {
         method: "GET",

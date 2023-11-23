@@ -18,7 +18,7 @@ const ChangePassPage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:9000/api/set-password?email=${router.query.email}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/set-password?email=${router.query.email}`,
         {
           method: "PUT",
           body: JSON.stringify({
@@ -30,6 +30,7 @@ const ChangePassPage = () => {
           },
         }
       );
+      console.log(res);
       if (res.ok) {
         MySwal.fire("Success Change!", "Click the button!", "success").then(
           () => {

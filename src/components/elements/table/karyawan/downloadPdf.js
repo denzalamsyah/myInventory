@@ -14,7 +14,7 @@ export default function DownloadPdfKaryawan() {
     try {
       // Lakukan permintaan GET ke API Route yang Anda buat.
       const response = await fetch(
-        "http://localhost:9000/api/karyawan/report/pdf",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/report/pdf`,
         {
           method: "GET",
           headers: {

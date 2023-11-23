@@ -13,7 +13,7 @@ export default function DonatChart() {
   const fetchData = async () => {
     try {
       const resRepair = await fetch(
-        "http://localhost:9000/api/inventory/count-repair",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-repair`,
         {
           method: "GET",
           headers: {
@@ -29,7 +29,7 @@ export default function DonatChart() {
       }
 
       const resNormal = await fetch(
-        "http://localhost:9000/api/inventory/count-normal",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-normal`,
         {
           method: "GET",
           headers: {
@@ -45,7 +45,7 @@ export default function DonatChart() {
       }
 
       const resDamage = await fetch(
-        "http://localhost:9000/api/inventory/count-damage",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-damage`,
         {
           method: "GET",
           headers: {

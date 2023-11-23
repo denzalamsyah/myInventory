@@ -25,9 +25,9 @@ const Chart = () => {
   const fetchData = async () => {
     try {
       const res = await fetch(
-        `http://localhost:9000/api/inventory/chart?nama=${selectOptions.join(
-          ","
-        )}`,
+        `${
+          process.env.NEXT_PUBLIC_API_URL
+        }/api/inventory/chart?nama=${selectOptions.join(",")}`,
         {
           method: "GET",
           headers: {
@@ -36,7 +36,7 @@ const Chart = () => {
           },
         }
       );
-
+      console.log(res);
       if (res.ok) {
         const data = await res.json();
         setCategory(data);

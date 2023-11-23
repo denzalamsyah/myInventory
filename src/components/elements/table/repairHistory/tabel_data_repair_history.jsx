@@ -56,8 +56,8 @@ export default function TabelDataRepairHistory({ modal }) {
   const fetchRepair = async (page, query = "", param) => {
     try {
       const url = query
-        ? `http://localhost:9000/api/perbaikan/search?${param}=${query}`
-        : `http://localhost:9000/api/perbaikan?page=${page}&size=${pageSize}`;
+        ? `${process.env.NEXT_PUBLIC_API_URL}/api/perbaikan/search?${param}=${query}`
+        : `${process.env.NEXT_PUBLIC_API_URL}/api/perbaikan?page=${page}&size=${pageSize}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {

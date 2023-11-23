@@ -55,8 +55,8 @@ export default function TabelDataUsageHistory() {
   const fetchUsage = async (page, query = "") => {
     try {
       const url = query
-        ? `http://localhost:9000/api/pemakaian/search?nama=${query}`
-        : `http://localhost:9000/api/pemakaian?page=${page}&size=${pageSize}`;
+        ? `${process.env.NEXT_PUBLIC_API_URL}/api/pemakaian/search?nama=${query}`
+        : `${process.env.NEXT_PUBLIC_API_URL}/api/pemakaian?page=${page}&size=${pageSize}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {

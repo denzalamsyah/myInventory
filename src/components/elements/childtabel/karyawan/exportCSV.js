@@ -49,7 +49,7 @@ export default function ExportCSVKaryawan() {
 
     try {
       const response = await fetch(
-        "http://localhost:9000/api/karyawan/upload",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/upload`,
         {
           method: "POST",
           headers: {

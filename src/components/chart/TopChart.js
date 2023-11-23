@@ -22,7 +22,7 @@ const TopCards = () => {
   const fetchData = async () => {
     try {
       const maleResponse = await fetch(
-        "http://localhost:9000/api/karyawan/male",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/male`,
         {
           method: "GET",
           headers: {
@@ -36,7 +36,7 @@ const TopCards = () => {
         setMaleCount(maleData);
       }
       const femaleResponse = await fetch(
-        "http://localhost:9000/api/karyawan/female",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan/female`,
         {
           method: "GET",
           headers: {
@@ -52,7 +52,7 @@ const TopCards = () => {
       }
 
       // const resAPK = await fetch(
-      //   "http://localhost:9000/api/inventory/count-apk",
+      //   "${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-apk",
       //   {
       //     method: "GET",
       //     headers: {
@@ -68,7 +68,7 @@ const TopCards = () => {
       // }
 
       // const resAPL = await fetch(
-      //   "http://localhost:9000/api/inventory/count-apl",
+      //   "${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-apl",
       //   {
       //     method: "GET",
       //     headers: {
@@ -84,7 +84,7 @@ const TopCards = () => {
       // }
 
       // const resAK = await fetch(
-      //   "http://localhost:9000/api/inventory/count-ak",
+      //   "${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-ak",
       //   {
       //     method: "GET",
       //     headers: {
@@ -99,7 +99,7 @@ const TopCards = () => {
       //   setDataAK(data);
       // }
 
-      // const r1 = await fetch("http://localhost:9000/api/inventory/count-r1", {
+      // const r1 = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-r1", {
       //   method: "GET",
       //   headers: {
       //     "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const TopCards = () => {
       //   const data = await r1.json();
       //   setR1(data);
       // }
-      // const r2 = await fetch("http://localhost:9000/api/inventory/count-r2", {
+      // const r2 = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-r2", {
       //   method: "GET",
       //   headers: {
       //     "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const TopCards = () => {
       //   setR2(data);
       // }
 
-      // const r3 = await fetch("http://localhost:9000/api/inventory/count-r3", {
+      // const r3 = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-r3", {
       //   method: "GET",
       //   headers: {
       //     "Content-Type": "application/json",
@@ -137,20 +137,23 @@ const TopCards = () => {
       //   setR3(data);
       // }
 
-      const ruangan = await fetch("http://localhost:9000/api/ruangan/couny", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const ruangan = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/ruangan/couny`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
       if (ruangan.ok) {
         const data = await ruangan.json();
         setRuangan(data);
       }
 
       const countAsset = await fetch(
-        "http://localhost:9000/api/inventory/count-asset",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-asset`,
         {
           method: "GET",
           headers: {
@@ -166,7 +169,7 @@ const TopCards = () => {
       }
 
       const use = await fetch(
-        "http://localhost:9000/api/inventory/count-in-use",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-in-use`,
         {
           method: "GET",
           headers: {
@@ -182,7 +185,7 @@ const TopCards = () => {
       }
 
       const notuse = await fetch(
-        "http://localhost:9000/api/inventory/count-not-in-use",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/count-not-in-use`,
         {
           method: "GET",
           headers: {

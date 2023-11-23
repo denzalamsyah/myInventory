@@ -23,13 +23,16 @@ export default function LineChart() {
   const [selectOption, setSelectOption] = useState(["LA-Asus1"]);
   const fetchData = async () => {
     try {
-      const resRepair = await fetch("http://localhost:9000/api/inventory/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const resRepair = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory/`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
       console.log(resRepair);
       if (resRepair.ok) {
         const data = await resRepair.json();

@@ -16,7 +16,7 @@ export default function TambahInventory() {
   // const [kodeAset, setKodeAset] = useState("");
   const [merk, setMerk] = useState("");
   const [vendor, setVendor] = useState("");
-  const [tanggalPembelian, setTanggalPembelian] = useState(null);
+  const [tanggalPembelian, setTanggalPembelian] = useState("");
   const [harga, setHarga] = useState(0);
   const [deskripsi, setDeskripsi] = useState("");
   const [masaManfaat, setMasaManfaat] = useState(0);
@@ -41,6 +41,13 @@ export default function TambahInventory() {
   function handleChange(e) {
     setModal(!modal);
   }
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const day = now.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,13 +67,16 @@ export default function TambahInventory() {
     // formData.append("ruanganId", idRuangan);
     formData.append("pembeli", pembeli);
     try {
-      const response = await fetch("http://localhost:9000/api/inventory", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inventory`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         setLoading(false);
@@ -86,13 +96,16 @@ export default function TambahInventory() {
 
   const fetchSelect = async () => {
     try {
-      const response = await fetch("http://localhost:9000/api/ruangan", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/ruangan`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
 
       if (response.ok) {
         console.log(response);
@@ -103,13 +116,16 @@ export default function TambahInventory() {
         throw new Error("Failed to fetch data");
       }
 
-      const resKaryawan = await fetch("http://localhost:9000/api/karyawan", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const resKaryawan = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/karyawan`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
 
       if (resKaryawan.ok) {
         console.log(resKaryawan);
@@ -120,13 +136,16 @@ export default function TambahInventory() {
         throw new Error("Failed to fetch data");
       }
 
-      const resKategori = await fetch("http://localhost:9000/api/kategori", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const resKategori = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/kategori`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
 
       if (resKategori.ok) {
         console.log(resKategori);
@@ -142,6 +161,7 @@ export default function TambahInventory() {
 
   useEffect(() => {
     fetchSelect();
+    setTanggalPembelian(getCurrentDate());
   }, []);
   return (
     <div className="">
@@ -221,17 +241,7 @@ export default function TambahInventory() {
                     Nama
                   </FormComp>
                 </div>
-                {/* <div className="mb-2">
-                  <FormComp
-                    id="kodeAsset"
-                    type="text"
-                    onChange={(e) => setKodeAset(e.target.value)}
-                    placeholder="Masukan Kode Aset"
-                    required
-                  >
-                    Kode Aset
-                  </FormComp>
-                </div> */}
+
                 <div className="mb-2">
                   <FormComp
                     id="merk"
@@ -247,6 +257,7 @@ export default function TambahInventory() {
                   <FormComp
                     id="tanggalPembelian"
                     type="date"
+                    value={tanggalPembelian}
                     onChange={(e) => setTanggalPembelian(e.target.value)}
                     placeholder="Masukan tanggal"
                     required

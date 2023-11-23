@@ -14,7 +14,7 @@ export default function DownloadExcelRuangan() {
     try {
       // Lakukan permintaan GET ke API Route yang Anda buat.
       const response = await fetch(
-        "http://localhost:9000/api/ruangan/report/excel",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/ruangan/report/excel`,
         {
           method: "GET",
           headers: {

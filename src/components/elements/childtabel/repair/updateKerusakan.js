@@ -21,7 +21,7 @@ export default function UpdateKerusakan({
   const [inventory, setInventory] = useState(inventoryId);
   const [tanggalKerusakan, setTanggalKerusakan] = useState(TanggalKerusakan);
   const [deskripsi, setDeskripsi] = useState(Deskripsi);
-  const [tanggalPerbaikan, setTanggalPerbaikan] = useState(null);
+  const [tanggalPerbaikan, setTanggalPerbaikan] = useState("");
   const [nama, setNama] = useState("");
   const [tempat, setTempat] = useState("");
   const router = useRouter();
@@ -31,23 +31,37 @@ export default function UpdateKerusakan({
     setModal(!modal);
   }
 
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const day = now.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  useEffect(() => {
+    setTanggalPerbaikan(getCurrentDate());
+  }, []);
   async function handleUpdate(e) {
     e.preventDefault();
-    const response = await fetch(`http://localhost:9000/api/kerusakan/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        // inventoryId: inventory,
-        tanggalKerusakan: tanggalKerusakan,
-        tanggalPerbaikan: tanggalPerbaikan,
-        deskripsi: deskripsi,
-        tempat: tempat,
-        nama: nama,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/kerusakan/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          // inventoryId: inventory,
+          tanggalKerusakan: tanggalKerusakan,
+          tanggalPerbaikan: tanggalPerbaikan,
+          deskripsi: deskripsi,
+          tempat: tempat,
+          nama: nama,
+        }),
+      }
+    );
     console.log(response);
     if (response.ok) {
       setModal(false);

@@ -40,14 +40,17 @@ export default function TambahRoom() {
     formData.append("lokasi", lokasi);
     formData.append("gambar", selectedImage);
 
-    const response = await fetch("http://localhost:9000/api/ruangan", {
-      method: "POST",
-      headers: {
-        // "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: formData,
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/ruangan`,
+      {
+        method: "POST",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: formData,
+      }
+    );
     setLoading(false);
     if (response.ok) {
       setModal(false);

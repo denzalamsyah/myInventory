@@ -34,7 +34,7 @@ export default function ReportPerbaikan({ Id }) {
   const fetchInventory = async () => {
     try {
       const response = await fetch(
-        `http://localhost:9000/api/perbaikan/findAllId/${Id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/perbaikan/findAllId/${Id}`,
         {
           method: "GET",
           headers: {
@@ -59,7 +59,7 @@ export default function ReportPerbaikan({ Id }) {
   const fetchKerusakan = async () => {
     try {
       const resKerusakan = await fetch(
-        `http://localhost:9000/api/kerusakan/find/${Id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/kerusakan/find/${Id}`,
         {
           method: "GET",
           headers: {
@@ -84,7 +84,7 @@ export default function ReportPerbaikan({ Id }) {
   const fetchPemakaian = async () => {
     try {
       const resPemakaian = await fetch(
-        `http://localhost:9000/api/pemakaian/findAllId/${Id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/pemakaian/findAllId/${Id}`,
         {
           method: "GET",
           headers: {
@@ -108,7 +108,7 @@ export default function ReportPerbaikan({ Id }) {
   const fetchBayar = async () => {
     try {
       const resBayar = await fetch(
-        `http://localhost:9000/api/perbaikan/biaya/${Id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/perbaikan/biaya/${Id}`,
         {
           method: "GET",
           headers: {

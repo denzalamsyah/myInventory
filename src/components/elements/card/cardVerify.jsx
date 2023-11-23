@@ -18,7 +18,7 @@ const VerifyPage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:9000/api/forgot-password?email=${email}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/forgot-password?email=${email}`,
         {
           method: "GET",
           headers: {

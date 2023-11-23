@@ -39,7 +39,7 @@ const Sidebar = ({ children }) => {
     fetchProfile();
   }, []);
   async function fetchProfile() {
-    const res = await fetch("http://localhost:9000/api/kategori", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/kategori`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
