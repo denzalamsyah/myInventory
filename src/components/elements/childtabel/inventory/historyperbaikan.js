@@ -138,7 +138,7 @@ export default function ReportPerbaikan({ Id }) {
   }, []);
 
   return (
-    <div className="">
+    <div>
       <Link
         href=""
         className="text-gray-600 relative group"

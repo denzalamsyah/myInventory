@@ -159,7 +159,7 @@ export default function UpdateInventory({
     fetchSelect();
   }, []);
   return (
-    <div className="">
+    <>
       <Link
         href=""
         onClick={handleChange}
@@ -433,6 +433,6 @@ export default function UpdateInventory({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

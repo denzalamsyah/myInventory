@@ -33,7 +33,7 @@ export default function DetailInventory({ Id }) {
         throw new Error("Failed to fetch data");
       }
       const data = await response.json();
-      setInventoryData(data);
+      setInventoryData(data.data);
     } catch (error) {
       console.error(error);
     }
@@ -44,17 +44,13 @@ export default function DetailInventory({ Id }) {
   }, []);
 
   return (
-    <div className="">
-      <Link
-        href=""
-        className="text-[#1570EF] relative group"
-        onClick={handleChange}
-      >
+    <>
+      <button className="text-[#1570EF] relative group" onClick={handleChange}>
         <MdMore className="transition duration-150 ease-in-out" />
         <span className="hidden absolute -left-1/4 -top-full bg-[#1570EF] text-white px-2 py-1 text-[12px] rounded-[3px] opacity-0 group-hover:opacity-100 group-hover:block transition duration-300 ease-in-out z-10">
           Details
         </span>
-      </Link>
+      </button>
       <input
         type="checkbox"
         checked={modal}
@@ -77,11 +73,11 @@ export default function DetailInventory({ Id }) {
               </h1>
             </div>
             <div>
-              <TabelDetailInventoryComp {...inventoryData.data} />
+              <TabelDetailInventoryComp {...inventoryData} />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

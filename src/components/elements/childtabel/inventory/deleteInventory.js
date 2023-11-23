@@ -41,7 +41,7 @@ export default function DeleteInventory({ id, nama }) {
     }
   }
   return (
-    <div className="">
+    <>
       <Link
         href=""
         className="text-[#DA3E33F7] relative group"
@@ -89,6 +89,6 @@ export default function DeleteInventory({ id, nama }) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
